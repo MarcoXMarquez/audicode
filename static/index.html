@@ -351,10 +351,56 @@
     }
     .audicode-skill-btn {
       border: 1px solid transparent !important;
+      padding: 6px 10px !important;
+      min-height: 42px !important;
     }
     .audicode-skill-btn:hover {
       background: rgba(122, 24, 44, 0.18) !important;
       border-color: rgba(163, 36, 59, 0.38) !important;
+    }
+    .audicode-skill-btn.active-skill {
+      background: rgba(122, 24, 44, 0.28) !important;
+      border-color: rgba(224, 82, 108, 0.5) !important;
+    }
+    .audicode-skill-info {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 2px !important;
+      overflow: hidden !important;
+      min-width: 0 !important;
+      text-align: left !important;
+    }
+    .audicode-skill-name {
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      color: #e6e1de !important;
+      line-height: 1.25 !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+    .audicode-skill-cmd {
+      font-family: 'JetBrains Mono', monospace !important;
+      font-size: 10px !important;
+      color: #8c8683 !important;
+      line-height: 1.2 !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      transition: color 0.15s ease !important;
+    }
+    .audicode-skill-btn:hover .audicode-skill-name {
+      color: #ffffff !important;
+    }
+    .audicode-skill-btn:hover .audicode-skill-cmd {
+      color: #e0526c !important;
+    }
+    .audicode-skill-btn.active-skill .audicode-skill-name {
+      color: #ffffff !important;
+    }
+    .audicode-skill-btn.active-skill .audicode-skill-cmd {
+      color: #f5b0bd !important;
     }
     /* Monochromatic Crimson/Burgundy Icon Containers */
     .audicode-icon-box {
@@ -624,6 +670,47 @@
     }
     #no-models-modal.hidden {
       display: none !important;
+    }
+    /* Skill Demonstration Modal */
+    #skill-demo-modal:not(.hidden) {
+      display: flex !important;
+      position: fixed;
+      inset: 0;
+      z-index: 100000;
+      align-items: center;
+      justify-content: center;
+      background: rgba(10, 12, 16, 0.82);
+      backdrop-filter: blur(8px);
+    }
+    #skill-demo-modal.hidden {
+      display: none !important;
+    }
+    .skill-switcher-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #a8a29e;
+      font-size: 11.5px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    .skill-switcher-tab:hover {
+      background: rgba(122, 24, 44, 0.22);
+      border-color: rgba(224, 82, 108, 0.35);
+      color: #f1ecec;
+    }
+    .skill-switcher-tab.active {
+      background: #7a182c !important;
+      border-color: rgba(224, 82, 108, 0.6) !important;
+      color: #ffffff !important;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
     }
     @keyframes audicodeModalFadeIn {
       from { opacity: 0; transform: scale(0.96) translateY(6px); }
@@ -1245,60 +1332,84 @@
           </span>
           <span style="font-size:9.5px;font-family:'JetBrains Mono',monospace;background:rgba(122,24,44,0.28);border:1px solid rgba(163,36,59,0.42);color:#f5b0bd;padding:2px 6px;border-radius:5px;white-space:nowrap;flex-shrink:0;">8 READY</span>
         </div>
-        <div class="list-item audicode-skill-btn" data-skill="policy" title="Auditar políticas y avisos (A.1.3.3)" style="cursor:pointer;">
+        <div class="list-item audicode-skill-btn" data-skill="policy" title="Demostración: /privacy-policy-reviewer (A.1.3.3)" style="cursor:pointer;">
           <span class="audicode-icon-box">
             <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
           </span>
-          <span class="grow">Avisos y Políticas</span>
+          <div class="audicode-skill-info grow">
+            <div class="audicode-skill-name">Avisos y Políticas</div>
+            <div class="audicode-skill-cmd">/privacy-policy-reviewer</div>
+          </div>
           <span class="audicode-iso-tag">A.1.3.3</span>
         </div>
-        <div class="list-item audicode-skill-btn" data-skill="consent" title="Auditar consentimiento y cookies (A.1.2.4)" style="cursor:pointer;">
+        <div class="list-item audicode-skill-btn" data-skill="consent" title="Demostración: /consent-validator (A.1.2.4)" style="cursor:pointer;">
           <span class="audicode-icon-box">
             <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M9 12l2 2 4-4"/></svg>
           </span>
-          <span class="grow">Consentimiento &amp; CMP</span>
+          <div class="audicode-skill-info grow">
+            <div class="audicode-skill-name">Consentimiento &amp; CMP</div>
+            <div class="audicode-skill-cmd">/consent-validator</div>
+          </div>
           <span class="audicode-iso-tag">A.1.2.4</span>
         </div>
-        <div class="list-item audicode-skill-btn" data-skill="minimization" title="Auditar minimización SQL/DDL (A.1.4.2)" style="cursor:pointer;">
+        <div class="list-item audicode-skill-btn" data-skill="minimization" title="Demostración: /data-minimization-checker (A.1.4.2)" style="cursor:pointer;">
           <span class="audicode-icon-box">
             <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>
           </span>
-          <span class="grow">Minimización DDL/SQL</span>
+          <div class="audicode-skill-info grow">
+            <div class="audicode-skill-name">Minimización DDL/SQL</div>
+            <div class="audicode-skill-cmd">/data-minimization-checker</div>
+          </div>
           <span class="audicode-iso-tag">A.1.4.2</span>
         </div>
-        <div class="list-item audicode-skill-btn" data-skill="dsar" title="Auditar plazos derechos ARCO (A.1.3.7)" style="cursor:pointer;">
+        <div class="list-item audicode-skill-btn" data-skill="dsar" title="Demostración: /pii-rights-manager (A.1.3.7)" style="cursor:pointer;">
           <span class="audicode-icon-box">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
           </span>
-          <span class="grow">Derechos ARCO / DSAR</span>
+          <div class="audicode-skill-info grow">
+            <div class="audicode-skill-name">Derechos ARCO / DSAR</div>
+            <div class="audicode-skill-cmd">/pii-rights-manager</div>
+          </div>
           <span class="audicode-iso-tag">A.1.3.7</span>
         </div>
-        <div class="list-item audicode-skill-btn" data-skill="pia" title="Evaluación de impacto PIA (A.1.2.6)" style="cursor:pointer;">
+        <div class="list-item audicode-skill-btn" data-skill="pia" title="Demostración: /pia-reviewer (A.1.2.6)" style="cursor:pointer;">
           <span class="audicode-icon-box">
             <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           </span>
-          <span class="grow">Evaluación Impacto PIA</span>
+          <div class="audicode-skill-info grow">
+            <div class="audicode-skill-name">Evaluación Impacto PIA</div>
+            <div class="audicode-skill-cmd">/pia-reviewer</div>
+          </div>
           <span class="audicode-iso-tag">A.1.2.6</span>
         </div>
-        <div class="list-item audicode-skill-btn" data-skill="transfer" title="Auditar transferencias internacionales (A.1.5.2)" style="cursor:pointer;">
+        <div class="list-item audicode-skill-btn" data-skill="transfer" title="Demostración: /pii-transfer-auditor (A.1.5.2)" style="cursor:pointer;">
           <span class="audicode-icon-box">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a14.5 14.5 0 0 0 0 18 14.5 14.5 0 0 0 0-18"/></svg>
           </span>
-          <span class="grow">Transferencias PII</span>
+          <div class="audicode-skill-info grow">
+            <div class="audicode-skill-name">Transferencias PII</div>
+            <div class="audicode-skill-cmd">/pii-transfer-auditor</div>
+          </div>
           <span class="audicode-iso-tag">A.1.5.2</span>
         </div>
-        <div class="list-item audicode-skill-btn" data-skill="dpa" title="Auditar contrato de encargado DPA (A.1.2.7)" style="cursor:pointer;">
+        <div class="list-item audicode-skill-btn" data-skill="dpa" title="Demostración: /processor-contract-validator (A.1.2.7)" style="cursor:pointer;">
           <span class="audicode-icon-box">
             <svg viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
           </span>
-          <span class="grow">Contratos DPA Cloud</span>
+          <div class="audicode-skill-info grow">
+            <div class="audicode-skill-name">Contratos DPA Cloud</div>
+            <div class="audicode-skill-cmd">/processor-contract-validator</div>
+          </div>
           <span class="audicode-iso-tag">A.1.2.7</span>
         </div>
-        <div class="list-item audicode-skill-btn" data-skill="breach" title="Planificar brecha de seguridad 72h (A.3.11)" style="cursor:pointer;">
+        <div class="list-item audicode-skill-btn" data-skill="breach" title="Demostración: /incident-response-planner (A.3.11)" style="cursor:pointer;">
           <span class="audicode-icon-box">
             <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
           </span>
-          <span class="grow">Brechas Seguridad 72h</span>
+          <div class="audicode-skill-info grow">
+            <div class="audicode-skill-name">Brechas Seguridad 72h</div>
+            <div class="audicode-skill-cmd">/incident-response-planner</div>
+          </div>
           <span class="audicode-iso-tag">A.3.11</span>
         </div>
         <div class="list-item" id="tool-theme-btn" style="margin-top:8px;border-top:1px solid rgba(255,255,255,0.06);padding-top:8px;">
@@ -1711,6 +1822,88 @@
             <svg id="retry-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
             <span id="retry-label">Verificar Modelos</span>
           </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skill Demonstration Modal -->
+    <div id="skill-demo-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="skill-demo-title">
+      <div class="modal-content" style="background: #161615; border: 1px solid rgba(224, 82, 108, 0.4); border-radius: 14px; max-width: 680px; width: 92%; padding: 0; box-shadow: 0 24px 60px rgba(0,0,0,0.75), 0 0 35px rgba(122, 24, 44, 0.2); overflow: hidden; animation: audicodeModalFadeIn 0.22s ease-out; font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;">
+        <!-- Header -->
+        <div class="modal-header" style="background: #191918; padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+            <div id="skill-demo-icon" style="width: 36px; height: 36px; border-radius: 8px; background: rgba(122, 24, 44, 0.28); border: 1px solid rgba(224, 82, 108, 0.45); display: flex; align-items: center; justify-content: center; color: #e0526c; flex-shrink: 0;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div style="min-width: 0;">
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <h3 id="skill-demo-title" style="margin: 0; font-size: 15px; font-weight: 700; color: #f1ecec; letter-spacing: -0.01em;">Demostración de Skill</h3>
+                <span id="skill-demo-iso" style="font-family: 'JetBrains Mono', monospace; font-size: 10px; background: rgba(122, 24, 44, 0.35); color: #f5b0bd; border: 1px solid rgba(224, 82, 108, 0.45); padding: 1px 7px; border-radius: 6px; font-weight: 600;">ISO 27701</span>
+              </div>
+              <p id="skill-demo-cmd-badge" style="margin: 3px 0 0; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #e0526c; font-weight: 600;">/skill-name</p>
+            </div>
+          </div>
+          <button type="button" class="close-btn" id="close-skill-demo-modal" aria-label="Cerrar demostración" style="background: none; border: none; color: #9c9797; font-size: 18px; cursor: pointer; padding: 4px; border-radius: 6px; transition: color 0.15s; line-height: 1;">✕</button>
+        </div>
+
+        <!-- Quick Switcher Bar (all 8 skills) -->
+        <div id="skill-demo-switcher" style="display: flex; gap: 6px; padding: 10px 18px; background: #121211; border-bottom: 1px solid rgba(255,255,255,0.06); overflow-x: auto; scrollbar-width: none;">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body" style="padding: 18px 20px; font-size: 13px; line-height: 1.55; color: #d6cfcf; max-height: calc(85vh - 200px); overflow-y: auto;">
+          <!-- Scope / Description -->
+          <div style="margin-bottom: 14px;">
+            <div style="font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #8a8480; margin-bottom: 4px;">Propósito &amp; Alcance ISO/IEC 27701:2025</div>
+            <p id="skill-demo-desc" style="margin: 0; font-size: 12.5px; color: #b8b3b0; line-height: 1.5;"></p>
+          </div>
+
+          <!-- Syntax Box -->
+          <div style="margin-bottom: 14px;">
+            <div style="font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #8a8480; margin-bottom: 4px;">Sintaxis de Invocación</div>
+            <div style="background: #0e0f10; border: 1px solid rgba(255,255,255,0.08); border-radius: 7px; padding: 7px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #f5b0bd; user-select: all;">
+              <span id="skill-demo-syntax"></span>
+            </div>
+          </div>
+
+          <!-- Example / Practical Demo Box -->
+          <div style="margin-bottom: 14px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+              <div style="font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #8a8480;">Demostración Práctica (Ejemplo Real)</div>
+              <button type="button" id="skill-demo-copy-btn" style="background: rgba(122, 24, 44, 0.25); border: 1px solid rgba(224, 82, 108, 0.35); color: #f1ecec; font-size: 11px; padding: 2px 8px; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 4px; font-family: 'Plus Jakarta Sans', sans-serif;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                <span id="skill-demo-copy-label">Copiar comando</span>
+              </button>
+            </div>
+            <div style="background: #090a0b; border: 1px solid rgba(163, 36, 59, 0.4); border-left: 3px solid #e0526c; border-radius: 7px; padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #f1ecec; line-height: 1.5; white-space: pre-wrap; word-break: break-word; user-select: all;" id="skill-demo-example">
+            </div>
+          </div>
+
+          <!-- Deliverables -->
+          <div>
+            <div style="font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #8a8480; margin-bottom: 6px;">Entregables que Genera la Skill</div>
+            <div id="skill-demo-deliverables" style="display: flex; flex-direction: column; gap: 6px;">
+              <!-- Checklist items injected dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="modal-footer" style="background: #191918; padding: 12px 20px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+          <button type="button" id="skill-demo-dismiss-btn" style="background: transparent; border: 1px solid rgba(255,255,255,0.12); color: #d6cfcf; font-size: 12px; font-weight: 500; padding: 7px 14px; border-radius: 7px; cursor: pointer; transition: background 0.15s;">
+            Cerrar
+          </button>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button type="button" id="skill-demo-load-btn" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: #f1ecec; font-size: 12px; font-weight: 600; padding: 7px 14px; border-radius: 7px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.15s;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>Cargar en Chat</span>
+            </button>
+            <button type="button" id="skill-demo-execute-btn" style="background: #7a182c; border: 1px solid rgba(224, 82, 108, 0.5); color: #ffffff; font-size: 12px; font-weight: 600; padding: 7px 16px; border-radius: 7px; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 8px rgba(122, 24, 44, 0.4); transition: background 0.15s;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Ejecutar Demostración</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -2993,66 +3186,284 @@
 <script nonce="{{CSP_NONCE}}">if('serviceWorker' in navigator){navigator.serviceWorker.register('/static/sw.js').catch(()=>{});}</script>
 <script nonce="{{CSP_NONCE}}">
 (function() {
-  const AUDIT_PROMPTS = {
-    policy: `Auditar el siguiente Aviso de Privacidad según ISO/IEC 27701:2025 (Control A.1.3.3):
-"Nuestra empresa recopila su nombre, email, geolocalización continua en tiempo real y datos bancarios para mejorar su experiencia de usuario. Los datos podrán ser compartidos con socios comerciales no especificados con fines estadísticos e indeterminados por tiempo indefinido."
-Evalúa base legal, finalidades explícitas, plazo de retención y derechos del titular. Emite veredicto y plan de remediación.`,
-
-    consent: `Auditar el mecanismo de consentimiento y banner CMP según ISO/IEC 27701:2025 (Control A.1.2.4):
-Formulario de registro con casilla pre-marcada: [X] "Acepto los términos y el tratamiento de mis datos de navegación para perfilamiento publicitario y cesión a terceros". El banner de cookies solo ofrece el botón "Aceptar Todo" y no dispone de botón equivalente "Rechazar Todo" ni opción directa para revocar consentimiento.
-Determina la validez jurídica del consentimiento e identifica las no conformidades frente a la norma.`,
-
-    minimization: `Auditar el siguiente esquema SQL DDL bajo ISO/IEC 27701:2025 (Control A.1.4.2 - Minimización y Retención de PII):
-CREATE TABLE users_app (
-    id SERIAL PRIMARY KEY,
-    full_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    national_id VARCHAR(20) NOT NULL,
-    fingerprint_raw_hash TEXT,
-    facial_geometry_vector JSONB,
-    latitude DECIMAL(9,6),
-    longitude DECIMAL(9,6),
-    gps_timestamp TIMESTAMP DEFAULT NOW(),
-    social_security_number VARCHAR(15),
-    created_at TIMESTAMP DEFAULT NOW(),
-    deleted_at TIMESTAMP NULL
-);
-Evalúa la necesidad de datos biométricos y de geolocalización, riesgo de over-fetching, y propone esquema minimizado con seudonimización.`,
-
-    dsar: `Auditar la gestión y respuesta a una solicitud de derechos ARCO/DSAR bajo ISO/IEC 27701:2025 (Control A.1.3.7):
-El titular solicita el borrado definitivo (derecho de supresión) de su cuenta y datos personales el 01/03/2026. La empresa responde el 15/04/2026 (45 días después) indicando que "se procedió al borrado lógico en la base de datos de producción", pero no notificó a los 3 procesadores en la nube que almacenan réplicas ni purgó las copias de seguridad.
-Determina si se cumple el plazo legal, la suficiencia de la supresión y la notificación a terceros receptores.`,
-
-    pia: `Evaluar la necesidad y estructura de Evaluación de Impacto en la Privacidad (PIA / EIPD) bajo ISO/IEC 27701:2025 (Control A.1.2.6):
-Proyecto: "Implementación de sistema de videovigilancia biométrica con IA para control de acceso y monitoreo de productividad laboral en oficinas de 500 empleados".
-Evalúa umbrales de obligatoriedad de PIA (datos biométricos a gran escala, monitoreo sistemático), riesgos para los derechos y libertades, y medidas mitigadoras requeridas.`,
-
-    transfer: `Auditar las transferencias internacionales de datos personales bajo ISO/IEC 27701:2025 (Control A.1.5.2 y A.1.5.3):
-La empresa almacena bases de datos con 200,000 registros de clientes de la UE en servidores AWS localizados en la región us-east-1 (EE.UU.). El proveedor de analítica es un SaaS con sede en India. No se cuenta con Cláusulas Contractuales Tipo (SCC), ni Transfer Impact Assessment (TIA) formalizado, ni cifrado administrado por el cliente (BYOK).
-Genera dictamen de cumplimiento de transferencias transfronterizas y matriz de salvaguardas exigidas.`,
-
-    dpa: `Auditar el siguiente Acuerdo de Tratamiento de Datos (DPA) con un proveedor Cloud según ISO/IEC 27701:2025 (Control A.1.2.7):
-Cláusula 4.1: "El proveedor procesará los datos para prestar el servicio y para fines de desarrollo interno de nuevos productos y entrenamiento de modelos propios."
-Cláusula 6.2: "En caso de incidente de seguridad, el proveedor informará al cliente sin demora indebida una vez concluida su investigación forense interna (sin plazo fijado)."
-Cláusula 8.1: "El proveedor podrá subcontratar terceros a su entera discreción sin necesidad de autorización previa."
-Identifica las no conformidades frente a las obligaciones de encargado de tratamiento.`,
-
-    breach: `Elaborar plan de respuesta y registro formal ante brecha de seguridad con PII bajo ISO/IEC 27701:2025 (Control A.3.11 y A.3.12):
-Incidente detectado: Exfiltración no autorizada de base de datos de 45,000 usuarios con nombres, números de identificación nacional, emails y hashes de contraseñas mediante inyección SQL a las 02:00 AM del domingo. El atacante exige rescate en criptomonedas.
-Estructura: 1. Contención inmediata, 2. Evaluación de riesgo para los titulares, 3. Notificación a la Autoridad de Control (plazo máx. 72 horas), 4. Comunicación a los afectados, 5. Registro probatorio de incidentes.`
+  const SKILL_DEMOS = {
+    policy: {
+      key: 'policy',
+      name: 'Avisos de Privacidad y Políticas PIMS',
+      cmd: '/privacy-policy-reviewer',
+      iso: 'Control A.1.3.3 & Cláusula 5.2',
+      desc: 'Audita avisos de privacidad y gobernanza PIMS verificando finalidades explícitas, bases legítimas válidas, plazos de conservación determinados y derechos de los titulares bajo ISO/IEC 27701:2025.',
+      syntax: '/privacy-policy-reviewer <texto del aviso de privacidad o política corporativa>',
+      example: "/privacy-policy-reviewer 'Recopilamos nombre, email, geolocalización en tiempo real y datos bancarios para mejorar su experiencia. Podrán ser compartidos con socios comerciales no especificados por tiempo indefinido.'",
+      deliverables: [
+        'Checklist de cláusulas preceptivas bajo Cláusula 5.2 y Control A.1.3.3',
+        'Matriz de correspondencia de legitimación jurídica y bases legales',
+        'Detección de cláusulas abusivas, sobre-recolección y cesiones encubiertas',
+        'Redacción remediada de aviso de privacidad por capas (resumen UI + política integral)'
+      ],
+      svg: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>'
+    },
+    consent: {
+      key: 'consent',
+      name: 'Consentimiento & Banners CMP',
+      cmd: '/consent-validator',
+      iso: 'Controles A.1.2.4, A.1.2.5, A.1.3.5, A.2.2.4',
+      desc: 'Audita formularios de registro, banners de cookies CMP y flujos de revocación para garantizar consentimiento libre, específico, informado, inequívoco y demostrable.',
+      syntax: '/consent-validator <descripción del formulario, banner CMP o fragmento UI>',
+      example: "/consent-validator Formulario con casilla pre-marcada: [X] 'Acepto tratamiento para perfilamiento publicitario'. Banner sin botón 'Rechazar Todo' y sin mecanismo simétrico de revocación.",
+      deliverables: [
+        'Dictamen de validez jurídica (libre, específico, informado, inequívoco)',
+        'Detección de patrones oscuros (dark patterns) y casillas pre-marcadas ilícitas',
+        'Auditoría del Consent Ledger (registro probatorio inmutable)',
+        'Evaluación de simetría de canales para revocación y opt-out fácil'
+      ],
+      svg: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M9 12l2 2 4-4"/></svg>'
+    },
+    minimization: {
+      key: 'minimization',
+      name: 'Minimización DDL/SQL & APIs',
+      cmd: '/data-minimization-checker',
+      iso: 'Controles A.1.4.2, A.1.4.5, A.1.4.7, A.1.4.8',
+      desc: 'Inspecciona esquemas SQL DDL, cargas útiles JSON de APIs y modelos de datos para erradicar la sobre-recolección (over-fetching) y exigir seudonimización y retención controlada.',
+      syntax: '/data-minimization-checker <esquema SQL, DDL o contrato JSON/REST>',
+      example: '/data-minimization-checker CREATE TABLE users_app (id SERIAL, full_name VARCHAR(100), national_id VARCHAR(20), fingerprint_raw_hash TEXT, facial_vector JSONB, gps_lat DECIMAL, gps_lng DECIMAL, ssn VARCHAR(15));',
+      deliverables: [
+        'Identificación de campos excesivos, biometría no justificada y sobre-recolección',
+        'Propuesta de técnicas de desidentificación, hashing unidireccional y seudonimización (ISO 20889)',
+        'Definición de políticas de ciclo de vida, retención y purga de temporales',
+        'Esquema SQL DDL refactorizado y saneado según Privacy by Design'
+      ],
+      svg: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>'
+    },
+    dsar: {
+      key: 'dsar',
+      name: 'Gestión de Derechos ARCO / DSAR',
+      cmd: '/pii-rights-manager',
+      iso: 'Controles A.1.3.6, A.1.3.7, A.1.3.8, A.1.3.9, A.1.3.10',
+      desc: 'Supervisa el ciclo de vida y los plazos de atención para solicitudes de Acceso, Rectificación, Cancelación/Supresión, Oposición y Portabilidad de los titulares.',
+      syntax: '/pii-rights-manager <solicitud del titular, fecha de recepción, estado de atención y destinatarios>',
+      example: '/pii-rights-manager Solicitud de supresión recibida el 01/03/2026. Respondida el 15/04/2026 indicando borrado lógico en BD principal, sin notificar a los 3 procesadores cloud ni purgar copias de respaldo.',
+      deliverables: [
+        'Cálculo de plazos legales de respuesta e identificación de extemporaneidad',
+        'Validación de eficacia técnica de supresión (borrado físico vs lógico en backups)',
+        'Protocolo de notificación en cascada a encargados y terceros receptores',
+        'Emisión de acuse formal de resolución para el titular de PII'
+      ],
+      svg: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>'
+    },
+    pia: {
+      key: 'pia',
+      name: 'Evaluación de Impacto en la Privacidad (PIA / EIPD)',
+      cmd: '/pia-reviewer',
+      iso: 'Control A.1.2.6 & Cláusulas 6.1.2, 8.2',
+      desc: 'Evalúa si un tratamiento requiere obligatoriamente una PIA (EIPD), analiza los riesgos inherentes para los titulares y define las salvaguardas arquitectónicas mitigadoras requeridas.',
+      syntax: '/pia-reviewer <descripción del sistema, modelo de IA o arquitectura de tratamiento>',
+      example: '/pia-reviewer Implementación de sistema de videovigilancia biométrica con IA para control de acceso y monitoreo de productividad laboral en oficinas de 500 empleados',
+      deliverables: [
+        'Evaluación de umbrales de obligatoriedad según ISO 27701 (Cláusula 6.1.2) y RGPD Art. 35',
+        'Matriz de impacto en derechos fundamentales y privacidad de los titulares',
+        'Medidas de mitigación técnica y salvaguardas arquitectónicas indispensables',
+        'Dictamen formal de auditoría PIMS y plan de acción preventivo'
+      ],
+      svg: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'
+    },
+    transfer: {
+      key: 'transfer',
+      name: 'Transferencias Internacionales de PII & TIA',
+      cmd: '/pii-transfer-auditor',
+      iso: 'Controles A.1.5.2, A.1.5.3, A.1.5.4, A.3.7',
+      desc: 'Verifica la legalidad de transferencias de PII fuera de fronteras soberanas, evalúa decisiones de adecuación, Cláusulas Contractuales Tipo (SCC) y realiza Transfer Impact Assessments (TIA).',
+      syntax: '/pii-transfer-auditor <país origen, país receptor, proveedor cloud, volumen y salvaguardas>',
+      example: '/pii-transfer-auditor 200,000 registros de clientes UE almacenados en AWS us-east-1 (EE.UU.) con procesamiento analítico SaaS en India. Sin Cláusulas Tipo (SCC) ni TIA formal ni BYOK.',
+      deliverables: [
+        'Mapeo de legalidad del país de destino y nivel de adecuación jurídica',
+        'Evaluación de riesgo de acceso gubernamental o de agencias de inteligencia (TIA)',
+        'Auditoría de garantías de salvaguarda (SCCs, BCRs, derogaciones específicas)',
+        'Requisitos técnicos suplementarios: cifrado de extremo a extremo y gestión de llaves BYOK'
+      ],
+      svg: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a14.5 14.5 0 0 0 0 18 14.5 14.5 0 0 0 0-18"/></svg>'
+    },
+    dpa: {
+      key: 'dpa',
+      name: 'Contratos DPA con Encargados Cloud',
+      cmd: '/processor-contract-validator',
+      iso: 'Controles A.1.2.7, A.1.2.8, A.2.2.2 a A.2.2.7, A.3.10',
+      desc: 'Audita Acuerdos de Tratamiento de Datos (DPA) y contratos con proveedores SaaS/Cloud conforme a las exigencias obligatorias de la Tabla A.2 de ISO 27701 y RGPD Art. 28.',
+      syntax: '/processor-contract-validator <cláusulas del contrato con el proveedor o términos de servicio>',
+      example: "/processor-contract-validator Cláusula 4.1: 'El proveedor procesará datos para el servicio y entrenamiento de modelos propios'. Cláusula 6.2: 'Avisará incidentes tras su investigación sin plazo'. Cláusula 8.1: 'Subcontrata a discreción.'",
+      deliverables: [
+        'Validación frente a los 11 controles obligatorios de la Tabla A.2 de ISO 27701',
+        'Detección de cláusulas que permitan uso ilícito de PII para fines propios del proveedor',
+        'Revisión de acuerdos de subcontratación y mecanismos de veto previo',
+        'Redacción de adendas de remediación contractual listas para firma'
+      ],
+      svg: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>'
+    },
+    breach: {
+      key: 'breach',
+      name: 'Brechas de Seguridad PII (72 Horas)',
+      cmd: '/incident-response-planner',
+      iso: 'Controles A.3.11, A.3.12, B.3.12',
+      desc: 'Activa el protocolo de respuesta ante incidentes con exfiltración o compromiso de datos personales, genera el plan de notificación en 72 horas y estructura el registro probatorio.',
+      syntax: '/incident-response-planner <detalles de la filtración, categorías de datos, volumen y cronología>',
+      example: '/incident-response-planner Exfiltración no autorizada de base de datos de 45,000 usuarios con nombres, DNI, emails y hashes de contraseñas mediante SQLi a las 02:00 AM. Atacante exige rescate en criptomonedas.',
+      deliverables: [
+        'Matriz de severidad y clasificación de impacto sobre derechos de los titulares',
+        'Protocolo de contención técnica inmediata y aseguramiento de evidencias',
+        'Borrador de comunicación formal obligatoria a la Autoridad de Control (< 72 horas)',
+        'Estrategia de notificación transparente a titulares afectados y Consent/Incident Ledger'
+      ],
+      svg: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'
+    }
   };
 
-  function injectAndFocusPrompt(promptText) {
+  let _activeDemoKey = 'pia';
+
+  function renderSkillSwitcher() {
+    const switcher = document.getElementById('skill-demo-switcher');
+    if (!switcher) return;
+    const keys = Object.keys(SKILL_DEMOS);
+    const shortNames = {
+      policy: 'Avisos',
+      consent: 'Consentimiento',
+      minimization: 'Minimización',
+      dsar: 'ARCO / DSAR',
+      pia: 'PIA / EIPD',
+      transfer: 'Transferencias',
+      dpa: 'Contratos DPA',
+      breach: 'Brechas 72h'
+    };
+    switcher.innerHTML = keys.map(k => {
+      const activeClass = k === _activeDemoKey ? ' active' : '';
+      return `<button type="button" class="skill-switcher-tab${activeClass}" data-skill-switch="${k}">${shortNames[k] || k}</button>`;
+    }).join('');
+
+    switcher.querySelectorAll('[data-skill-switch]').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const k = btn.getAttribute('data-skill-switch');
+        showSkillDemo(k);
+      });
+    });
+  }
+
+  function showSkillDemo(skillKey) {
+    const data = SKILL_DEMOS[skillKey] || SKILL_DEMOS['pia'];
+    _activeDemoKey = data.key;
+
+    const modal = document.getElementById('skill-demo-modal');
+    if (!modal) return;
+
+    // Highlight active sidebar item
+    document.querySelectorAll('.audicode-skill-btn').forEach(b => {
+      if (b.getAttribute('data-skill') === _activeDemoKey) {
+        b.classList.add('active-skill');
+      } else {
+        b.classList.remove('active-skill');
+      }
+    });
+
+    // Populate modal elements
+    const iconEl = document.getElementById('skill-demo-icon');
+    if (iconEl) iconEl.innerHTML = data.svg;
+
+    const titleEl = document.getElementById('skill-demo-title');
+    if (titleEl) titleEl.textContent = data.name;
+
+    const isoEl = document.getElementById('skill-demo-iso');
+    if (isoEl) isoEl.textContent = data.iso;
+
+    const cmdBadge = document.getElementById('skill-demo-cmd-badge');
+    if (cmdBadge) cmdBadge.textContent = data.cmd;
+
+    const descEl = document.getElementById('skill-demo-desc');
+    if (descEl) descEl.textContent = data.desc;
+
+    const syntaxEl = document.getElementById('skill-demo-syntax');
+    if (syntaxEl) syntaxEl.textContent = data.syntax;
+
+    const exampleEl = document.getElementById('skill-demo-example');
+    if (exampleEl) exampleEl.textContent = data.example;
+
+    const copyLabel = document.getElementById('skill-demo-copy-label');
+    if (copyLabel) copyLabel.textContent = 'Copiar comando';
+
+    const deliverablesEl = document.getElementById('skill-demo-deliverables');
+    if (deliverablesEl) {
+      deliverablesEl.innerHTML = data.deliverables.map(item => `
+        <div style="display: flex; align-items: flex-start; gap: 8px; font-size: 12.5px; color: #cfc8c8;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e0526c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px;"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>${item}</span>
+        </div>
+      `).join('');
+    }
+
+    renderSkillSwitcher();
+    modal.classList.remove('hidden');
+  }
+
+  function closeSkillDemoModal() {
+    const modal = document.getElementById('skill-demo-modal');
+    if (modal) modal.classList.add('hidden');
+    document.querySelectorAll('.audicode-skill-btn').forEach(b => b.classList.remove('active-skill'));
+  }
+
+  function copyCurrentDemoCommand() {
+    const data = SKILL_DEMOS[_activeDemoKey];
+    if (!data) return;
+    const label = document.getElementById('skill-demo-copy-label');
+    navigator.clipboard.writeText(data.example).then(() => {
+      if (label) {
+        label.textContent = '✓ ¡Copiado!';
+        setTimeout(() => { if (label) label.textContent = 'Copiar comando'; }, 2000);
+      }
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = data.example;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (label) {
+        label.textContent = '✓ ¡Copiado!';
+        setTimeout(() => { if (label) label.textContent = 'Copiar comando'; }, 2000);
+      }
+    });
+  }
+
+  function loadCurrentDemoInChat() {
+    const data = SKILL_DEMOS[_activeDemoKey];
+    if (!data) return;
     const chatBtn = document.getElementById('mode-chat-btn');
     if (chatBtn) chatBtn.click();
     const textarea = document.getElementById('message');
-    if (!textarea) return;
-    textarea.value = promptText + '\n\nGenera el informe y dictamen de auditoría formal en Markdown con matriz de hallazgos, no conformidades ISO/IEC 27701:2025 y plan de remediación técnica.';
-    textarea.dispatchEvent(new Event('input', { bubbles: true }));
-    textarea.style.height = 'auto';
-    textarea.style.height = Math.min(textarea.scrollHeight, 180) + 'px';
-    textarea.focus();
-    textarea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (textarea) {
+      textarea.value = data.example;
+      textarea.dispatchEvent(new Event('input', { bubbles: true }));
+      textarea.style.height = 'auto';
+      textarea.style.height = Math.min(textarea.scrollHeight, 180) + 'px';
+      textarea.focus();
+    }
+    closeSkillDemoModal();
+  }
+
+  function executeCurrentDemo() {
+    const data = SKILL_DEMOS[_activeDemoKey];
+    if (!data) return;
+    const chatBtn = document.getElementById('mode-chat-btn');
+    if (chatBtn) chatBtn.click();
+    const textarea = document.getElementById('message');
+    const form = document.getElementById('chat-form');
+    if (textarea && form) {
+      textarea.value = data.example;
+      textarea.dispatchEvent(new Event('input', { bubbles: true }));
+      closeSkillDemoModal();
+      setTimeout(() => {
+        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      }, 120);
+    } else {
+      closeSkillDemoModal();
+    }
   }
 
   function initAudiCodeBindings() {
@@ -3060,8 +3471,8 @@ Estructura: 1. Contención inmediata, 2. Evaluación de riesgo para los titulare
       btn.addEventListener('click', function(e) {
         e.preventDefault();
         const skill = btn.getAttribute('data-skill');
-        if (AUDIT_PROMPTS[skill]) {
-          injectAndFocusPrompt(AUDIT_PROMPTS[skill]);
+        if (SKILL_DEMOS[skill]) {
+          showSkillDemo(skill);
         }
       });
     });
@@ -3070,14 +3481,41 @@ Estructura: 1. Contención inmediata, 2. Evaluación de riesgo para los titulare
       card.addEventListener('click', function(e) {
         e.preventDefault();
         const action = card.getAttribute('data-action');
-        if (AUDIT_PROMPTS[action]) {
-          injectAndFocusPrompt(AUDIT_PROMPTS[action]);
+        if (SKILL_DEMOS[action]) {
+          showSkillDemo(action);
         }
       });
     });
 
+    const closeDemoBtn = document.getElementById('close-skill-demo-modal');
+    if (closeDemoBtn) closeDemoBtn.addEventListener('click', closeSkillDemoModal);
+
+    const dismissDemoBtn = document.getElementById('skill-demo-dismiss-btn');
+    if (dismissDemoBtn) dismissDemoBtn.addEventListener('click', closeSkillDemoModal);
+
+    const copyDemoBtn = document.getElementById('skill-demo-copy-btn');
+    if (copyDemoBtn) copyDemoBtn.addEventListener('click', copyCurrentDemoCommand);
+
+    const loadDemoBtn = document.getElementById('skill-demo-load-btn');
+    if (loadDemoBtn) loadDemoBtn.addEventListener('click', loadCurrentDemoInChat);
+
+    const execDemoBtn = document.getElementById('skill-demo-execute-btn');
+    if (execDemoBtn) execDemoBtn.addEventListener('click', executeCurrentDemo);
+
+    const skillModal = document.getElementById('skill-demo-modal');
+    if (skillModal) {
+      skillModal.addEventListener('click', function(e) {
+        if (e.target === skillModal) closeSkillDemoModal();
+      });
+    }
+
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Tab' && !e.ctrlKey && !e.altKey && !e.metaKey) {
+      if (e.key === 'Escape') {
+        const m = document.getElementById('skill-demo-modal');
+        if (m && !m.classList.contains('hidden')) {
+          closeSkillDemoModal();
+        }
+      } else if (e.key === 'Tab' && !e.ctrlKey && !e.altKey && !e.metaKey) {
         const activeEl = document.activeElement;
         if (!activeEl || activeEl.id === 'message' || activeEl === document.body) {
           e.preventDefault();
@@ -3210,6 +3648,8 @@ Estructura: 1. Contención inmediata, 2. Evaluación de riesgo para los titulare
       }
     }
 
+    window.showSkillDemo = showSkillDemo;
+    window.closeSkillDemoModal = closeSkillDemoModal;
     window.audicodeCheckModels = checkAvailableModels;
     window.showNoModelsModal = showNoModelsModal;
     window.showNoModelModal = showNoModelsModal;
