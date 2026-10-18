@@ -1,0 +1,164 @@
+{
+  "metadata": {
+    "standard": "ISO/IEC 27701:2025",
+    "controls": [
+      "A.3.11",
+      "A.3.12",
+      "A.3.14",
+      "A.3.25",
+      "B.3.11",
+      "B.3.12"
+    ],
+    "generated_at": "2026-10-01T05:14:43.756047+00:00",
+    "is_audit_compliant": true
+  },
+  "audit_evaluation": {
+    "regulatory_72h_compliance": {
+      "status": "COMPLIANT",
+      "hours_elapsed": 6.5,
+      "is_compliant": true,
+      "message": "Notificado en 6.5 horas. CONFORME con el límite de 72h"
+    },
+    "forensic_custody_compliant": true,
+    "backup_verification_logged": true
+  },
+  "incident_record": {
+    "incident_id": "INC-20261001-0842",
+    "title": "Ataque de Ransomware con Exfiltración de Base de Datos de Clientes y Nómina",
+    "organization": {
+      "name": "Financiera Global S.A.",
+      "role": "PII Controller",
+      "dpo_contact": "dpo@financieraglobal.example.com"
+    },
+    "time_period": {
+      "occurred_at": "2026-09-30T18:20:00Z",
+      "detected_at": "2026-10-01T02:15:00Z",
+      "confirmed_at": "2026-10-01T04:30:00Z",
+      "contained_at": "2026-10-01T07:45:00Z",
+      "resolved_at": null,
+      "status": "CONTENIDO - EN PROCESO DE RESTAURACIÓN Y FORENSE"
+    },
+    "reporter": {
+      "name": "Carlos Mendoza",
+      "role": "Analista Senior SOC Nivel 2",
+      "reporting_channel": "Alerta SIEM automatizada + Escalamiento telefónico de emergencia"
+    },
+    "reported_to": {
+      "body": "Equipo de Respuesta a Incidentes de Privacidad (CSIRT / CIRT)",
+      "primary_lead": "Elena Valenzuela (CISO) y Roberto Arismendi (DPO)"
+    },
+    "description": "Se detectó movimiento lateral y ejecución de ransomware tipo BlackByte sobre dos servidores de bases de datos. Los atacantes comprometieron credenciales privilegiadas de VPN y lograron exfiltrar fragmentos de tablas antes de cifrar los volúmenes de almacenamiento.",
+    "root_cause_and_vulnerabilities": "Explotación de credencial de acceso remoto sin segundo factor (MFA) en cuenta de servicio huérfana y falta de segmentación estricta de red interna.",
+    "impact_classification": {
+      "confidentiality": {
+        "impacted": true,
+        "detail": "Exfiltración confirmada de 1.8 GB de tablas con datos de clientes."
+      },
+      "integrity": {
+        "impacted": false,
+        "detail": "No se evidenció alteración ni corrupción de transacciones previas al cifrado."
+      },
+      "availability": {
+        "impacted": true,
+        "detail": "Indisponibilidad temporal del sistema de gestión durante 5 horas tras el cifrado."
+      }
+    },
+    "pii_compromised": {
+      "estimated_principals_affected": 12500,
+      "estimated_records_affected": 45000,
+      "categories": [
+        "Nombres y apellidos completos",
+        "Números de documento de identidad (DNI / RFC)",
+        "Correos electrónicos y números de teléfono",
+        "Datos bancarios (números de cuenta CLABE / IBAN sin CVV)",
+        "Datos de salarios de empleados"
+      ],
+      "sensitive_data_involved": true,
+      "sensitive_data_description": "Datos económicos y salarios de 350 empleados internos."
+    },
+    "consequences": {
+      "impact_on_principals": "Riesgo alto de phishing dirigido, intentos de extorsión y fraude financiero.",
+      "impact_on_organization": "Afectación reputacional temporal, suspensión preventiva de servicios en línea y costos forenses.",
+      "overall_risk_level": "Alto"
+    },
+    "forensic_evidence_preservation": {
+      "chain_of_custody_logged": true,
+      "custodian_name": "Ing. Fernando Morales (Perito Forense Digital)",
+      "actions_taken": [
+        "Volcado de memoria RAM previo al aislamiento lógico.",
+        "Clonación forense bit a bit de los discos virtuales en formato raw/dd.",
+        "Cálculo y depósito de hashes criptográficos SHA-256 de todas las imágenes.",
+        "Extracción y congelamiento inmutable de registros de syslog y firewall (Control A.3.14)."
+      ]
+    },
+    "backup_restoration_verification": {
+      "backup_integrity_verified": true,
+      "backup_technology": "Repositorio inmutable fuera de línea (Air-gapped) con snapshots WORM",
+      "data_recovered": "100% de la base de datos operativa restaurada a las 06:30Z (Control A.3.25)",
+      "rto_achieved_hours": 4.25
+    },
+    "resolution_steps": [
+      {
+        "step": "Aislamiento inmediato de los servidores afectados del resto de la LAN/WAN",
+        "responsible": "Carlos Mendoza (SOC)",
+        "timestamp": "2026-10-01T02:40:00Z"
+      },
+      {
+        "step": "Revocación masiva de credenciales de acceso remoto y tokens de sesión activos",
+        "responsible": "Marcos Silva (Administrador de Directorio Activo)",
+        "timestamp": "2026-10-01T03:00:00Z"
+      },
+      {
+        "step": "Verificación y escaneo de integridad de copias de seguridad inmutables",
+        "responsible": "Laura Gómez (Infraestructura y Backup)",
+        "timestamp": "2026-10-01T05:00:00Z"
+      },
+      {
+        "step": "Reinstalación limpia del sistema operativo y restauración desde copia saneada",
+        "responsible": "Laura Gómez (Infraestructura)",
+        "timestamp": "2026-10-01T06:30:00Z"
+      }
+    ],
+    "notifications": {
+      "supervisory_authority": {
+        "required": true,
+        "authority_name": "Agencia de Protección de Datos Competente",
+        "notified_at": "2026-10-01T11:00:00Z",
+        "status": "NOTIFICACIÓN INICIAL ENVIADA (FASE 1)",
+        "official_ticket_reference": "EXP-APD-2026-98124",
+        "delay_justification": null
+      },
+      "data_subjects": {
+        "required": true,
+        "reason": "Riesgo alto para derechos y libertades debido a datos bancarios y salarios expuestos",
+        "notified_at": null,
+        "status": "EN PREPARACIÓN - ENVÍO PROGRAMADO PARA HOY 16:00Z",
+        "communication_channel": "Correo electrónico directo individual y portal de ayuda al cliente"
+      },
+      "corporate_customers_processors": {
+        "required": false,
+        "detail": "No aplica; la entidad actúa como Responsable Directo."
+      }
+    },
+    "post_mortem_and_lessons_learned": {
+      "review_meeting_date": "2026-10-01T14:00:00Z",
+      "action_items": [
+        {
+          "action": "Obligatoriedad incondicional de MFA en el 100% de accesos VPN y cuentas de servicio",
+          "owner": "CISO",
+          "deadline": "2026-10-03"
+        },
+        {
+          "action": "Segmentación micro-granular de VLANs de base de datos con reglas Zero-Trust",
+          "owner": "Jefe de Redes",
+          "deadline": "2026-10-15"
+        },
+        {
+          "action": "Actualización del análisis de riesgos del SGIP (Cláusulas 6.1.2 y 8.2)",
+          "owner": "DPO",
+          "deadline": "2026-10-20"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MobileAnalyticsEventPayload",
+  "description": "Client-side telemetry event submitted by the mobile e-reader application for basic usage metrics and crash diagnostics.",
+  "event_id": "evt_983719482-a7f4-41d9-813b-2856f491cba0",
+  "app_version": "2.4.1-release",
+  "event_type": "screen_view",
+  "screen_name": "LibraryScreenFragment",
+  "session_id": "sess_81726481726354",
+  "timestamp": "2026-10-01T04:22:15.823Z",
+  "telemetry_metrics": {
+    "duration_seconds": 45,
+    "memory_usage_mb": 112.4,
+    "fps_average": 59.8,
+    "battery_level": 78
+  },
+  "user_profile": {
+    "user_id": 48291,
+    "user_email": "usuario.lector@example.org",
+    "phone": "+34612345678",
+    "birth_date": "1991-06-14"
+  },
+  "hardware_identifiers": {
+    "imei": "358249091823412",
+    "mac_address": "00:1B:44:11:3A:B7",
+    "sim_serial_number": "89014103211118510720",
+    "device_serial": "R58M43XYZ9P",
+    "device_model": "SM-G998B",
+    "os_version": "Android 14 (API 34)"
+  },
+  "network_and_location": {
+    "client_ip": "185.120.45.67",
+    "carrier_name": "Telefonica Movistar",
+    "wifi_ssid": "HomeFiber_5G_Ext",
+    "wifi_bssid_list": [
+      "00:14:22:01:23:45",
+      "00:14:22:01:23:46",
+      "00:14:22:01:23:47"
+    ],
+    "precise_gps_latitude": 40.4167754,
+    "precise_gps_longitude": -3.7037902,
+    "location_altitude_meters": 667.2,
+    "location_accuracy_meters": 3.8
+  },
+  "interaction_details": {
+    "click_stream": [
+      {"action": "tap", "target": "book_cover_38", "timestamp": "2026-10-01T04:22:18.110Z"},
+      {"action": "scroll", "direction": "down", "offset_px": 240, "timestamp": "2026-10-01T04:22:21.050Z"}
+    ],
+    "debug_log": "DEBUG [2026-10-01T04:22:15.823Z] Cache refreshed for user usuario.lector@example.org with token eyJhbGciOi..."
+  }
+}

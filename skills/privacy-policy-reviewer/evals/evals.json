@@ -1,0 +1,161 @@
+{
+  "skill_name": "privacy-policy-reviewer",
+  "version": "1.0.0",
+  "standard": "ISO/IEC 27701:2025",
+  "evals": [
+    {
+      "id": "eval-pos-01-internal-policy-review",
+      "type": "positive_trigger",
+      "prompt": "Hola, acabamos de terminar el borrador de nuestra política interna de privacidad para el SGIP antes de la auditoría de certificación ISO 27701:2025. ¿Podrías auditarla y decirnos si cumple con la Cláusula 5.2 de la norma y qué nos falta?",
+      "files": [],
+      "expected_output": "La skill 'privacy-policy-reviewer' debe activarse de forma inequívoca al identificar la solicitud como una revisión de política interna de gobernanza PIMS bajo la Cláusula 5.2 y el Control A.3.3 de ISO/IEC 27701:2025. Debe confirmar su competencia para el análisis, requerir o inspeccionar el artefacto, e indicar que auditará los 8 requisitos esenciales de gobernanza (alineación al contexto, marco para objetivos de privacidad, compromiso legal, compromiso de mejora continua, aprobación de alta dirección, difusión interna, disponibilidad a partes interesadas e integración con políticas temáticas de seguridad A.3.3).",
+      "expectations": [
+        "El agente activa la skill 'privacy-policy-reviewer' sin rechazar la solicitud.",
+        "Identifica explícitamente el alcance como una Política Interna del SGIP bajo la Cláusula 5.2 de ISO/IEC 27701:2025.",
+        "Menciona al menos 4 de los requisitos mandatorios de la Cláusula 5.2 (marco de objetivos, compromiso de cumplimiento, mejora continua, aprobación de alta dirección, información documentada).",
+        "No deriva erróneamente la consulta a skills operativas como consent-validator o processor-contract-validator.",
+        "Indica que el resultado de la auditoría se plasmará en una tabla de hallazgos clasificados por severidad (Crítica, Mayor, Menor, Oportunidad de Mejora)."
+      ]
+    },
+    {
+      "id": "eval-pos-02-ecommerce-privacy-notice-audit",
+      "type": "positive_trigger",
+      "prompt": "Revisa el aviso de privacidad de nuestra tienda online de comercio electrónico. Queremos verificar si cumple con todos los elementos mandatorios del control A.1.3.3 de ISO 27701 y si el redactado es suficientemente transparente para los clientes según A.1.3.4.",
+      "files": [],
+      "expected_output": "La skill 'privacy-policy-reviewer' se activa directamente reconociendo la auditoría de un aviso de privacidad externo para titulares bajo los controles A.1.3.3 (Determinación de la información para los titulares) y A.1.3.4 (Suministro de información a los titulares) de ISO/IEC 27701:2025. Debe anticipar los elementos que verificará (identidad del responsable, DPO, finalidades específicas, base legal individualizada, transferencias internacionales, plazos de conservación y catálogo de derechos ARCO) y la evaluación de legibilidad y arquitectura por capas.",
+      "expectations": [
+        "El agente activa la skill 'privacy-policy-reviewer' positivamente.",
+        "Cita expresamente los controles A.1.3.3 y A.1.3.4 de ISO/IEC 27701:2025.",
+        "Enumera los componentes críticos requeridos en el aviso (bases jurídicas por finalidad, transferencias transfronterizas, retención de datos, datos del DPO y canal para ejercicio de derechos).",
+        "Menciona la verificación de usabilidad, lenguaje plano y diseño en capas conforme al control A.1.3.4.",
+        "Propone la metodología de 5 pasos y el uso de la tabla de hallazgos estandarizada de 6 columnas."
+      ]
+    },
+    {
+      "id": "eval-pos-03-fintech-layered-notice-structure",
+      "type": "positive_trigger",
+      "prompt": "Queremos redactar un aviso de privacidad por capas para un nuevo servicio fintech de préstamos personales. ¿Qué estructura debe tener la Capa 1 y la Capa 2 según las buenas prácticas de ISO 27701:2025 y el RGPD?",
+      "files": [],
+      "expected_output": "La skill 'privacy-policy-reviewer' se activa y desglosa la arquitectura de transparencia en capas bajo el control A.1.3.4 de ISO/IEC 27701:2025. Proporciona la plantilla de Capa 1 (resumen básico sinóptico visible en formulario con Responsable, Finalidad, Base Jurídica, Destinatarios/Transferencias, Plazos de retención, Derechos y Enlace) y la estructura de Capa 2 (documento integral exhaustivo con los 14-16 elementos de A.1.3.3).",
+      "expectations": [
+        "El agente activa la skill 'privacy-policy-reviewer'.",
+        "Define claramente la distinción entre Capa 1 (resumen ejecutivo visible en el punto de contacto / formulario) y Capa 2 (documento íntegro accesible permanentemente).",
+        "Presenta una tabla sinóptica recomendada para la Capa 1 que incluye Responsable, Finalidad, Base Jurídica, Destinatarios/Transferencias y Derechos.",
+        "Cita los controles A.1.3.4 (Suministro de información) y A.1.3.3 (Determinación de información) de ISO/IEC 27701:2025.",
+        "Menciona que la implementación técnica de casillas de verificación (opt-in) corresponde a la skill de consentimiento, manteniendo sus límites de frontera."
+      ]
+    },
+    {
+      "id": "eval-pos-04-mobile-app-privacy-gap-analysis",
+      "type": "positive_trigger",
+      "prompt": "¿Qué elementos obligatorios le faltan a la política de privacidad de nuestra aplicación móvil bancaria para cumplir con ISO 27701:2025 y qué severidad tendría cada omisión en una auditoría externa?",
+      "files": [],
+      "expected_output": "La skill 'privacy-policy-reviewer' se activa y presenta el marco de evaluación de avisos de privacidad para aplicaciones móviles conforme a A.1.3.3 y A.1.3.4. Explica la matriz de clasificación de severidad de 4 niveles (Crítica, Mayor, Menor, Oportunidad de Mejora) y destaca omisiones frecuentes en apps móviles como profiling/scoring no divulgado, falta de canal DPO, transferencias a SDKs terceros y plazos de conservación indefinidos.",
+      "expectations": [
+        "El agente activa 'privacy-policy-reviewer'.",
+        "Presenta o define los 4 niveles de severidad de hallazgos: Crítica, Mayor, Menor y Oportunidad de Mejora.",
+        "Destaca elementos mandatorios relevantes para aplicaciones (decisiones automatizadas/scoring A.1.3.3 m, transferencias por SDKs terceros A.1.3.3 h/i, canales de derechos y DPO).",
+        "Indica los plazos típicos de subsanación según la severidad (< 5 días para Crítica, < 15 para Mayor, < 30 para Menor).",
+        "Presenta el formato estándar de tabla de hallazgos de 6 columnas."
+      ]
+    },
+    {
+      "id": "eval-neg-01-consent-checkbox-and-dark-patterns",
+      "type": "negative_trigger",
+      "prompt": "¿Es legalmente válido bajo la normativa de privacidad y la ISO 27701 que dejemos premarcada la casilla de consentimiento para el envío de promociones comerciales en nuestro formulario web de registro?",
+      "files": [],
+      "expected_output": "La skill 'privacy-policy-reviewer' DEBE RECONOCER que la consulta se refiere a mecanismos de recolección de consentimiento, casillas de verificación en interfaces de usuario (UI checkboxes), dark patterns y la regla de consentimiento expreso no premarcado (opt-in no condicionado). En consecuencia, NO debe ejecutar la revisión de textos de políticas, sino rechazar el procesamiento documental y DERIVAR formalmente la consulta a la skill 'consent-validator' (controles A.1.2.4, A.1.2.5 y A.1.3.5 de ISO/IEC 27701:2025).",
+      "expectations": [
+        "El agente NO procesa la solicitud como una revisión documental de política de privacidad.",
+        "Reconoce explícitamente que la consulta trata sobre mecanismos de obtención y validez del consentimiento (casillas premarcadas / opt-in libre).",
+        "Deriva formalmente al usuario a la skill especializada 'consent-validator'.",
+        "Cita los controles específicos de consentimiento de ISO/IEC 27701:2025 (A.1.2.4 Consentimiento libre, A.1.2.5 Registro de consentimiento o A.1.3.5 Revocación) en lugar de los controles de políticas (5.2 o A.1.3.3).",
+        "Mantiene estricto respeto a los límites de demarcación del conjunto arquitectónico."
+      ]
+    },
+    {
+      "id": "eval-neg-02-processor-contract-dpa-audit",
+      "type": "negative_trigger",
+      "prompt": "Por favor audita este Data Processing Agreement (DPA) que nos envió un proveedor de infraestructura en la nube para verificar si cumple las cláusulas contractuales obligatorias de encargado bajo ISO 27701:2025.",
+      "files": [],
+      "expected_output": "La skill 'privacy-policy-reviewer' DEBE IDENTIFICAR que el documento sometido es un contrato bilateral entre Responsable y Encargado del Tratamiento (Data Processing Agreement / Acuerdo de Encargo de Tratamiento según Art. 28 RGPD y controles de la familia A.2 de ISO/IEC 27701:2025), y NO una política interna PIMS ni un aviso de privacidad a titulares. Por tanto, declina la auditoría de políticas y DERIVA inequívocamente a la skill 'processor-contract-validator'.",
+      "expectations": [
+        "El agente NO audita el DPA como si fuera una política interna o un aviso de privacidad.",
+        "Identifica con precisión que se trata de un contrato con un encargado del tratamiento (PII Processor / DPA).",
+        "Deriva o transfiere formalmente la tarea a la skill 'processor-contract-validator'.",
+        "Cita los controles de la Tabla A.2 de ISO/IEC 27701:2025 (o Cláusula 8.2 / Art. 28 RGPD) relativos a relaciones contractuales con encargados.",
+        "Explica sucintamente que privacy-policy-reviewer solo cubre gobernanza interna (5.2/A.3.3) y avisos a titulares (A.1.3.3/A.1.3.4)."
+      ]
+    },
+    {
+      "id": "eval-neg-03-dsar-right-to-erasure-handling",
+      "type": "negative_trigger",
+      "prompt": "Un usuario nos acaba de enviar una solicitud formal exigiendo que eliminemos de inmediato todos sus datos personales de nuestras bases de datos comerciales. ¿Cómo debemos tramitar operativamente esta petición de supresión y cuál es el plazo de respuesta?",
+      "files": [],
+      "expected_output": "La skill 'privacy-policy-reviewer' DEBE DETECTAR que esta solicitud corresponde a la gestión operativa de un derecho individual ARCO / DSAR (derecho de supresión / borrado) y el cálculo de plazos de atención y verificación de identidad, NO a la redacción o auditoría de avisos de privacidad. En consecuencia, declina la tarea y deriva a la skill especializada 'pii-rights-manager' (controles A.1.3.7, A.1.3.9 y A.1.3.10 de ISO/IEC 27701:2025).",
+      "expectations": [
+        "El agente NO intenta resolver la consulta reescribiendo la política de privacidad.",
+        "Reconoce que la consulta requiere gestión y tramitación procedimental de un derecho de titular (DSAR / supresión).",
+        "Deriva formalmente a la skill 'pii-rights-manager'.",
+        "Cita los controles normativos pertinentes sobre atención de derechos de titulares (A.1.3.7, A.1.3.9 o A.1.3.10).",
+        "Distingue claramente entre publicar el canal de derechos en el aviso (A.1.3.3 k) y tramitar la solicitud operativa del titular."
+      ]
+    },
+    {
+      "id": "eval-beh-01-audit-internal-pims-policy",
+      "type": "behavioral",
+      "prompt": "Audita exhaustivamente el documento de política interna de privacidad adjunto en `skills/privacy-policy-reviewer/evals/fixtures/sample_internal_pims_policy.md` frente a los requisitos de la Cláusula 5.2 y el Control A.3.3 de ISO/IEC 27701:2025. Identifica todas las no conformidades, clasifícalas por severidad en la tabla estándar de 6 columnas y redacta las cláusulas de subsanación recomendadas.",
+      "files": [
+        "skills/privacy-policy-reviewer/evals/fixtures/sample_internal_pims_policy.md"
+      ],
+      "expected_output": "Informe técnico de auditoría ISO/IEC 27701:2025 sobre la política interna PIMS de Novasoft Payments S.A. El informe debe clasificar el artefacto como Tipo A (Política Interna del SGIP), reportar las métricas objetivas del escáner (50% de cobertura, 4 requisitos mandatorios faltantes), y consolidar una tabla de hallazgos estructurada de 6 columnas con al menos 4 hallazgos identificados: 1) Ausencia de compromiso formal de mejora continua (Cl. 5.2 d / 10.2 - Severidad Mayor/Crítica); 2) Ausencia de marco para objetivos de privacidad (Cl. 5.2 b / 6.2 - Severidad Mayor); 3) Estado de borrador no formalizado sin firma de Alta Dirección ni fecha de entrada en vigor (Cl. 5.2 / 7.5 - Severidad Crítica/Mayor); 4) Omisión de políticas de seguridad temáticas integradas para PII (Control A.3.3 - Severidad Mayor). Para cada hallazgo debe incluir la redacción contractual de la cláusula de subsanación lista para ser adoptada por la dirección.",
+      "expectations": [
+        "El informe clasifica formalmente el documento como Tipo A: Política Interna del SGIP (Cláusula 5.2 / A.3.3).",
+        "Presenta una tabla de hallazgos que sigue estrictamente las 6 columnas estándar: ID, Control ISO/IEC 27701:2025, Elemento Evaluado, Severidad, Hallazgo / Evidencia Faltante, y Recomendación de Subsanación.",
+        "Identifica al menos 4 hallazgos con IDs unívocos (ej. H-01, H-02, H-03, H-04).",
+        "Identifica la omisión del compromiso de mejora continua del SGIP, citando textualmente la Cláusula 5.2 d) (o 10.2) y asignando severidad 'Mayor' o 'Crítica'.",
+        "Identifica la omisión del marco de referencia para el establecimiento de objetivos de privacidad, citando la Cláusula 5.2 b) (o 6.2) con severidad 'Mayor'.",
+        "Identifica que el documento es un borrador no controlado carente de firma/aprobación de la Alta Dirección y sin fecha formal de vigencia, citando la Cláusula 5.2 (o Cláusula 7.5) con severidad 'Crítica' o 'Mayor'.",
+        "Identifica la falta de integración de políticas temáticas de seguridad de la información con directrices específicas de PII, citando el Control A.3.3 con severidad 'Mayor'.",
+        "Redacta cláusulas de subsanación listas para ser incorporadas al texto formal de la política para cada uno de los hallazgos señalados.",
+        "Menciona o toma en cuenta el porcentaje de cobertura cuantitativo arrojado por el escáner (50% de cobertura global / 4 de 8 requisitos faltantes)."
+      ]
+    },
+    {
+      "id": "eval-beh-02-audit-external-privacy-notice",
+      "type": "behavioral",
+      "prompt": "Realiza una auditoría formal de cumplimiento del aviso de privacidad web ubicado en `skills/privacy-policy-reviewer/evals/fixtures/sample_external_privacy_notice.md` conforme a los controles A.1.3.3 y A.1.3.4 de ISO/IEC 27701:2025. Identifica las omisiones críticas y mayores, genera la tabla de hallazgos estandarizada de 6 columnas y evalúa la arquitectura de transparencia y legibilidad.",
+      "files": [
+        "skills/privacy-policy-reviewer/evals/fixtures/sample_external_privacy_notice.md"
+      ],
+      "expected_output": "Dictamen de auditoría de cumplimiento del aviso de privacidad web de Novasoft Payments Online. El informe debe constatar el bajísimo nivel de cobertura objetiva (~14-15%), clasificar el documento como Tipo B (Aviso para Titulares) y generar una tabla de hallazgos completa con al menos 5 no conformidades críticas y mayores: 1) Ausencia de base legal individualizada por cada finalidad del tratamiento, agrupando indebidamente fines contractuales y comerciales (Control A.1.3.3 d / A.1.2.3 - Severidad Crítica); 2) Omisión total de información sobre transferencias internacionales de datos a servidores en EE.UU. y proveedores en el extranjero, careciendo de garantías o salvaguardas (Control A.1.3.3 i / A.1.5.2 - Severidad Crítica); 3) Plazo de conservación indeterminado y vago mediante la fórmula 'el tiempo que sea estrictamente necesario' sin criterios objetivos ni plazos de prescripción (Control A.1.3.3 j / A.1.4.8 - Severidad Mayor); 4) Omisión de canal de contacto específico para el DPO / Encargado de Privacidad (Control A.1.3.3 b - Severidad Mayor); 5) Catálogo de derechos mutilado, limitándose a ver y actualizar datos y omitiendo supresión, oposición, limitación y portabilidad (Control A.1.3.3 k / A.1.3.7 - Severidad Crítica); 6) Ausencia de arquitectura por capas y tabla resumen inicial conforme a A.1.3.4.",
+      "expectations": [
+        "El informe clasifica formalmente el artefacto como Tipo B: Aviso de Privacidad para Titulares (A.1.3.3 / A.1.3.4).",
+        "La tabla de hallazgos contiene un mínimo de 5 hallazgos discriminados con la estructura estándar de 6 columnas.",
+        "Califica como severidad 'Crítica' la omisión de la base jurídica por cada finalidad específica bajo el Control A.1.3.3 d) (o A.1.2.3), señalando el empaquetamiento ilegítimo de fines contractuales y publicitarios.",
+        "Califica como severidad 'Crítica' la omisión de información sobre transferencias internacionales de datos y sus salvaguardas bajo el Control A.1.3.3 i) (o A.1.5.2).",
+        "Califica como severidad 'Mayor' la cláusula de retención indeterminada ('el tiempo que sea estrictamente necesario') bajo el Control A.1.3.3 j) (o A.1.4.8), exigiendo plazos numéricos o criterios objetivos.",
+        "Califica como severidad 'Crítica' o 'Mayor' la falta de catálogo completo de derechos (omite supresión, oposición, limitación y portabilidad) bajo el Control A.1.3.3 k) (o A.1.3.7).",
+        "Evalúa el principio de transparencia del Control A.1.3.4 señalando el formato monolítico y recomendando la implementación de un aviso por capas (Capa 1 tabla resumen + Capa 2 texto íntegro).",
+        "Reporta o referencia cuantitativamente la tasa de cobertura deficiente del escáner (<= 20% de cumplimiento mandatorio)."
+      ]
+    },
+    {
+      "id": "eval-beh-03-layered-notice-redraft-and-remediation",
+      "type": "behavioral",
+      "prompt": "A partir de las deficiencias detectadas en `skills/privacy-policy-reviewer/evals/fixtures/sample_external_privacy_notice.md`, genera el Plan de Subsanación Integral que incluya: 1) La reescritura de la Capa 1 en formato de tabla sinóptica accesible según A.1.3.4; 2) La redacción corregida de las 3 cláusulas críticas de la Capa 2 (Bases Legales desglosadas por finalidad A.1.3.3 d, Transferencias Internacionales con salvaguardas A.1.3.3 i, y Plazos de Retención por criterios objetivos A.1.3.3 j); y 3) Delimitación estricta de fronteras indicando qué aspectos de implementación NO deben ser resueltos en este aviso sino derivados a otras skills.",
+      "files": [
+        "skills/privacy-policy-reviewer/evals/fixtures/sample_external_privacy_notice.md"
+      ],
+      "expected_output": "Plan Integral de Subsanación para Novasoft Payments Online. Debe contener: 1) Tabla sinóptica de Capa 1 conforme a A.1.3.4 con filas obligatorias (Responsable, Finalidades y Bases Jurídicas, Destinatarios y Transferencias, Plazos de Conservación, Derechos y canal DPO, Enlace a Capa 2); 2) Redacción técnica y lista para producción de las 3 cláusulas subsanadas de Capa 2: tabla de finalidades vinculada a bases legales del Art. 6 RGPD (separando contrato de consentimiento), cláusula de transferencias con mención a servidores en EE.UU., SCC 2021/914 y TIA, y cláusula de retención con plazos numéricos (10 años blanqueo, 5 años prescripción, revocación para marketing); 3) Demarcación explícita de fronteras declarando qué aspectos corresponden a consent-validator (gestión de casillas opt-in), processor-contract-validator (contratos DPA con hosting) y pii-rights-manager (atención de tickets de supresión).",
+      "expectations": [
+        "Genera una tabla sinóptica de Capa 1 en Markdown con al menos 5 filas esenciales (Responsable, Finalidades/Bases, Transferencias, Retención, Derechos/DPO).",
+        "Redacta una cláusula sustitutiva de Capa 2 para A.1.3.3 d) que desglosa individualmente las finalidades y asigna su base legal específica (ej. ejecución de contrato para cobros, obligación legal para AML, consentimiento para publicidad).",
+        "Redacta una cláusula sustitutiva de Capa 2 para A.1.3.3 i) que declara los países receptores (ej. EE.UU.) y la salvaguarda jurídica formal (Cláusulas Contractuales Tipo de la Comisión Europea / Decisiones de Adecuación).",
+        "Redacta una cláusula sustitutiva de Capa 2 para A.1.3.3 j) que sustituye la vaguedad por plazos objetivos medibles en años o criterios legales de prescripción.",
+        "Incluye una sección formal de demarcación arquitectónica que transfiere explícitamente la validación de casillas de formulario a 'consent-validator' y los contratos de encargo con proveedores a 'processor-contract-validator'.",
+        "Cita con rigor los controles aplicables: A.1.3.3, A.1.3.4, A.1.2.3, A.1.5.2 y A.1.4.8 de ISO/IEC 27701:2025."
+      ]
+    }
+  ]
+}

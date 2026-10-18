@@ -1,0 +1,376 @@
+{
+  "skill_name": "consent-validator",
+  "skill_path": "skills/consent-validator",
+  "version": "1.0.0",
+  "framework": "ISO/IEC 27701:2025",
+  "audited_controls": ["A.1.2.4", "A.1.2.5", "A.1.3.5", "A.2.2.4"],
+  "evals": [
+    {
+      "id": "eval-trigger-pos-01",
+      "eval_id": 0,
+      "eval_name": "trigger-pos-cookie-banner-cmp",
+      "type": "positive_trigger",
+      "prompt": "Necesito que audites la configuración de nuestro banner de cookies CMP para comprobar si cumple con ISO/IEC 27701:2025 y las reglas de consentimiento válido.",
+      "should_trigger": true,
+      "files": [
+        "skills/consent-validator/evals/fixtures/sample_cookie_banner_config.json"
+      ],
+      "input_files": [
+        "skills/consent-validator/evals/fixtures/sample_cookie_banner_config.json"
+      ],
+      "expected_output": "La skill consent-validator se activa, clasifica el rol de Responsable (A.1), evalúa la configuración técnica del banner CMP, verifica la ausencia de casillas premarcadas (A.1.2.5), comprueba la desagregación de propósitos (A.1.2.4), evalúa la presencia de botones de rechazo simétricos (A.1.3.5) y emite un informe estructurado de auditoría.",
+      "expectations": [
+        "La respuesta activa de forma prioritaria la skill consent-validator reconociendo el dominio de auditoría de banners CMP.",
+        "Cita expresamente los controles aplicables de ISO/IEC 27701:2025 (A.1.2.4, A.1.2.5, A.1.3.5).",
+        "No deriva indebidamente la consulta hacia redacción de políticas generales ni hacia gestión de derechos ARCO."
+      ],
+      "assertions": [
+        {
+          "name": "skill-activated",
+          "check": "The consent-validator skill activated and initiated the consent audit workflow",
+          "weight": 1.0
+        },
+        {
+          "name": "controls-cited",
+          "check": "The output explicitly cites ISO/IEC 27701:2025 controls A.1.2.4, A.1.2.5, and A.1.3.5",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "id": "eval-trigger-pos-02",
+      "eval_id": 1,
+      "eval_name": "trigger-pos-signup-checkboxes",
+      "type": "positive_trigger",
+      "prompt": "En nuestro formulario de registro de nuevos usuarios, ¿es válido bajo la norma ISO 27701 que dejemos marcada por defecto la casilla para recibir promociones y newsletters de nuestros socios comerciales?",
+      "should_trigger": true,
+      "files": [],
+      "input_files": [],
+      "expected_output": "La skill consent-validator se activa de inmediato y dictamina categóricamente que mantener casillas premarcadas (pre-ticked boxes) para finalidades publicitarias o de terceros constituye una No Conformidad CRÍTICA bajo los controles A.1.2.5 y A.1.2.4 de ISO/IEC 27701:2025, exigiendo casillas desmarcadas por defecto que requieran una acción afirmativa deliberada.",
+      "expectations": [
+        "Activa la skill consent-validator reconociendo la auditoría de casillas de verificación de UI.",
+        "Dictamina que las casillas marcadas por defecto (pre-ticked checkboxes) son contrarias a la norma y asigna severidad CRÍTICA bajo A.1.2.5.",
+        "Prescribe que el consentimiento debe obtenerse mediante una acción afirmativa inequívoca (opt-in puro, casilla desmarcada por defecto)."
+      ],
+      "assertions": [
+        {
+          "name": "skill-activated",
+          "check": "The consent-validator skill activated to evaluate checkbox legality",
+          "weight": 1.0
+        },
+        {
+          "name": "critical-finding-assigned",
+          "check": "The output classifies pre-ticked checkboxes as a CRITICAL non-conformity under A.1.2.5",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "id": "eval-trigger-pos-03",
+      "eval_id": 2,
+      "eval_name": "trigger-pos-consent-ledger-schema",
+      "type": "positive_trigger",
+      "prompt": "Queremos revisar la estructura de nuestra base de datos donde guardamos los consentimientos; actualmente solo guardamos un campo booleano 'acepta_marketing = true' en la tabla de usuarios. ¿Esto cumple con los requisitos probatorios de ISO 27701?",
+      "should_trigger": true,
+      "files": [
+        "skills/consent-validator/evals/fixtures/sample_web_form_consent_log.csv"
+      ],
+      "input_files": [
+        "skills/consent-validator/evals/fixtures/sample_web_form_consent_log.csv"
+      ],
+      "expected_output": "La skill consent-validator se activa, dictamina una No Conformidad Mayor bajo el control A.1.2.5 al carecer de trazabilidad probatoria (sin timestamp, versión del texto ni hash legal), y detalla la arquitectura obligatoria del Consent Ledger (consent_id, subject_identifier, timestamp_utc, purpose_id, legal_text_version, legal_text_hash, capture_channel).",
+      "expectations": [
+        "Activa la skill consent-validator para la verificación de registros probatorios de consentimiento.",
+        "Rechaza categóricamente que una simple bandera booleana ('acepta_marketing = true') cumpla con el estándar probatorio de A.1.2.5 y califica el hallazgo como No Conformidad Mayor.",
+        "Enumera los campos técnicos indispensables del Consent Ledger inmutable: timestamp ISO 8601 UTC, identificador del titular, versión/hash del texto aceptado y canal de recolección."
+      ],
+      "assertions": [
+        {
+          "name": "skill-activated",
+          "check": "The consent-validator skill activated to audit consent log traceability",
+          "weight": 1.0
+        },
+        {
+          "name": "boolean-flag-rejected",
+          "check": "The output explicitly rejects boolean flags as insufficient proof under A.1.2.5",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "id": "eval-trigger-pos-04",
+      "eval_id": 3,
+      "eval_name": "trigger-pos-revocation-symmetry",
+      "type": "positive_trigger",
+      "prompt": "Evalúa si nuestro flujo de baja comercial es correcto: los usuarios se suscriben con 1 clic en la web, pero para darse de baja les pedimos que envíen una carta o llamen a un número telefónico de atención.",
+      "should_trigger": true,
+      "files": [],
+      "input_files": [],
+      "expected_output": "La skill consent-validator se activa, dictamina un incumplimiento grave del control A.1.3.5 (Providing mechanism to modify or withdraw consent) por vulnerar el principio de simetría de canales ('as easy to withdraw as to give'), clasifica la fricción asimétrica como patrón oscuro (Roach Motel / Obstruction) y exige mecanismos de baja inmediata en línea.",
+      "expectations": [
+        "Activa la skill consent-validator identificando el análisis del mecanismo de revocación y simetría.",
+        "Identifica la asimetría de canales entre otorgamiento digital y revocación física/telefónica calificándola como No Conformidad Crítica/Mayor bajo A.1.3.5.",
+        "Prescribe la implementación obligatoria de un canal de baja digital directo (List-Unsubscribe RFC 8058 o Preference Center self-service)."
+      ],
+      "assertions": [
+        {
+          "name": "skill-activated",
+          "check": "The consent-validator skill activated for revocation symmetry audit",
+          "weight": 1.0
+        },
+        {
+          "name": "symmetry-rule-enforced",
+          "check": "The output enforces the 'as easy to withdraw as to give' principle under A.1.3.5",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "id": "eval-trigger-neg-01",
+      "eval_id": 4,
+      "eval_name": "trigger-neg-pii-rights-deletion",
+      "type": "negative_trigger",
+      "prompt": "Un cliente ha ejercido formalmente su derecho de supresión de datos bajo el RGPD exigiendo el borrado definitivo de todo su historial contable y su cuenta; ¿cómo debemos tramitar este plazo legal de 30 días y verificar las excepciones de retención fiscal?",
+      "should_trigger": false,
+      "files": [],
+      "input_files": [],
+      "expected_output": "La consulta trata sobre el ejercicio reglado de un derecho formal del titular (Derecho de Supresión / Cancelación / Olvido) bajo los controles A.1.3.7 y A.1.3.10 de ISO/IEC 27701:2025. La skill consent-validator NO debe activarse para tramitar el derecho, y debe derivarse formalmente a la skill pii-rights-manager.",
+      "expectations": [
+        "La skill consent-validator NO asume la tramitación de la solicitud de supresión.",
+        "Distingue claramente entre revocación voluntaria de consentimiento publicitario y ejercicio del derecho subjetivo de supresión reglado por plazos legales.",
+        "Deriva expresamente la consulta a la skill especializada 'pii-rights-manager'."
+      ],
+      "assertions": [
+        {
+          "name": "skill-not-activated",
+          "check": "The consent-validator skill did NOT handle the formal deletion request",
+          "weight": 1.0
+        },
+        {
+          "name": "handoff-to-pii-rights",
+          "check": "The request is explicitly routed to pii-rights-manager",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "id": "eval-trigger-neg-02",
+      "eval_id": 5,
+      "eval_name": "trigger-neg-privacy-notice-drafting",
+      "type": "negative_trigger",
+      "prompt": "Necesito redactar el texto completo de nuestra política de privacidad corporativa para la alta dirección y el aviso de privacidad por capas para nuestra aplicación fintech, asegurando los 12 elementos obligatorios según la Cláusula 5.2 y el control A.1.3.3 de ISO 27701.",
+      "should_trigger": false,
+      "files": [],
+      "input_files": [],
+      "expected_output": "La consulta solicita la redacción documental integral de la política corporativa SGIP y del aviso de privacidad para titulares conforme a la Cláusula 5.2, A.1.3.3 y A.1.3.4. La skill consent-validator NO asume la redacción textual de políticas y debe derivar la consulta a privacy-policy-reviewer.",
+      "expectations": [
+        "La skill consent-validator NO asume la redacción ni auditoría textual integral de la política general o aviso informativo.",
+        "Identifica que la suficiencia informativa y redacción por capas corresponden a Cláusula 5.2 y A.1.3.3.",
+        "Deriva la solicitud de forma explícita a la skill 'privacy-policy-reviewer'."
+      ],
+      "assertions": [
+        {
+          "name": "skill-not-activated",
+          "check": "The consent-validator skill did NOT draft or review the full privacy notice text",
+          "weight": 1.0
+        },
+        {
+          "name": "handoff-to-privacy-reviewer",
+          "check": "The request is explicitly routed to privacy-policy-reviewer",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "id": "eval-trigger-neg-03",
+      "eval_id": 6,
+      "eval_name": "trigger-neg-processor-dpa-audit",
+      "type": "negative_trigger",
+      "prompt": "Audita el contrato de encargo de tratamiento (DPA) que nos envió AWS para verificar si contiene las cláusulas obligatorias de la Tabla A.2, el régimen de subencargados de A.2.5.7 y el derecho de auditoría presencial.",
+      "should_trigger": false,
+      "files": [],
+      "input_files": [],
+      "expected_output": "La consulta solicita una auditoría contractual de acuerdos B2B de procesamiento de datos con proveedores tecnológicos bajo el control A.1.2.7 y la Tabla A.2. La skill consent-validator NO revisa contratos de proveedores y debe transferir la consulta a processor-contract-validator.",
+      "expectations": [
+        "La skill consent-validator NO asume la revisión contractual mercantil de acuerdos B2B.",
+        "Identifica que los requisitos corresponden a la gobernanza de encargados bajo A.1.2.7 y Tabla A.2.",
+        "Deriva expresamente el análisis a la skill 'processor-contract-validator'."
+      ],
+      "assertions": [
+        {
+          "name": "skill-not-activated",
+          "check": "The consent-validator skill did NOT audit the processor DPA contract",
+          "weight": 1.0
+        },
+        {
+          "name": "handoff-to-processor-validator",
+          "check": "The request is explicitly routed to processor-contract-validator",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "id": "eval-behavioral-01",
+      "eval_id": 7,
+      "eval_name": "behavioral-cookie-banner-cmp-audit",
+      "type": "behavioral",
+      "prompt": "Audita exhaustivamente el archivo de configuración de banner CMP 'skills/consent-validator/evals/fixtures/sample_cookie_banner_config.json' bajo ISO/IEC 27701:2025. Genera la tabla de hallazgos estandarizada indicando control normativo violado, severidad estricta, evidencia técnica encontrada y prescripción de remediación.",
+      "should_trigger": true,
+      "files": [
+        "skills/consent-validator/evals/fixtures/sample_cookie_banner_config.json"
+      ],
+      "input_files": [
+        "skills/consent-validator/evals/fixtures/sample_cookie_banner_config.json"
+      ],
+      "expected_output": "Dictamen de no conformidad ('NON_COMPLIANT'). Identifica de forma discriminante: (1) Casillas premarcadas para marketing ('chk-analytics-marketing-bundled' y 'chk-commercial-newsletter' con pre_ticked/default_checked = true) como severidad CRÍTICA bajo A.1.2.5; (2) Ausencia de botón 'Rechazar todo' en primera capa (asymmetric choice / dark pattern) violando A.1.2.5 y A.1.3.5 como severidad MAYOR o CRÍTICA; (3) Consentimiento empaquetado ('bundled consent') en 'chk-analytics-marketing-bundled' agrupando 4 propósitos dispares bajo un solo selector violando A.1.2.4 como severidad MAYOR; (4) Ausencia de enlace visible al aviso de privacidad (A.1.3.3 / A.1.2.4); (5) Fricción asimétrica en revocación obligando a correo postal o teléfono en vez de auto-gestión digital violando A.1.3.5 como severidad CRÍTICA o MAYOR. Proporciona tabla estructurada y recomendaciones técnicas concretas.",
+      "expectations": [
+        "Dictamina que la configuración del banner CMP es NO CONFORME (NON_COMPLIANT) con la norma ISO/IEC 27701:2025.",
+        "Identifica y califica como vulneración CRÍTICA bajo el control A.1.2.5 la presencia de casillas premarcadas ('default_checked: true' / 'pre_ticked: true') en 'chk-analytics-marketing-bundled' y 'chk-commercial-newsletter'.",
+        "Identifica y califica como no conformidad bajo el control A.1.2.4 el empaquetamiento forzado de finalidades no disociables (analítica web, perfilado de comportamiento, publicidad comportamental y cross-device tracking reunidos en un único selector).",
+        "Detecta la ausencia del botón 'Rechazar todo' en la primera capa ('first_layer') y califica el desbalance visual como un patrón oscuro (dark pattern) violatorio de A.1.2.5 y A.1.3.5.",
+        "Detecta la ausencia de enlace al aviso de privacidad íntegro ('has_privacy_notice_link: false') bajo A.1.2.4 / A.1.3.3 y la fricción asimétrica de revocación ('revocation_policy' vía carta postal/teléfono) bajo A.1.3.5.",
+        "Presenta una tabla estructurada de hallazgos con las columnas exactas: ID Hallazgo, Control ISO 27701:2025, Severidad, Elemento Auditado, Evidencia Detectada y Recomendación Técnica.",
+        "Prescribe remediaciones técnicas ejecutables: desmarcar casillas por defecto, segregar finalidades con casillas independientes, incorporar botón 'Rechazar todo' en primera capa al mismo nivel visual que 'Aceptar', y habilitar un centro de preferencias digital post-consentimiento."
+      ],
+      "assertions": [
+        {
+          "name": "status-is-non-compliant",
+          "check": "Output explicitly determines the CMP banner configuration is NON_COMPLIANT",
+          "weight": 1.0
+        },
+        {
+          "name": "detects-pre-ticked-critical",
+          "check": "Output identifies pre-ticked marketing checkboxes as a CRITICAL violation under A.1.2.5",
+          "weight": 1.0
+        },
+        {
+          "name": "detects-bundled-consent-a124",
+          "check": "Output identifies bundled non-dissociable purposes in chk-analytics-marketing-bundled under A.1.2.4",
+          "weight": 1.0
+        },
+        {
+          "name": "detects-missing-reject-all-layer1",
+          "check": "Output flags the absence of a 'Rechazar todo' button in the first layer as an asymmetric dark pattern under A.1.2.5 and A.1.3.5",
+          "weight": 1.0
+        },
+        {
+          "name": "detects-asymmetric-revocation-friction",
+          "check": "Output flags postal/phone revocation requirement as a severe violation of channel symmetry under A.1.3.5",
+          "weight": 1.0
+        },
+        {
+          "name": "standard-findings-table-present",
+          "check": "Output includes a findings table with columns: ID Hallazgo, Control ISO 27701:2025, Severidad, Elemento Auditado, Evidencia Detectada, Recomendación Técnica",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "id": "eval-behavioral-02",
+      "eval_id": 8,
+      "eval_name": "behavioral-consent-ledger-csv-audit",
+      "type": "behavioral",
+      "prompt": "Analiza el extracto de registros de consentimiento 'skills/consent-validator/evals/fixtures/sample_web_form_consent_log.csv' correspondiente al Consent Ledger de la organización bajo el control A.1.2.5 de ISO/IEC 27701:2025. Identifica cada registro no conforme, especifica la deficiencia probatoria y define el esquema técnico inmutable exigido por la norma.",
+      "should_trigger": true,
+      "files": [
+        "skills/consent-validator/evals/fixtures/sample_web_form_consent_log.csv"
+      ],
+      "input_files": [
+        "skills/consent-validator/evals/fixtures/sample_web_form_consent_log.csv"
+      ],
+      "expected_output": "Informe de auditoría probatoria de registros de consentimiento (A.1.2.5). Identifica que de las 8 filas auditadas, solo 2 son plenamente conformes (filas 1 y 7), mientras que 6 presentan vulnerabilidades severas: Fila 2 carece de versión de texto, hash y timestamp con zona horaria; Fila 3 carece de hash probatorio y timestamp ISO UTC; Fila 4 carece totalmente de marca de tiempo (timestamp vacío - falla crítica); Fila 5 carece de identificador del titular (subject_identifier nulo - registro huérfano crítico); Fila 6 tiene fecha en formato regional ambiguo sin versión ni hash; Fila 8 registra una revocación con timestamp no estandarizado y canal asimétrico (PHONE_CALL_SUPPORT). Califica el hallazgo global como No Conformidad Mayor en la función probatoria y prescribe el esquema estructurado del Consent Ledger.",
+      "expectations": [
+        "Identifica que el archivo contiene 8 registros de los cuales al menos 5 presentan deficiencias probatorias sustanciales violatorias del control A.1.2.5.",
+        "Detecta específicamente la fila con identificador 'c7a8b912-34e5-4f67-89ab-0123456789a4' por omisión total de la marca de tiempo (timestamp nulo/vacío), calificándolo como falla crítica.",
+        "Detecta específicamente la fila con identificador 'c7a8b912-34e5-4f67-89ab-0123456789a5' por ausencia de identificador del titular ('subject_identifier' vacío), calificándolo como registro huérfano no auditable.",
+        "Identifica que los registros 'c7a8b912-34e5-4f67-89ab-0123456789a2', 'c7a8b912-34e5-4f67-89ab-0123456789a3', 'c7a8b912-34e5-4f67-89ab-0123456789a6' y 'c7a8b912-34e5-4f67-89ab-0123456789a8' no registran el hash criptográfico del texto aceptado ('legal_text_hash') o carecen de versión válida ('legal_text_version').",
+        "Señala que los timestamps en formato local 'YYYY-MM-DD HH:MM:SS' o 'DD/MM/YYYY HH:MM:SS' carecen del indicador de zona horaria exigido por el estándar ISO 8601 UTC ('Z' o offset).",
+        "Dictamina No Conformidad Mayor en el cumplimiento probatorio de ISO/IEC 27701:2025 A.1.2.5 (Consent Ledger).",
+        "Prescribe las especificaciones técnicas del Consent Ledger conforme a consent_matrix.md: consent_id, subject_identifier, timestamp_utc (ISO 8601), purpose_id, consent_status, legal_text_version, legal_text_hash (SHA-256) y capture_channel."
+      ],
+      "assertions": [
+        {
+          "name": "identifies-missing-timestamp-critical",
+          "check": "Output identifies record c7a8b912-34e5-4f67-89ab-0123456789a4 as missing timestamp (critical evidentiary failure)",
+          "weight": 1.0
+        },
+        {
+          "name": "identifies-missing-subject-id-critical",
+          "check": "Output identifies record c7a8b912-34e5-4f67-89ab-0123456789a5 as missing subject_identifier (orphaned consent entry)",
+          "weight": 1.0
+        },
+        {
+          "name": "identifies-missing-policy-version-and-hash",
+          "check": "Output flags records lacking legal_text_version or legal_text_hash (A.1.2.5)",
+          "weight": 1.0
+        },
+        {
+          "name": "flags-non-utc-timestamp-formatting",
+          "check": "Output distinguishes between ISO 8601 UTC formatted timestamps and unstandardized local datetime strings",
+          "weight": 1.0
+        },
+        {
+          "name": "overall-major-nonconformity-verdict",
+          "check": "Output delivers a Major Non-Conformity verdict on the consent logging mechanism under ISO/IEC 27701:2025 A.1.2.5",
+          "weight": 1.0
+        },
+        {
+          "name": "prescribes-complete-ledger-schema",
+          "check": "Output specifies the complete normative data fields for an immutable Consent Ledger (consent_id, subject_identifier, timestamp_utc, purpose_id, legal_text_version, legal_text_hash, capture_channel)",
+          "weight": 1.0
+        }
+      ]
+    },
+    {
+      "id": "eval-behavioral-03",
+      "eval_id": 9,
+      "eval_name": "behavioral-processor-marketing-and-revocation",
+      "type": "behavioral",
+      "prompt": "Una plataforma SaaS B2B que procesa nóminas de empleados (actuando como PII Processor) ha añadido una cláusula en su servicio que establece: 'Los empleados consienten el uso de sus datos laborales para recibir ofertas de tarjetas de crédito y seguros de nuestros patrocinadores; para revocar este consentimiento, el empleado debe enviar una solicitud notarial presencial con 60 días de preaviso'. Audita este flujo bajo los controles A.1.3.5 y A.2.2.4 de ISO/IEC 27701:2025.",
+      "should_trigger": true,
+      "files": [],
+      "input_files": [],
+      "expected_output": "Dictamen de doble incumplimiento crítico: (1) Violación grave del control A.2.2.4 (Marketing and advertising use - Encargados) por utilizar datos de PII procesados por cuenta del cliente para fines comerciales propios y de patrocinadores terceros sin instrucción legítima ni consentimiento válido e independiente, y condicionando el servicio laboral; (2) Violación flagrante del control A.1.3.5 (Providing mechanism to modify or withdraw consent) por vulnerar radicalmente el principio de simetría ('same effort rule') e imponer una barrera de fricción desproporcionada (solicitud notarial presencial y plazo excesivo de 60 días en lugar de las 24-72 horas normativas). Clasifica ambos hallazgos como CRÍTICOS y formula la orden de cese inmediato y rediseño de canales de opt-out.",
+      "expectations": [
+        "Identifica y analiza el rol de la entidad como Encargado del Tratamiento (PII Processor) bajo la Tabla A.2 de ISO/IEC 27701:2025.",
+        "Dictamina incumplimiento de severidad CRÍTICA bajo el control A.2.2.4 (Marketing and advertising use) por explotación de datos de clientes corporativos para mercadotecnia propia o de terceros.",
+        "Dictamina incumplimiento de severidad CRÍTICA bajo el control A.1.3.5 (Mechanism to modify or withdraw consent) por imposición de barreras físicas y burocráticas abusivas (solicitud notarial presencial y 60 días de preaviso).",
+        "Aplica explícitamente el principio de simetría de canales ('tan fácil revocar como otorgar') exigiendo canales de desuscripción equivalentes y digitales.",
+        "Establece los plazos normativos de propagación técnica: cese del tratamiento publicitario en 24 a 48 horas y notificación a terceros/patrocinadores en máximo 72 horas.",
+        "Prescribe la inmediata desactivación del tratamiento publicitario no autorizado y la implementación de un portal de autoservicio de privacidad para el ejercicio del opt-out."
+      ],
+      "assertions": [
+        {
+          "name": "identifies-processor-role-table-a2",
+          "check": "Output identifies entity as PII Processor and evaluates against Table A.2 requirements",
+          "weight": 1.0
+        },
+        {
+          "name": "critical-violation-a224-marketing",
+          "check": "Output classifies secondary marketing exploitation by processor as a CRITICAL violation under A.2.2.4",
+          "weight": 1.0
+        },
+        {
+          "name": "critical-violation-a135-revocation-symmetry",
+          "check": "Output classifies notary requirement and 60-day notice as a CRITICAL violation of channel symmetry under A.1.3.5",
+          "weight": 1.0
+        },
+        {
+          "name": "applies-same-effort-rule",
+          "check": "Output explicitly articulates the 'as easy to withdraw as to give' principle",
+          "weight": 1.0
+        },
+        {
+          "name": "specifies-propagation-deadlines",
+          "check": "Output states technical propagation timeframes (24-48h internal cessation, 72h third-party propagation)",
+          "weight": 1.0
+        },
+        {
+          "name": "orders-immediate-cessation-and-digital-optout",
+          "check": "Output prescribes immediate cessation of unauthorized marketing and implementation of digital self-service opt-out",
+          "weight": 1.0
+        }
+      ]
+    }
+  ]
+}

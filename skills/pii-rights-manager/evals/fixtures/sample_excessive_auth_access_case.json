@@ -1,0 +1,84 @@
+{
+  "request_metadata": {
+    "request_id": "DSAR-2026-0612",
+    "received_date": "2026-08-10T14:15:00Z",
+    "received_channel": "MOBILE_APP_AUTHENTICATED_SESSION",
+    "jurisdiction": "GDPR",
+    "statutory_law": "Reglamento General de Protección de Datos (UE 2016/679), Artículos 12 y 15",
+    "audit_reference_date": "2026-10-01"
+  },
+  "applicant": {
+    "full_name": "Elena Rostova",
+    "email": "elena.rostova@usermail.com",
+    "user_id": "usr-modatrends-9014",
+    "account_type": "Cliente registrado en tienda e-commerce minorista (ModaTrends)",
+    "account_tenure_months": 24,
+    "authentication_context": {
+      "channel": "Sesión iniciada desde aplicación iOS oficial con usuario y contraseña válidos",
+      "email_verified": true,
+      "mfa_available": true,
+      "risk_level_assessed": "LOW (Cuenta ordinaria de compra minorista de vestuario)"
+    }
+  },
+  "request_details": {
+    "right_exercised": "access",
+    "subject_statement": "Por medio del presente ejerzo formalmente mi derecho de acceso conforme al artículo 15 del RGPD y el control A.1.3.7 de la norma ISO/IEC 27701:2025. Solicito que me proporcionen una copia íntegra de los datos personales que conservan sobre mi persona, el detalle de todas mis compras, el historial de navegación registrado en la aplicación, el perfil analítico asociado a mi cuenta y el listado de encargados o terceros destinatarios a quienes hayan comunicado mis datos.",
+    "format_requested": "PORTABLE_STRUCTURED_JSON"
+  },
+  "incident_chronology_and_actions": [
+    {
+      "timestamp": "2026-08-10T14:15:00Z",
+      "event": "Recepción de la solicitud radicada en el formulario de la app móvil con ticket DSAR-2026-0612."
+    },
+    {
+      "timestamp": "2026-08-12T10:05:00Z",
+      "event": "El agente de atención al cliente envía correo estándar exigiendo: 'Copia a color de pasaporte oficial vigente debidamente apostillada ante notario público, junto con fotografía tipo selfie sosteniendo el documento abierto y comprobante de domicilio de los últimos 60 días'. Se informa que la solicitud queda congelada hasta recibir la documentación física."
+    },
+    {
+      "timestamp": "2026-08-14T16:30:00Z",
+      "event": "La titular responde por correo manifestando su disconformidad: expone que la petición fue tramitada desde su propia sesión autenticada en la app, que la exigencia notarial es excesiva e injustificada para una tienda de ropa y ofrece confirmar su identidad mediante código OTP a su número de teléfono o correo ya registrados."
+    },
+    {
+      "timestamp": "2026-08-15T08:00:00Z",
+      "event": "La organización archiva la respuesta del titular sin trámite y bloquea internamente el ticket en estado 'ON_HOLD_PENDING_NOTARIZED_PASSPORT'. No se emite comunicación de prórroga formal ni se escaló al Oficial de Protección de Datos (DPO)."
+    },
+    {
+      "timestamp": "2026-09-10T23:59:59Z",
+      "event": "Vencimiento legal improrrogable del plazo ordinario de 1 mes (Art. 12.3 RGPD / Control ISO 27701 A.1.3.7) sin que la organización haya emitido resolución ni comunicado prórroga motivada."
+    },
+    {
+      "timestamp": "2026-10-01T00:00:00Z",
+      "event": "Fecha de corte de la auditoría. Han transcurrido 52 días naturales desde la recepción (21 días de mora legal consumada). El ticket permanece desatendido."
+    }
+  ],
+  "audit_findings_summary": {
+    "days_elapsed": 52,
+    "statutory_deadline": "2026-09-10",
+    "days_overdue": 21,
+    "status": "EXPIRED",
+    "severity": "CRITICAL",
+    "identified_violations": [
+      {
+        "code": "HAL-DSAR-01",
+        "iso_control": "A.1.3.7 / A.1.3.10",
+        "legal_reference": "RGPD Art. 12.3",
+        "severity": "Crítica",
+        "detail": "Vencimiento manifiesto del plazo fatal de 1 mes calendario sin emitir resolución de fondo ni notificar prórroga legal antes de la fecha límite."
+      },
+      {
+        "code": "HAL-DSAR-03",
+        "iso_control": "A.1.3.10 / A.1.4.2",
+        "legal_reference": "RGPD Art. 12.6 y Directrices 01/2022 EDPB",
+        "severity": "Mayor",
+        "detail": "Exigencia abusiva y desproporcionada de pasaporte apostillado ante notario para un servicio minorista online donde la titular ya se encuentra autenticada en sesión."
+      },
+      {
+        "code": "HAL-DSAR-05",
+        "iso_control": "A.1.3.9",
+        "legal_reference": "RGPD Art. 15.3 y 20",
+        "severity": "Menor",
+        "detail": "Inexistencia de flujo automatizado de extracción de datos para entrega en formato estructurado de lectura mecánica (JSON/CSV)."
+      }
+    ]
+  }
+}

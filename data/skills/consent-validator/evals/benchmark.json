@@ -1,0 +1,601 @@
+{
+  "skill_name": "consent-validator",
+  "version": "1.0.0",
+  "standard": "ISO/IEC 27701:2025",
+  "evaluated_at": "2026-10-01T00:22:00Z",
+  "evaluator": "QA Validator (Agente 5)",
+  "summary": {
+    "total_evals": 10,
+    "total_assertions": 32,
+    "total_expectations": 41,
+    "with_skill": {
+      "assertions_passed": 32,
+      "assertions_total": 32,
+      "pass_rate": 1.0,
+      "expectations_passed": 41,
+      "expectations_total": 41,
+      "expectations_pass_rate": 1.0
+    },
+    "baseline": {
+      "assertions_passed": 10,
+      "assertions_total": 32,
+      "pass_rate": 0.3125,
+      "expectations_passed": 13,
+      "expectations_total": 41,
+      "expectations_pass_rate": 0.3171
+    },
+    "delta_percentage_points": 68.75,
+    "improvement_ratio": 3.2,
+    "criterion_met": true
+  },
+  "tiers": {
+    "tier_1_positive_triggers": {
+      "total_cases": 4,
+      "total_assertions": 8,
+      "with_skill_passed": 8,
+      "with_skill_pass_rate": 1.0,
+      "baseline_passed": 2,
+      "baseline_pass_rate": 0.25
+    },
+    "tier_2_negative_triggers": {
+      "total_cases": 3,
+      "total_assertions": 6,
+      "with_skill_passed": 6,
+      "with_skill_pass_rate": 1.0,
+      "baseline_passed": 3,
+      "baseline_pass_rate": 0.50
+    },
+    "tier_3_behavioral_evals": {
+      "total_cases": 3,
+      "total_assertions": 18,
+      "with_skill_passed": 18,
+      "with_skill_pass_rate": 1.0,
+      "baseline_passed": 5,
+      "baseline_pass_rate": 0.2778
+    }
+  },
+  "evals": [
+    {
+      "eval_id": "eval-trigger-pos-01",
+      "eval_name": "trigger-pos-cookie-banner-cmp",
+      "type": "positive_trigger",
+      "prompt": "Necesito que audites la configuración de nuestro banner de cookies CMP para comprobar si cumple con ISO/IEC 27701:2025 y las reglas de consentimiento válido.",
+      "assertions_total": 2,
+      "with_skill": {
+        "passed": 2,
+        "pass_rate": 1.0,
+        "assertion_results": [
+          {
+            "name": "skill-activated",
+            "check": "The consent-validator skill activated and initiated the consent audit workflow",
+            "passed": true
+          },
+          {
+            "name": "controls-cited",
+            "check": "The output explicitly cites ISO/IEC 27701:2025 controls A.1.2.4, A.1.2.5, and A.1.3.5",
+            "passed": true
+          }
+        ]
+      },
+      "baseline": {
+        "passed": 0,
+        "pass_rate": 0.0,
+        "assertion_results": [
+          {
+            "name": "skill-activated",
+            "check": "The consent-validator skill activated and initiated the consent audit workflow",
+            "passed": false,
+            "notes": "El modelo base generalista no posee el concepto ni el flujo estructurado de la skill; responde con consideraciones genéricas de cookies."
+          },
+          {
+            "name": "controls-cited",
+            "check": "The output explicitly cites ISO/IEC 27701:2025 controls A.1.2.4, A.1.2.5, and A.1.3.5",
+            "passed": false,
+            "notes": "Cita la Directiva ePrivacy y el RGPD Art. 7, pero omite los controles específicos A.1.2.4, A.1.2.5 y A.1.3.5 de ISO/IEC 27701:2025."
+          }
+        ]
+      }
+    },
+    {
+      "eval_id": "eval-trigger-pos-02",
+      "eval_name": "trigger-pos-signup-checkboxes",
+      "type": "positive_trigger",
+      "prompt": "En nuestro formulario de registro de nuevos usuarios, ¿es válido bajo la norma ISO 27701 que dejemos marcada por defecto la casilla para recibir promociones y newsletters de nuestros socios comerciales?",
+      "assertions_total": 2,
+      "with_skill": {
+        "passed": 2,
+        "pass_rate": 1.0,
+        "assertion_results": [
+          {
+            "name": "skill-activated",
+            "check": "The consent-validator skill activated to evaluate checkbox legality",
+            "passed": true
+          },
+          {
+            "name": "critical-finding-assigned",
+            "check": "The output classifies pre-ticked checkboxes as a CRITICAL non-conformity under A.1.2.5",
+            "passed": true
+          }
+        ]
+      },
+      "baseline": {
+        "passed": 0,
+        "pass_rate": 0.0,
+        "assertion_results": [
+          {
+            "name": "skill-activated",
+            "check": "The consent-validator skill activated to evaluate checkbox legality",
+            "passed": false,
+            "notes": "Responde de forma narrativa como asesor legal sin activar el protocolo de la skill."
+          },
+          {
+            "name": "critical-finding-assigned",
+            "check": "The output classifies pre-ticked checkboxes as a CRITICAL non-conformity under A.1.2.5",
+            "passed": false,
+            "notes": "Señala que las casillas premarcadas son inválidas según la sentencia Planet49/RGPD, pero no asigna la severidad de auditoría formal CRÍTICA bajo A.1.2.5."
+          }
+        ]
+      }
+    },
+    {
+      "eval_id": "eval-trigger-pos-03",
+      "eval_name": "trigger-pos-consent-ledger-schema",
+      "type": "positive_trigger",
+      "prompt": "Queremos revisar la estructura de nuestra base de datos donde guardamos los consentimientos; actualmente solo guardamos un campo booleano 'acepta_marketing = true' en la tabla de usuarios. ¿Esto cumple con los requisitos probatorios de ISO 27701?",
+      "assertions_total": 2,
+      "with_skill": {
+        "passed": 2,
+        "pass_rate": 1.0,
+        "assertion_results": [
+          {
+            "name": "skill-activated",
+            "check": "The consent-validator skill activated to audit consent log traceability",
+            "passed": true
+          },
+          {
+            "name": "boolean-flag-rejected",
+            "check": "The output explicitly rejects boolean flags as insufficient proof under A.1.2.5",
+            "passed": true
+          }
+        ]
+      },
+      "baseline": {
+        "passed": 1,
+        "pass_rate": 0.5,
+        "assertion_results": [
+          {
+            "name": "skill-activated",
+            "check": "The consent-validator skill activated to audit consent log traceability",
+            "passed": false,
+            "notes": "No activa la skill consent-validator."
+          },
+          {
+            "name": "boolean-flag-rejected",
+            "check": "The output explicitly rejects boolean flags as insufficient proof under A.1.2.5",
+            "passed": true,
+            "notes": "El modelo base reconoce que un flag booleano no basta para demostrar accountability, aunque sin la matriz formal del Consent Ledger de ISO 27701."
+          }
+        ]
+      }
+    },
+    {
+      "eval_id": "eval-trigger-pos-04",
+      "eval_name": "trigger-pos-revocation-symmetry",
+      "type": "positive_trigger",
+      "prompt": "Evalúa si nuestro flujo de baja comercial es correcto: los usuarios se suscriben con 1 clic en la web, pero para darse de baja les pedimos que envíen una carta o llamen a un número telefónico de atención.",
+      "assertions_total": 2,
+      "with_skill": {
+        "passed": 2,
+        "pass_rate": 1.0,
+        "assertion_results": [
+          {
+            "name": "skill-activated",
+            "check": "The consent-validator skill activated for revocation symmetry audit",
+            "passed": true
+          },
+          {
+            "name": "symmetry-rule-enforced",
+            "check": "The output enforces the 'as easy to withdraw as to give' principle under A.1.3.5",
+            "passed": true
+          }
+        ]
+      },
+      "baseline": {
+        "passed": 1,
+        "pass_rate": 0.5,
+        "assertion_results": [
+          {
+            "name": "skill-activated",
+            "check": "The consent-validator skill activated for revocation symmetry audit",
+            "passed": false,
+            "notes": "No activa la skill."
+          },
+          {
+            "name": "symmetry-rule-enforced",
+            "check": "The output enforces the 'as easy to withdraw as to give' principle under A.1.3.5",
+            "passed": true,
+            "notes": "Identifica que retirar el consentimiento debe ser tan fácil como otorgarlo según el RGPD Art. 7.3, pero omite el control A.1.3.5 de ISO 27701:2025."
+          }
+        ]
+      }
+    },
+    {
+      "eval_id": "eval-trigger-neg-01",
+      "eval_name": "trigger-neg-pii-rights-deletion",
+      "type": "negative_trigger",
+      "prompt": "Un cliente ha ejercido formalmente su derecho de supresión de datos bajo el RGPD exigiendo el borrado definitivo de todo su historial contable y su cuenta; ¿cómo debemos tramitar este plazo legal de 30 días y verificar las excepciones de retención fiscal?",
+      "assertions_total": 2,
+      "with_skill": {
+        "passed": 2,
+        "pass_rate": 1.0,
+        "assertion_results": [
+          {
+            "name": "skill-not-activated",
+            "check": "The consent-validator skill did NOT handle the formal deletion request",
+            "passed": true
+          },
+          {
+            "name": "handoff-to-pii-rights",
+            "check": "The request is explicitly routed to pii-rights-manager",
+            "passed": true
+          }
+        ]
+      },
+      "baseline": {
+        "passed": 1,
+        "pass_rate": 0.5,
+        "assertion_results": [
+          {
+            "name": "skill-not-activated",
+            "check": "The consent-validator skill did NOT handle the formal deletion request",
+            "passed": true,
+            "notes": "Al no disponer del sistema de skills, no activa consent-validator."
+          },
+          {
+            "name": "handoff-to-pii-rights",
+            "check": "The request is explicitly routed to pii-rights-manager",
+            "passed": false,
+            "notes": "El modelo base asume directamente la respuesta legal sobre el plazo de 30 días y la retención contable, sin derivar a pii-rights-manager."
+          }
+        ]
+      }
+    },
+    {
+      "eval_id": "eval-trigger-neg-02",
+      "eval_name": "trigger-neg-privacy-notice-drafting",
+      "type": "negative_trigger",
+      "prompt": "Necesito redactar el texto completo de nuestra política de privacidad corporativa para la alta dirección y el aviso de privacidad por capas para nuestra aplicación fintech, asegurando los 12 elementos obligatorios según la Cláusula 5.2 y el control A.1.3.3 de ISO 27701.",
+      "assertions_total": 2,
+      "with_skill": {
+        "passed": 2,
+        "pass_rate": 1.0,
+        "assertion_results": [
+          {
+            "name": "skill-not-activated",
+            "check": "The consent-validator skill did NOT draft or review the full privacy notice text",
+            "passed": true
+          },
+          {
+            "name": "handoff-to-privacy-reviewer",
+            "check": "The request is explicitly routed to privacy-policy-reviewer",
+            "passed": true
+          }
+        ]
+      },
+      "baseline": {
+        "passed": 1,
+        "pass_rate": 0.5,
+        "assertion_results": [
+          {
+            "name": "skill-not-activated",
+            "check": "The consent-validator skill did NOT draft or review the full privacy notice text",
+            "passed": true,
+            "notes": "No activa consent-validator."
+          },
+          {
+            "name": "handoff-to-privacy-reviewer",
+            "check": "The request is explicitly routed to privacy-policy-reviewer",
+            "passed": false,
+            "notes": "Intenta redactar o listar las secciones del aviso de privacidad en lugar de derivar a la skill correspondiente."
+          }
+        ]
+      }
+    },
+    {
+      "eval_id": "eval-trigger-neg-03",
+      "eval_name": "trigger-neg-processor-dpa-audit",
+      "type": "negative_trigger",
+      "prompt": "Audita el contrato de encargo de tratamiento (DPA) que nos envió AWS para verificar si contiene las cláusulas obligatorias de la Tabla A.2, el régimen de subencargados de A.2.5.7 y el derecho de auditoría presencial.",
+      "assertions_total": 2,
+      "with_skill": {
+        "passed": 2,
+        "pass_rate": 1.0,
+        "assertion_results": [
+          {
+            "name": "skill-not-activated",
+            "check": "The consent-validator skill did NOT audit the processor DPA contract",
+            "passed": true
+          },
+          {
+            "name": "handoff-to-processor-validator",
+            "check": "The request is explicitly routed to processor-contract-validator",
+            "passed": true
+          }
+        ]
+      },
+      "baseline": {
+        "passed": 1,
+        "pass_rate": 0.5,
+        "assertion_results": [
+          {
+            "name": "skill-not-activated",
+            "check": "The consent-validator skill did NOT audit the processor DPA contract",
+            "passed": true,
+            "notes": "No activa consent-validator."
+          },
+          {
+            "name": "handoff-to-processor-validator",
+            "check": "The request is explicitly routed to processor-contract-validator",
+            "passed": false,
+            "notes": "Intenta auditar las cláusulas del DPA por sí mismo sin transferir a la skill especializada."
+          }
+        ]
+      }
+    },
+    {
+      "eval_id": "eval-behavioral-01",
+      "eval_name": "behavioral-cookie-banner-cmp-audit",
+      "type": "behavioral",
+      "prompt": "Audita exhaustivamente el archivo de configuración de banner CMP 'skills/consent-validator/evals/fixtures/sample_cookie_banner_config.json' bajo ISO/IEC 27701:2025. Genera la tabla de hallazgos estandarizada indicando control normativo violado, severidad estricta, evidencia técnica encontrada y prescripción de remediación.",
+      "assertions_total": 6,
+      "with_skill": {
+        "passed": 6,
+        "pass_rate": 1.0,
+        "assertion_results": [
+          {
+            "name": "status-is-non-compliant",
+            "check": "Output explicitly determines the CMP banner configuration is NON_COMPLIANT",
+            "passed": true
+          },
+          {
+            "name": "detects-pre-ticked-critical",
+            "check": "Output identifies pre-ticked marketing checkboxes as a CRITICAL violation under A.1.2.5",
+            "passed": true
+          },
+          {
+            "name": "detects-bundled-consent-a124",
+            "check": "Output identifies bundled non-dissociable purposes in chk-analytics-marketing-bundled under A.1.2.4",
+            "passed": true
+          },
+          {
+            "name": "detects-missing-reject-all-layer1",
+            "check": "Output flags the absence of a 'Rechazar todo' button in the first layer as an asymmetric dark pattern under A.1.2.5 and A.1.3.5",
+            "passed": true
+          },
+          {
+            "name": "detects-asymmetric-revocation-friction",
+            "check": "Output flags postal/phone revocation requirement as a severe violation of channel symmetry under A.1.3.5",
+            "passed": true
+          },
+          {
+            "name": "standard-findings-table-present",
+            "check": "Output includes a findings table with columns: ID Hallazgo, Control ISO 27701:2025, Severidad, Elemento Auditado, Evidencia Detectada, Recomendación Técnica",
+            "passed": true
+          }
+        ]
+      },
+      "baseline": {
+        "passed": 1,
+        "pass_rate": 0.1667,
+        "assertion_results": [
+          {
+            "name": "status-is-non-compliant",
+            "check": "Output explicitly determines the CMP banner configuration is NON_COMPLIANT",
+            "passed": true,
+            "notes": "Determina que existen problemas de cumplimiento en el banner."
+          },
+          {
+            "name": "detects-pre-ticked-critical",
+            "check": "Output identifies pre-ticked marketing checkboxes as a CRITICAL violation under A.1.2.5",
+            "passed": false,
+            "notes": "Menciona que las casillas no deberían estar marcadas, pero no asigna severidad formal CRÍTICA bajo el control ISO 27701:2025 A.1.2.5."
+          },
+          {
+            "name": "detects-bundled-consent-a124",
+            "check": "Output identifies bundled non-dissociable purposes in chk-analytics-marketing-bundled under A.1.2.4",
+            "passed": false,
+            "notes": "No mapea la agrupación de analítica y publicidad al control A.1.2.4."
+          },
+          {
+            "name": "detects-missing-reject-all-layer1",
+            "check": "Output flags the absence of a 'Rechazar todo' button in the first layer as an asymmetric dark pattern under A.1.2.5 and A.1.3.5",
+            "passed": false,
+            "notes": "Comenta que falta rechazar todo, pero no lo clasifica como dark pattern asimétrico bajo A.1.2.5 y A.1.3.5."
+          },
+          {
+            "name": "detects-asymmetric-revocation-friction",
+            "check": "Output flags postal/phone revocation requirement as a severe violation of channel symmetry under A.1.3.5",
+            "passed": false,
+            "notes": "Nota la incomodidad de la carta/teléfono, pero omite el principio normativo de simetría de canales de A.1.3.5."
+          },
+          {
+            "name": "standard-findings-table-present",
+            "check": "Output includes a findings table with columns: ID Hallazgo, Control ISO 27701:2025, Severidad, Elemento Auditado, Evidencia Detectada, Recomendación Técnica",
+            "passed": false,
+            "notes": "Produce texto narrativo en párrafos o lista desordenada sin la estructura estricta de 6 columnas."
+          }
+        ]
+      }
+    },
+    {
+      "eval_id": "eval-behavioral-02",
+      "eval_name": "behavioral-consent-ledger-csv-audit",
+      "type": "behavioral",
+      "prompt": "Analiza el extracto de registros de consentimiento 'skills/consent-validator/evals/fixtures/sample_web_form_consent_log.csv' correspondiente al Consent Ledger de la organización bajo el control A.1.2.5 de ISO/IEC 27701:2025. Identifica cada registro no conforme, especifica la deficiencia probatoria y define el esquema técnico inmutable exigido por la norma.",
+      "assertions_total": 6,
+      "with_skill": {
+        "passed": 6,
+        "pass_rate": 1.0,
+        "assertion_results": [
+          {
+            "name": "identifies-missing-timestamp-critical",
+            "check": "Output identifies record c7a8b912-34e5-4f67-89ab-0123456789a4 as missing timestamp (critical evidentiary failure)",
+            "passed": true
+          },
+          {
+            "name": "identifies-missing-subject-id-critical",
+            "check": "Output identifies record c7a8b912-34e5-4f67-89ab-0123456789a5 as missing subject_identifier (orphaned consent entry)",
+            "passed": true
+          },
+          {
+            "name": "identifies-missing-policy-version-and-hash",
+            "check": "Output flags records lacking legal_text_version or legal_text_hash (A.1.2.5)",
+            "passed": true
+          },
+          {
+            "name": "flags-non-utc-timestamp-formatting",
+            "check": "Output distinguishes between ISO 8601 UTC formatted timestamps and unstandardized local datetime strings",
+            "passed": true
+          },
+          {
+            "name": "overall-major-nonconformity-verdict",
+            "check": "Output delivers a Major Non-Conformity verdict on the consent logging mechanism under ISO/IEC 27701:2025 A.1.2.5",
+            "passed": true
+          },
+          {
+            "name": "prescribes-complete-ledger-schema",
+            "check": "Output specifies the complete normative data fields for an immutable Consent Ledger (consent_id, subject_identifier, timestamp_utc, purpose_id, legal_text_version, legal_text_hash, capture_channel)",
+            "passed": true
+          }
+        ]
+      },
+      "baseline": {
+        "passed": 2,
+        "pass_rate": 0.3333,
+        "assertion_results": [
+          {
+            "name": "identifies-missing-timestamp-critical",
+            "check": "Output identifies record c7a8b912-34e5-4f67-89ab-0123456789a4 as missing timestamp (critical evidentiary failure)",
+            "passed": true,
+            "notes": "Observa que la fila 4 tiene la columna de timestamp vacía."
+          },
+          {
+            "name": "identifies-missing-subject-id-critical",
+            "check": "Output identifies record c7a8b912-34e5-4f67-89ab-0123456789a5 as missing subject_identifier (orphaned consent entry)",
+            "passed": true,
+            "notes": "Observa que la fila 5 no tiene subject_identifier."
+          },
+          {
+            "name": "identifies-missing-policy-version-and-hash",
+            "check": "Output flags records lacking legal_text_version or legal_text_hash (A.1.2.5)",
+            "passed": false,
+            "notes": "Pasa por alto la ausencia de hash criptográfico en las filas a2, a3, a6 y a8."
+          },
+          {
+            "name": "flags-non-utc-timestamp-formatting",
+            "check": "Output distinguishes between ISO 8601 UTC formatted timestamps and unstandardized local datetime strings",
+            "passed": false,
+            "notes": "No detecta la falta de indicador UTC ('Z' u offset) en los formatos datetime locales."
+          },
+          {
+            "name": "overall-major-nonconformity-verdict",
+            "check": "Output delivers a Major Non-Conformity verdict on the consent logging mechanism under ISO/IEC 27701:2025 A.1.2.5",
+            "passed": false,
+            "notes": "No emite el veredicto formal de No Conformidad Mayor bajo la taxonomía de ISO 27701."
+          },
+          {
+            "name": "prescribes-complete-ledger-schema",
+            "check": "Output specifies the complete normative data fields for an immutable Consent Ledger (consent_id, subject_identifier, timestamp_utc, purpose_id, legal_text_version, legal_text_hash, capture_channel)",
+            "passed": false,
+            "notes": "Sugiere campos genéricos de auditoría pero no el modelo canónico estructurado del Consent Ledger."
+          }
+        ]
+      }
+    },
+    {
+      "eval_id": "eval-behavioral-03",
+      "eval_name": "behavioral-processor-marketing-and-revocation",
+      "type": "behavioral",
+      "prompt": "Una plataforma SaaS B2B que procesa nóminas de empleados (actuando como PII Processor) ha añadido una cláusula en su servicio que establece: 'Los empleados consienten el uso de sus datos laborales para recibir ofertas de tarjetas de crédito y seguros de nuestros patrocinadores; para revocar este consentimiento, el empleado debe enviar una solicitud notarial presencial con 60 días de preaviso'. Audita este flujo bajo los controles A.1.3.5 y A.2.2.4 de ISO/IEC 27701:2025.",
+      "assertions_total": 6,
+      "with_skill": {
+        "passed": 6,
+        "pass_rate": 1.0,
+        "assertion_results": [
+          {
+            "name": "identifies-processor-role-table-a2",
+            "check": "Output identifies entity as PII Processor and evaluates against Table A.2 requirements",
+            "passed": true
+          },
+          {
+            "name": "critical-violation-a224-marketing",
+            "check": "Output classifies secondary marketing exploitation by processor as a CRITICAL violation under A.2.2.4",
+            "passed": true
+          },
+          {
+            "name": "critical-violation-a135-revocation-symmetry",
+            "check": "Output classifies notary requirement and 60-day notice as a CRITICAL violation of channel symmetry under A.1.3.5",
+            "passed": true
+          },
+          {
+            "name": "applies-same-effort-rule",
+            "check": "Output explicitly articulates the 'as easy to withdraw as to give' principle",
+            "passed": true
+          },
+          {
+            "name": "specifies-propagation-deadlines",
+            "check": "Output states technical propagation timeframes (24-48h internal cessation, 72h third-party propagation)",
+            "passed": true
+          },
+          {
+            "name": "orders-immediate-cessation-and-digital-optout",
+            "check": "Output prescribes immediate cessation of unauthorized marketing and implementation of digital self-service opt-out",
+            "passed": true
+          }
+        ]
+      },
+      "baseline": {
+        "passed": 2,
+        "pass_rate": 0.3333,
+        "assertion_results": [
+          {
+            "name": "identifies-processor-role-table-a2",
+            "check": "Output identifies entity as PII Processor and evaluates against Table A.2 requirements",
+            "passed": false,
+            "notes": "No realiza la distinción formal de la Tabla A.2 de ISO 27701:2025 para PII Processors."
+          },
+          {
+            "name": "critical-violation-a224-marketing",
+            "check": "Output classifies secondary marketing exploitation by processor as a CRITICAL violation under A.2.2.4",
+            "passed": false,
+            "notes": "Critica el uso comercial de datos de nómina pero no cita el control A.2.2.4 ni asigna severidad CRÍTICA."
+          },
+          {
+            "name": "critical-violation-a135-revocation-symmetry",
+            "check": "Output classifies notary requirement and 60-day notice as a CRITICAL violation of channel symmetry under A.1.3.5",
+            "passed": false,
+            "notes": "Califica el trámite notarial de abusivo bajo derecho laboral o de consumo, omitiendo el control A.1.3.5."
+          },
+          {
+            "name": "applies-same-effort-rule",
+            "check": "Output explicitly articulates the 'as easy to withdraw as to give' principle",
+            "passed": true,
+            "notes": "Cita el principio de que revocar no puede ser más difícil que otorgar (RGPD Art. 7.3)."
+          },
+          {
+            "name": "specifies-propagation-deadlines",
+            "check": "Output states technical propagation timeframes (24-48h internal cessation, 72h third-party propagation)",
+            "passed": false,
+            "notes": "No especifica los plazos perentorios de 24-48h para cese interno y 72h para terceros."
+          },
+          {
+            "name": "orders-immediate-cessation-and-digital-optout",
+            "check": "Output prescribes immediate cessation of unauthorized marketing and implementation of digital self-service opt-out",
+            "passed": true,
+            "notes": "Recomienda retirar la cláusula y habilitar un mecanismo online de baja."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "skill_name": "pia-reviewer",
+  "version": "1.0.0",
+  "standard": "ISO/IEC 27701:2025",
+  "evals": [
+    {
+      "id": "eval-pos-01-ai-recruitment-threshold-screening",
+      "type": "positive_trigger",
+      "prompt": "Hola, nuestro equipo de People & Culture está evaluando adquirir una plataforma SaaS basada en Inteligencia Artificial que analiza microexpresiones en video-entrevistas y genera un scoring predictivo para preseleccionar candidatos a puestos gerenciales. ¿Podrías determinar si este nuevo proyecto con IA necesita obligatoriamente una Evaluación de Impacto en la Privacidad (PIA/EIPD) bajo la norma ISO/IEC 27701:2025 y qué factores debemos considerar?",
+      "files": [],
+      "expected_output": "La skill 'pia-reviewer' debe activarse de forma inequívoca al identificar la consulta como una evaluación de umbral (threshold screening) para un nuevo tratamiento de alto riesgo que combina Inteligencia Artificial, elaboración de perfiles y toma de decisiones automatizadas en un contexto laboral. El agente debe confirmar su competencia bajo el Control A.1.2.6 y la Cláusula 6.1.2 de ISO/IEC 27701:2025, explicar los criterios de activación autónomos (C2 decisiones automatizadas, C1 perfilado laboral, C6 tecnologías emergentes/IA y C5 colectivo vulnerable en relación de subordinación), anticipar un dictamen preliminar de PIA OBLIGATORIA y guiar el proceso conforme a ISO/IEC 29134.",
+      "expectations": [
+        "El agente activa la skill 'pia-reviewer' sin rechazar la solicitud ni derivar erróneamente a otras skills.",
+        "Cita explícitamente el Control A.1.2.6 (Privacy impact assessment) de ISO/IEC 27701:2025 y su guía B.1.2.6.",
+        "Identifica al menos 3 criterios normativos de alto riesgo concurrentes: perfilado predictivo (C1), toma de decisiones algorítmicas con efectos significativos (C2), asimetría en candidatos/empleados (C5) o tecnologías emergentes/IA (C6).",
+        "Concluye de manera categórica que la PIA es OBLIGATORIA antes del paso a producción o adquisición del software.",
+        "Menciona la necesidad de consultar preceptivamente al Delegado de Protección de Datos (DPO) conforme a la Cláusula B.3.4 de la norma.",
+        "Hace referencia a la herramienta de scoring determinista 'pia_risk_scorer.py' o al cuestionario de tamizaje de 10 factores."
+      ]
+    },
+    {
+      "id": "eval-pos-02-biometric-access-pia-obligation",
+      "type": "positive_trigger",
+      "prompt": "Queremos instalar un nuevo sistema de control de acceso a los almacenes y oficinas corporativas mediante reconocimiento facial en tiempo real para 1,500 colaboradores, reemplazando las tarjetas RFID. ¿Este tratamiento biométrico exige una EIPD/PIA según ISO 27701:2025 y cuáles son los requisitos de proporcionalidad que debemos auditar?",
+      "files": [],
+      "expected_output": "La skill 'pia-reviewer' se activa directamente reconociendo la consulta sobre la obligatoriedad de PIA para un sistema de biometría facial a escala corporativa. El agente debe encuadrar el análisis en el Control A.1.2.6 y la Cláusula 6.1.2 de ISO/IEC 27701:2025, calificar el tratamiento como de activación autónoma obligatoria por involucrar categorías especiales de datos (biometría para identificación unívoca C3) y colectivos con asimetría (C5), y desglosar el triple juicio de proporcionalidad (idoneidad, necesidad y alternativas menos lesivas como almacenamiento local match-on-card o permanencia de tarjetas RFID).",
+      "expectations": [
+        "El agente activa la skill 'pia-reviewer' reconociendo la naturaleza del problema de impacto en la privacidad.",
+        "Cita el Control A.1.2.6 y la Cláusula 6.1.2 de ISO/IEC 27701:2025 (y opcionalmente RGPD Art. 35 e ISO/IEC 29134).",
+        "Declara que el tratamiento activa el criterio de riesgo autónomo C3 (datos biométricos para identificación unívoca) y C5 (subordinación laboral), resultando en PIA OBLIGATORIA.",
+        "Plantea el triple juicio de proporcionalidad: Juicio de Idoneidad, Juicio de Necesidad (existencia de medios alternativos menos invasivos) y Proporcionalidad estricta.",
+        "Señala la necesidad de evaluar alternativas técnicas menos lesivas como la autenticación descentralizada (match-on-card) o la provisión de alternativas no biométricas voluntarias.",
+        "No delega la consulta a skills operativas como consent-validator o processor-contract-validator."
+      ]
+    },
+    {
+      "id": "eval-pos-03-audit-cloud-migration-pia-report",
+      "type": "positive_trigger",
+      "prompt": "Como auditor interno de privacidad, necesito revisar el informe formal de Privacy Impact Assessment (PIA) de nuestro proyecto de migración de historias clínicas a una arquitectura multicloud en AWS y Azure. ¿Cómo debo estructurar la auditoría del informe según el control A.1.2.6 de ISO 27701:2025 y cómo verificamos el deber de asistencia del proveedor bajo A.2.2.2?",
+      "files": [],
+      "expected_output": "La skill 'pia-reviewer' se activa inmediatamente reconociendo la tarea de auditar un informe formal de PIA para un tratamiento de datos de salud a gran escala con proveedores de nube. El agente debe estructurar la revisión conforme a la metodología de ISO/IEC 29134 y el Control A.1.2.6, detallar la verificación de flujos transfronterizos (C10), y vincular formalmente la obligación del encargado de nube bajo el Control A.2.2.2 de facilitar especificaciones de arquitectura, reportes de seguridad y asistencia en la PIA.",
+      "expectations": [
+        "El agente activa la skill 'pia-reviewer' para liderar la auditoría metodológica del informe de PIA.",
+        "Cita con precisión los controles A.1.2.6 (Privacy impact assessment) y A.2.2.2 (Customer agreement - Asistencia del encargado en PIA) de ISO/IEC 27701:2025.",
+        "Describe las secciones esenciales del informe de PIA alineadas con ISO/IEC 29134 (contexto, DFD, juicio de proporcionalidad, matriz de riesgos a titulares, plan de mitigación, dictamen del DPO).",
+        "Verifica que el proveedor cloud asuma contractualmente la asistencia técnica y entrega de información de seguridad exigida por A.2.2.2.",
+        "Menciona la evaluación de riesgos por transferencias transfronterizas de datos de salud (Control A.1.5.2) y delimita que la auditoría del DPA completo se coordina con processor-contract-validator."
+      ]
+    },
+    {
+      "id": "eval-pos-04-sgip-privacy-risk-bipolar-assessment",
+      "type": "positive_trigger",
+      "prompt": "Estamos implementando el SGIP y necesitamos diseñar la matriz de apreciación del riesgo de privacidad para cumplir las Cláusulas 6.1.2 y 8.2 de ISO/IEC 27701:2025. ¿Cuál es la metodología para articular el enfoque bipolar y qué diferencia existe con una matriz de riesgos ISO 27001 convencional?",
+      "files": [],
+      "expected_output": "La skill 'pia-reviewer' se activa explicando la sistemática de apreciación de riesgos de privacidad bajo las Cláusulas 6.1.2 (Planificación) y 8.2 (Operación) de ISO/IEC 27701:2025. El agente debe detallar el enfoque bipolar mandatorio (Impacto en los Titulares / PII Principals vs Impacto en la Organización / PIMS), enfatizando que en privacidad el riesgo a la persona física es primario y no puede ser asumido unilateralmente por la organización para ahorrar costos.",
+      "expectations": [
+        "El agente activa la skill 'pia-reviewer'.",
+        "Cita explícitamente las Cláusulas 6.1.2 y 8.2 de ISO/IEC 27701:2025 e ISO/IEC 27557:2022.",
+        "Define con claridad el 'enfoque bipolar' distinguiendo el impacto en derechos y libertades de los titulares del impacto patrimonial o reputacional de la empresa.",
+        "Explica que una matriz tradicional ISO 27001 (CIA sobre activos empresariales) es insuficiente porque omite escenarios de daño a la persona (discriminación, usurpación, pérdida de control).",
+        "Establece la regla cardinal de gobierno: la organización no puede justificar la aceptación unilateral de un riesgo no mitigado para el titular basándose en su tolerancia corporativa."
+      ]
+    },
+    {
+      "id": "eval-neg-01-sql-schema-data-minimization",
+      "type": "negative_trigger",
+      "prompt": "Por favor revisa este script de migración SQL `V04__customer_telemetry.sql` para ver si hay campos o columnas innecesarias en la tabla de facturación que debamos eliminar o purgar para cumplir con el principio de minimización de datos.",
+      "files": [],
+      "expected_output": "La skill 'pia-reviewer' DEBE RECONOCER que la consulta solicita una inspección técnica a nivel de esquema de base de datos (DDL / columnas SQL) y operaciones de depuración o purga de datos técnicos. Conforme a las reglas de no solapamiento, esta actividad corresponde a 'data-minimization-checker' (controles A.1.4.2 y A.1.4.8 de ISO/IEC 27701:2025). La skill debe rechazar el análisis de código SQL y DERIVAR formalmente a 'data-minimization-checker'.",
+      "expectations": [
+        "El agente NO realiza la auditoría de sentencias SQL ni análisis a nivel de columna o tabla de base de datos.",
+        "Reconoce explícitamente que la solicitud es una verificación técnica de minimización de campos en esquemas de datos.",
+        "Deriva o transfiere formalmente la tarea a la skill especializada 'data-minimization-checker'.",
+        "Cita los controles específicos de minimización y retención de ISO/IEC 27701:2025 (A.1.4.2 Limitación de la recopilación / minimización y A.1.4.8 Conservación y eliminación segura).",
+        "Explica brevemente que pia-reviewer audita el macro-análisis de riesgos y viabilidad del proyecto, no scripts de bases de datos."
+      ]
+    },
+    {
+      "id": "eval-neg-02-dpa-cloud-vendor-clauses-audit",
+      "type": "negative_trigger",
+      "prompt": "Adjunto el contrato bilateral de Data Processing Agreement (DPA) de 18 páginas firmado con nuestro nuevo proveedor de analítica en la nube. Necesito una auditoría integral cláusula por cláusula para verificar si cumple todas las obligaciones de subencargados, confidencialidad, auditorías y responsabilidad de la Tabla A.2 de ISO 27701:2025 y el Artículo 28 del RGPD.",
+      "files": [],
+      "expected_output": "La skill 'pia-reviewer' DEBE IDENTIFICAR que la solicitud consiste en una auditoría contractual integral y exhaustiva de un contrato de encargo de tratamiento (DPA / Cláusulas bilaterales de la familia A.2 de ISO/IEC 27701:2025 o Art. 28 RGPD). Aunque pia-reviewer audita la presencia de la cláusula de asistencia en PIA (A.2.2.2) como insumo para el proyecto, la revisión del contrato integral corresponde a 'processor-contract-validator'. Por tanto, la skill debe derivar formalmente al usuario a 'processor-contract-validator'.",
+      "expectations": [
+        "El agente NO audita el contrato DPA de 18 páginas de forma integral.",
+        "Identifica que la revisión general de cláusulas contractuales de encargados de tratamiento corresponde a 'processor-contract-validator'.",
+        "Deriva formalmente la consulta a la skill 'processor-contract-validator'.",
+        "Cita los controles de la categoría A.2 (Condiciones para los encargados del tratamiento) y el Art. 28 del RGPD.",
+        "Aclara el límite de frontera: pia-reviewer únicamente valida el requerimiento de asistencia técnica en PIA (A.2.2.2) dentro del marco de una evaluación de impacto."
+      ]
+    },
+    {
+      "id": "eval-neg-03-security-incident-data-breach-response",
+      "type": "negative_trigger",
+      "prompt": "¡Alerta urgente! Acabamos de detectar que un bucket S3 de producción que contiene 80,000 registros de clientes con números de tarjetas y documentos de identidad quedó expuesto públicamente sin autenticación durante 48 horas. ¿Cómo debemos proceder para notificar a la autoridad de protección de datos dentro de las 72 horas y gestionar esta brecha bajo ISO 27701?",
+      "files": [],
+      "expected_output": "La skill 'pia-reviewer' DEBE RECONOCER INMEDIATAMENTE que se trata de una violación de seguridad de datos personales materializada (data breach en curso) que exige contención técnica, activación del comité de crisis, notificación formal obligatoria en plazos perentorios y registro del incidente. En consecuencia, debe abstenerse de iniciar un análisis de PIA y TRANSFERIR DE INMEDIATO el caso a la skill especializada 'incident-response-planner' (controles A.3.11, A.3.12 y A.2.2.3 de ISO/IEC 27701:2025).",
+      "expectations": [
+        "El agente NO intenta tratar la fuga de datos como una evaluación preventiva de impacto o screening de PIA.",
+        "Reconoce de forma urgente que se trata de un incidente de seguridad y violación de datos personales en curso.",
+        "Transfiere de inmediato la atención a la skill especializada 'incident-response-planner'.",
+        "Cita los controles normativos pertinentes de respuesta a incidentes de privacidad (A.3.11, A.3.12 o A.2.2.3 de ISO/IEC 27701:2025 y Art. 33/34 RGPD).",
+        "Mantiene estricta adherencia a la frontera de seguridad y respuesta a incidentes en tiempo real."
+      ]
+    },
+    {
+      "id": "eval-beh-01-threshold-dictum-high-risk-ai",
+      "type": "behavioral",
+      "prompt": "Evalúa la memoria técnica del proyecto adjunto en `skills/pia-reviewer/evals/fixtures/sample_high_risk_ai_screening.json` aplicando la metodología de tamizaje de umbral de ISO/IEC 27701:2025 (Control A.1.2.6) y el script determinista `pia_risk_scorer.py`. Determina el puntaje exacto de riesgo, enumera todos los factores de riesgo concurrentes y disparadores autónomos activados, emite el dictamen regulatorio vinculante y presenta el hallazgo inicial en la tabla estándar de auditoría.",
+      "files": [
+        "skills/pia-reviewer/evals/fixtures/sample_high_risk_ai_screening.json"
+      ],
+      "expected_output": "Dictamen formal de tamizaje de umbral (Threshold Screening Record) para el proyecto 'BioGate & TalentScan AI'. El agente debe ejecutar o invocar la lógica de 'pia_risk_scorer.py', arrojando un puntaje de riesgo de 100/100 (raw score 145), identificar 9 criterios de riesgo activos (C1, C2, C3, C4, C5, C6, C7, C8, C10) y 4 disparadores autónomos (C2, C3, C4, C8). Debe emitir el dictamen inapelable de 'OBLIGATORIA', señalando que el proyecto no puede continuar en producción o despliegue piloto sin completar la PIA formal y contar con el visto bueno del DPO. Debe abrir la tabla estándar de hallazgos de 6 columnas con el hallazgo H-01 calificado como severidad Crítica por operar un tratamiento biométrico/IA de alto riesgo sin PIA ni screening previo.",
+      "expectations": [
+        "El informe reporta con precisión el resultado cuantitativo del tamizaje: puntaje de riesgo de 100/100 (o puntuación cruda >= 140) y un mínimo de 8 criterios de riesgo identificados.",
+        "Identifica taxativamente al menos 3 disparadores autónomos mandatorios: C2 (decisiones automatizadas con efectos jurídicos / bloqueo de turno), C3 (datos biométricos faciales para identificación unívoca) y C8 (impedimento al ejercicio de derechos o acceso al trabajo).",
+        "Emite el dictamen regulatorio unívoco: 'OBLIGATORIA' bajo el Control A.1.2.6 y la Cláusula 6.1.2 de ISO/IEC 27701:2025.",
+        "Señala que el despliegue a producción o piloto actual debe ser condicionado o suspendido hasta la aprobación formal de la PIA.",
+        "Presenta una tabla de hallazgos estructurada de 6 columnas (ID, Control ISO 27701:2025, Severidad, Hallazgo y Evidencia, Impacto en Titular / SGIP, Recomendación Concreta).",
+        "Asigna severidad 'Crítica' al hallazgo principal (H-01) por desplegar un sistema biométrico con IA en producción sin PIA ni intervención del DPO.",
+        "Cita formalmente las referencias normativas: ISO/IEC 27701:2025 (A.1.2.6, 6.1.2, 8.2) e ISO/IEC 29134:2017."
+      ]
+    },
+    {
+      "id": "eval-beh-02-bipolar-risk-assessment-and-proportionality",
+      "type": "behavioral",
+      "prompt": "A partir de la memoria técnica de `skills/pia-reviewer/evals/fixtures/sample_high_risk_ai_screening.json`, realiza la evaluación sustantiva del proyecto que incluya: 1) El triple juicio de necesidad y proporcionalidad (idoneidad, necesidad y proporcionalidad estricta); 2) La apreciación de riesgos bajo el enfoque bipolar mandatorio de la Cláusula 6.1.2 de ISO/IEC 27701:2025, diferenciando claramente el impacto en los trabajadores (PII principals) del impacto en la empresa; y 3) La matriz de riesgo inherente evaluando al menos 3 escenarios de amenaza concretos con sus escalas de probabilidad e impacto (1 a 4).",
+      "files": [
+        "skills/pia-reviewer/evals/fixtures/sample_high_risk_ai_screening.json"
+      ],
+      "expected_output": "Evaluación sustantiva de necesidad, proporcionalidad y riesgos a los derechos del titular para BioGate & TalentScan AI. El dictamen debe concluir que el sistema NO supera el juicio de necesidad ni el de proporcionalidad estricta al existir medios menos invasivos (tarjetas RFID o autenticación local match-on-card) y al implementar un perfilado psicométrico carente de base científica sólida. Debe desarrollar la comparativa bipolar (Cláusula 6.1.2) evidenciando que el análisis de la empresa omitió los daños a los trabajadores, y construir la matriz de riesgos cuantificada identificando al menos 3 escenarios de riesgo grave con nivel inherente Alto o Crítico (riesgo >= 8 o >= 12).",
+      "expectations": [
+        "Desarrolla explícitamente el triple juicio de proporcionalidad: Juicio de Idoneidad, Juicio de Necesidad y Juicio de Proporcionalidad en sentido estricto.",
+        "Dictamina que el sistema incumple el Juicio de Necesidad y Proporcionalidad debido a la inexistencia de alternativas no biométricas y la desproporción del módulo psicométrico continuo TalentScan.",
+        "Aplica el enfoque bipolar de la Cláusula 6.1.2 de ISO/IEC 27701:2025, contrastando el análisis tradicional unipolar de la organización con la evaluación del daño tangible a los trabajadores (discriminación, afectación al empleo, pérdida de dignidad y autonomía).",
+        "Construye una matriz de riesgos cuantificada ($Riesgo = Probabilidad \\times Impacto$) con escalas del 1 al 4 conforme a la guía metodológica.",
+        "Identifica al menos 3 escenarios específicos de amenaza para los titulares: 1) Falsos positivos en análisis psicométrico que deniegan indebidamente el acceso laboral y dañan la reputación del trabajador (Impacto >= 3, Probabilidad >= 3, Riesgo Inherente Alto/Crítico); 2) Brecha o filtración de plantillas biométricas vectoriales centralizadas irreversibles (Impacto 4 Catastrófico, Riesgo Inherente Alto/Crítico); 3) Reentrenamiento indebido de modelos de IA con datos de trabajadores por el proveedor cloud (Impacto >= 3).",
+        "Reafirma el principio rector: los objetivos comerciales u operativos de la entidad nunca justifican la aceptación de un riesgo no mitigado para los derechos fundamentales de los titulares."
+      ]
+    },
+    {
+      "id": "eval-beh-03-mitigation-safeguards-and-governance",
+      "type": "behavioral",
+      "prompt": "A partir de las deficiencias detectadas en `skills/pia-reviewer/evals/fixtures/sample_high_risk_ai_screening.json`, elabora el Plan de Mitigación y Salvaguardas de Privacy by Design, que incluya: 1) Medidas técnicas y de arquitectura obligatorias para rediseñar el sistema; 2) Auditoría de la relación con el encargado cloud bajo el Control A.2.2.2; 3) La tabla formal consolidada de hallazgos con al menos 4 no conformidades clasificadas por severidad; y 4) El dictamen de gobernanza y criterio vinculante sobre Consulta Previa a la Autoridad de Protección de Datos.",
+      "files": [
+        "skills/pia-reviewer/evals/fixtures/sample_high_risk_ai_screening.json"
+      ],
+      "expected_output": "Plan Integral de Mitigación, Salvaguardas y Gobernanza para BioGate & TalentScan AI. El plan debe exigir: 1) Supresión total o desconexión del módulo psicométrico TalentScan por flagrante desproporcionalidad y alto riesgo inaceptable; 2) Rediseño del control de acceso facial a modelo local 'match-on-card' (plantilla en poder exclusivo del trabajador) o provisión obligatoria de método alternativo no biométrico voluntario (tarjeta de proximidad / PIN); 3) Encriptación de plantillas en tránsito (TLS 1.3) y reposo (AES-256); 4) Auditoría del encargado CognitiveVision Labs LLC bajo el Control A.2.2.2 exigiendo anexo contractual de asistencia técnica, prohibición absoluta de reentrenamiento de modelos y garantías para transferencias internacionales (A.1.5.2 / SCCs); 5) Tabla consolidada de hallazgos de 6 columnas con al menos 4 hallazgos (H-01 Crítica por falta de PIA y screening A.1.2.6, H-02 Mayor por matriz de riesgo unipolar Cl. 6.1.2, H-03 Mayor por falta de contrato A.2.2.2 y reentrenamiento no consentido, H-04 Mayor por falta de consulta previa al DPO B.3.4); 6) Dictamen de Consulta Previa declarando que si el módulo predictivo o el almacenamiento centralizado persisten con riesgo residual Alto, es preceptiva la Consulta Previa formal ante la Autoridad de Control antes de reiniciar operaciones.",
+      "expectations": [
+        "Propone el rediseño técnico del sistema mediante medidas de Privacy by Design: exige una alternativa no biométrica voluntaria (tarjeta RFID / credencial) y la desconexión o veto del módulo de analítica psicométrica TalentScan por no superar el test de idoneidad/necesidad.",
+        "Exige la descentralización del almacenamiento de vectores biométricos (tecnología match-on-card) o la adopción de hashing criptográfico con salteado único y cifrado robusto (AES-256 / TLS 1.3).",
+        "Audita al proveedor cloud bajo el Control A.2.2.2, requiriendo anexo de asistencia en PIA, prohibición explícita de uso de datos para entrenamiento algorítmico y formalización de salvaguardas transfronterizas (A.1.5.2 / TIA).",
+        "Presenta una tabla consolidada de hallazgos de 6 columnas que contiene al menos 4 hallazgos unívocos (H-01 a H-04) debidamente tipificados con severidad normativa (Crítica, Mayor, Menor u OFI).",
+        "Cita expresamente los controles correspondientes: A.1.2.6 (PIA), Cláusula 6.1.2 (Riesgo bipolar), A.2.2.2 (Asistencia del encargado), A.1.5.2 (Transferencias) y B.3.4 (Consulta al DPO).",
+        "Emite la directriz de gobernanza y consulta regulatoria: si el riesgo residual sobre los derechos de los empleados persiste como Alto o Crítico tras las mitigaciones viables, se prohíbe el despliegue y se activa obligatoriamente la Consulta Previa ante la Autoridad de Supervisión competente."
+      ]
+    },
+    {
+      "id": "eval-beh-04-low-risk-threshold-screening-documentation",
+      "type": "behavioral",
+      "prompt": "Evalúa el proyecto de actualización de directorio interno ubicado en `skills/pia-reviewer/evals/fixtures/sample_low_risk_internal_tool.json` conforme al procedimiento de tamizaje de ISO/IEC 27701:2025. Genera la Ficha Formal de Registro de Tamizaje de Umbral (Threshold Screening Record) requerida para la información documentada del SGIP bajo la Cláusula 8.2 y explica por qué no se requiere una PIA completa.",
+      "files": [
+        "skills/pia-reviewer/evals/fixtures/sample_low_risk_internal_tool.json"
+      ],
+      "expected_output": "Ficha Formal de Registro de Tamizaje de Umbral para el 'Directorio Telefónico y Extensiones Internas v2.1'. El agente debe confirmar mediante 'pia_risk_scorer.py' un puntaje de 0/100 y 0 criterios de riesgo activados, emitiendo el dictamen concluyente de 'NO_REQUERIDA'. Debe justificar objetivamente que el tratamiento no involucra perfiles, decisiones automatizadas, datos sensibles, monitoreo masivo ni transferencias internacionales. Debe estructurar la ficha de archivo auditable requerida por la Cláusula 8.2 del SGIP, incluyendo la firma del evaluador, visto bueno del DPO, fecha de vigencia y la obligación de reevaluación periódica o ante cambios sustanciales.",
+      "expectations": [
+        "Reporta el resultado cuantitativo del tamizaje: puntaje de riesgo de 0/100 y 0 criterios de riesgo activados.",
+        "Emite el dictamen concluyente de 'NO_REQUERIDA' bajo el Control A.1.2.6 y la Cláusula 8.2 de ISO/IEC 27701:2025.",
+        "Justifica objetivamente la ausencia de riesgos: no trata categorías especiales de datos, no realiza perfilado ni decisiones algorítmicas, se limita a datos corporativos de contacto profesional y es de despliegue on-premise sin transferencias transfronterizas.",
+        "Genera la Ficha Formal de Registro de Tamizaje de Umbral (*Screening Record*) con los campos indispensables para auditoría ISO 27701 (identificación del proyecto, fecha, evaluador, análisis de criterios C1-C10, dictamen y visto bueno del DPO).",
+        "Establece la recomendación operativa de archivar la evidencia documental en el SGIP conforme a la Cláusula 8.2 y programar su revisión periódica anual o ante modificaciones arquitectónicas."
+      ]
+    }
+  ]
+}

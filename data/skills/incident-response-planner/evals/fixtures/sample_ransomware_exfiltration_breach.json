@@ -1,0 +1,130 @@
+{
+  "incident_id": "INC-20261001-RANSOM-50K",
+  "title": "Memoria Técnica de Incidente Crítico de Ransomware con Doble Extorsión y Exfiltración de 50.000 Expedientes de Clientes",
+  "organization": {
+    "name": "Crédito y Finanzas Continental S.A.",
+    "role": "PII Controller",
+    "dpo_contact": "dpo@creditocontinental.example.com",
+    "ciso_contact": "ciso@creditocontinental.example.com"
+  },
+  "time_period": {
+    "occurred_at": "2026-09-29T21:40:00Z",
+    "detected_at": "2026-09-30T05:15:00Z",
+    "confirmed_at": "2026-09-30T09:00:00Z",
+    "contained_at": "2026-09-30T14:30:00Z",
+    "resolved_at": null,
+    "status": "ACTIVO - CONTENCIÓN PARCIAL / EVALUACIÓN DE NOTIFICACIÓN REGULATORIA"
+  },
+  "reporter": {
+    "name": "Alonso Domínguez",
+    "role": "Líder Técnico de Operaciones de Ciberseguridad (SOC Tier 3)",
+    "reporting_channel": "Alerta EDR CrowdStrike Falcon + Escalamiento Telefónico de Incidente Crítico"
+  },
+  "reported_to": {
+    "body": "Comité de Crisis de Seguridad y Privacidad (CSIRT / CIRT)",
+    "primary_lead": "Marina Sotomayor (CISO) y Lic. Javier Peñaloza (DPO)"
+  },
+  "description": "Incidente crítico de intrusión avanzada y despliegue de ransomware LockBit 3.0 sobre tres servidores centrales de base de datos SQL y almacenamiento SAN corporativo. Previo al despliegue del binario cifrador, los atacantes ejecutaron la herramienta Rclone hacia un bucket Mega/AWS no corporativo, confirmándose la exfiltración de 50.000 expedientes completos de clientes con datos identificativos y financieros. El grupo cibercriminal exige un rescate de 2.5 millones de USD en Monero (XMR) antes del 3 de octubre de 2026 bajo amenaza de publicar la base de datos íntegra en su sitio de filtraciones de la dark web. La dirección ejecutiva mantiene dudas críticas sobre si negociar y pagar el rescate creyendo que evitaría la divulgación pública, o si debe notificar formalmente a las autoridades de control y a los titulares afectados.",
+  "root_cause_and_vulnerabilities": "Compromiso inicial mediante ataque de pulverización de contraseñas (password spraying) sobre una cuenta de servicio VPN sin autenticación multifactor (MFA), seguido de escalada de privilegios a través de la vulnerabilidad CVE-2024-XXXX en el controlador de dominio y movimiento lateral por falta de microsegmentación interna.",
+  "impact_classification": {
+    "confidentiality": {
+      "impacted": true,
+      "detail": "Exfiltración confirmada de 14.2 GB de datos estructurados correspondientes a 50.000 expedientes de clientes de crédito."
+    },
+    "integrity": {
+      "impacted": false,
+      "detail": "No se detectó alteración ni modificación ilegítima de saldos ni registros contables antes de la ejecución del ransomware."
+    },
+    "availability": {
+      "impacted": true,
+      "detail": "Cifrado malicioso de 3 servidores de base de datos que mantiene suspendida la plataforma de banca en línea desde hace más de 28 horas."
+    }
+  },
+  "pii_compromised": {
+    "estimated_principals_affected": 50000,
+    "estimated_records_affected": 50000,
+    "categories": [
+      "Nombres y apellidos completos",
+      "Números de documento oficial de identidad (DNI / NIE / Pasaporte)",
+      "Direcciones postales y domiciliarias",
+      "Números de teléfono móvil y correos electrónicos personales",
+      "Códigos de cuenta bancaria internacional (IBAN)",
+      "Historiales crediticios y scoring de solvencia financiera patrimonial",
+      "Copias digitalizadas en PDF de documentos de identidad escaneados"
+    ],
+    "sensitive_data_involved": true,
+    "sensitive_data_description": "Datos de solvencia patrimonial, scoring crediticio, códigos IBAN y copias completas de documentos oficiales de identidad en texto claro sin cifrar."
+  },
+  "consequences": {
+    "impact_on_principals": "Riesgo extremo de suplantación de identidad grave (apertura fraudulenta de líneas de crédito), fraude bancario directo (cargos no autorizados mediante IBAN), campañas agresivas de spear-phishing bancario y potencial extorsión directa a clientes con su información financiera.",
+    "impact_on_organization": "Riesgo de sanciones administrativas graves de la Autoridad de Protección de Datos (hasta 20 millones de EUR o 4% de la facturación global bajo Art. 83 RGPD), demandas colectivas de indemnización por daños materiales y morales (Art. 82), daño reputacional catastrófico y potencial responsabilidad penal y administrativa por pago de rescate a entidades ilícitas sancionadas.",
+    "overall_risk_level": "Extremo"
+  },
+  "management_dilemma_notes": {
+    "ransom_payment_consideration": "La Dirección General propuso evaluar el pago del rescate de 2.5 millones de USD con la expectativa de obtener la clave de descifrado y un supuesto certificado de destrucción de los datos exfiltrados por parte de los ciberdelincuentes, especulando que dicho pago permitiría clasificar el incidente como 'resuelto internamente' sin necesidad de notificar a la Autoridad de Control ni a los 50.000 clientes afectados.",
+    "dpo_initial_dissent": "El DPO advierte formalmente que el pago de rescate carece de toda validez jurídica bajo ISO/IEC 27701:2025 y el RGPD: los ciberdelincuentes no ofrecen ninguna garantía de borrado (frecuentemente revenden o extorsionan nuevamente), pagar el rescate NO subsana la violación de confidencialidad ya consumada, no exime de la obligación de notificar a la Autoridad antes de 72 horas ni a los titulares por alto riesgo, y contraviene las recomendaciones expresas de ENISA, CCN-CERT y el EDPB."
+  },
+  "forensic_evidence_preservation": {
+    "chain_of_custody_logged": false,
+    "custodian_name": "Pendiente de formalización de perito forense externo",
+    "actions_taken": [
+      "Aislamiento de VLAN de servidores de base de datos a nivel de switch perimetral.",
+      "Preservación parcial de logs en servidor Syslog centralizado (con desfase temporal de 3 horas).",
+      "Alerta de auditoría forense: El equipo de infraestructura reinició precipitadamente el servidor BD-01 sin realizar volcado previo de memoria volátil (RAM), destruyendo los artefactos de inyección del ransomware en memoria."
+    ]
+  },
+  "backup_restoration_verification": {
+    "backup_integrity_verified": false,
+    "backup_technology": "Veeam Backup sobre repositorio NAS local conectado al dominio (cifrado parcialmente por el ransomware) y réplica secundaria en AWS S3 con Object Lock (inmutable).",
+    "data_recovered": "Se validó la existencia de snapshots inmutables en AWS S3 con fecha de corte 2026-09-29 20:00Z; la restauración a producción se encuentra detenida a la espera del saneamiento y erradicación del vector de intrusión.",
+    "rto_achieved_hours": null
+  },
+  "resolution_steps": [
+    {
+      "step": "Desconexión de enlaces VPN corporativos y aislamiento de subred de servidores de base de datos",
+      "responsible": "Alonso Domínguez (SOC Tier 3)",
+      "timestamp": "2026-09-30T06:45:00Z"
+    },
+    {
+      "step": "Confirmación técnica de exfiltración de 50.000 registros mediante análisis de tráfico saliente anómalo hacia IP 185.220.101.5",
+      "responsible": "Alonso Domínguez (SOC Tier 3)",
+      "timestamp": "2026-09-30T09:00:00Z"
+    },
+    {
+      "step": "Aislamiento físico y lógico de servidores BD-02 y BD-03 para evitar propagación del cifrado",
+      "responsible": "Marina Sotomayor (CISO)",
+      "timestamp": "2026-09-30T14:30:00Z"
+    },
+    {
+      "step": "Convocatoria extraordinaria del Comité de Crisis de Seguridad y Privacidad con Dirección General y Legal",
+      "responsible": "Lic. Javier Peñaloza (DPO)",
+      "timestamp": "2026-09-30T16:00:00Z"
+    }
+  ],
+  "notifications": {
+    "supervisory_authority": {
+      "required": true,
+      "authority_name": "Agencia Española de Protección de Datos (AEPD) / Autoridad de Supervisión Competente",
+      "notified_at": null,
+      "status": "PENDIENTE - NO NOTIFICADO (En deliberación interna de la Dirección)",
+      "official_ticket_reference": null,
+      "delay_justification": null,
+      "deadline_at": "2026-10-03T09:00:00Z"
+    },
+    "data_subjects": {
+      "required": true,
+      "reason": "Riesgo Alto / Extremo para derechos y libertades de 50.000 titulares debido a exfiltración masiva de datos identificativos, DNI, números de cuenta IBAN y solvencia patrimonial.",
+      "notified_at": null,
+      "status": "PENDIENTE - PARALIZADO POR LA DIRECCIÓN",
+      "communication_channel": "Recomendado: Comunicación directa personalizada por correo electrónico certificado / SMS fehaciente / Canal seguro de banca en línea"
+    },
+    "corporate_customers_processors": {
+      "required": false,
+      "detail": "No aplica; la entidad actúa como Responsable Directo del Tratamiento (PII Controller)."
+    }
+  },
+  "post_mortem_and_lessons_learned": {
+    "review_meeting_date": null,
+    "action_items": []
+  }
+}

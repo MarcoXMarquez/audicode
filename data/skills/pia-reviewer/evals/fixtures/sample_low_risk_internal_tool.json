@@ -1,0 +1,73 @@
+{
+  "project_id": "PRJ-2026-DIR-INT-02",
+  "project_name": "Directorio Telefónico y Extensiones Internas v2.1",
+  "organization": "Nexus Industrial Technologies S.A.",
+  "department": "Comunicaciones Internas y Servicios TI",
+  "system_version": "2.1.0",
+  "evaluation_date": "2026-10-01",
+  "lead_architect": "Ing. Laura Valenzuela (Intranet Admin)",
+  "dpo_involvement": true,
+  "prior_pia_conducted": false,
+
+  "c1_profiling": false,
+  "c2_automated_decisions": false,
+  "c3_sensitive_data": false,
+  "c4_public_surveillance": false,
+  "c5_vulnerable_subjects": false,
+  "c6_emerging_tech_ai": false,
+  "c7_data_matching": false,
+  "c8_prevent_rights_service": false,
+  "c9_large_scale": false,
+  "c10_cross_border_transfers": false,
+
+  "system_description": {
+    "summary": "Actualización de la interfaz y motor de búsqueda del directorio telefónico interno accesible a través de la intranet corporativa para facilitar la comunicación entre áreas operativas y administrativas de la empresa.",
+    "objectives": [
+      "Permitir la búsqueda rápida de extensiones telefónicas de voz sobre IP (VoIP) internas entre colaboradores.",
+      "Visualizar la ubicación física de oficina (edificio, piso y número de escritorio) para reuniones presenciales.",
+      "Optimizar la sincronización unidireccional con el servicio de directorio LDAP/Active Directory corporativo local."
+    ],
+    "modules": [
+      {
+        "module_name": "Buscador de Contactos Internos",
+        "technology": "Aplicación web ligera en React alojada en servidor web Nginx interno on-premise.",
+        "functionality": "Campo de búsqueda por nombre, apellido, departamento o número de anexo. Muestra tarjetas de contacto sin analítica ni seguimiento de uso.",
+        "alternatives_offered": "No aplica. Es una herramienta colaborativa interna de libre consulta por el personal."
+      }
+    ]
+  },
+
+  "data_inventory": {
+    "pii_categories": [
+      {
+        "category": "Datos de Contacto Profesional Corporativo",
+        "fields": ["Nombre y apellidos", "Correo electrónico institucional (@nexus.com)", "Extensión telefónica fija VoIP", "Puesto o cargo", "Departamento o gerencia", "Sede y número de oficina"],
+        "nature": "Datos Personales Básicos Profesionales de Contacto"
+      }
+    ],
+    "volume_of_principals": 850,
+    "retention_period": "Vinculado al ciclo de vida laboral; purga automática del directorio en tiempo real al registrarse la baja en Active Directory."
+  },
+
+  "technical_architecture_and_data_flows": {
+    "capture_point": "Sincronización LDAP read-only diaria desde el controlador de dominio local.",
+    "edge_processing": "Sin procesamiento perimetral ni cámaras.",
+    "central_repository": "Base de datos PostgreSQL local instalada en la sala de servidores interna de la sede central.",
+    "cloud_processor": {
+      "vendor_name": "Ninguno (Despliegue 100% On-Premise)",
+      "location": "Sede Central, Centro de Datos Local",
+      "service": "Alojamiento en infraestructura propia",
+      "contract_dpa_status": "No aplica (no interviene encargado externo)"
+    },
+    "data_matching": "Ninguno. No se realiza cruce con bases de datos externas ni registros de productividad o evaluación de desempeño."
+  },
+
+  "governance_and_compliance_gaps": {
+    "threshold_assessment": "Cuestionario de screening formal completado; arrojó 0 criterios de riesgo activados.",
+    "pia_eipd_status": "PIA no requerida según el tamizaje de umbral bajo Control A.1.2.6 y Cláusula 8.2.",
+    "dpo_consultation": "El DPO revisó el cuestionario de tamizaje y emitió visto bueno de no obligatoriedad de PIA.",
+    "proportionality_and_necessity": "Tratamiento proporcional y estrictamente necesario para la operatividad interna; respeta el principio de minimización al omitir datos privados de los empleados (teléfonos personales o direcciones particulares).",
+    "risk_assessment_approach": "Apreciación del riesgo de privacidad documentada en el inventario del SGIP clasificando el tratamiento como de Riesgo Bajo.",
+    "residual_risk": "Bajo / Insignificante."
+  }
+}

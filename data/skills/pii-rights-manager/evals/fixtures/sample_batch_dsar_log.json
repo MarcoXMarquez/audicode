@@ -1,0 +1,42 @@
+[
+  {
+    "request_id": "DSAR-2026-0894",
+    "received_date": "2026-09-15",
+    "jurisdiction": "GDPR",
+    "right_type": "erasure",
+    "applicant": "Carlos Mendoza",
+    "extended": false
+  },
+  {
+    "request_id": "DSAR-2026-0612",
+    "received_date": "2026-08-10",
+    "jurisdiction": "GDPR",
+    "right_type": "access",
+    "applicant": "Elena Rostova",
+    "extended": false
+  },
+  {
+    "request_id": "DSAR-2026-0901",
+    "received_date": "2026-09-08",
+    "jurisdiction": "MX_LFPDPPP",
+    "right_type": "erasure",
+    "applicant": "Mariana Treviño",
+    "extended": false
+  },
+  {
+    "request_id": "DSAR-2026-0920",
+    "received_date": "2026-09-22",
+    "jurisdiction": "CO_LEY1581",
+    "right_type": "access",
+    "applicant": "Andrés Camargo",
+    "extended": false
+  },
+  {
+    "request_id": "DSAR-2026-0850",
+    "received_date": "2026-08-25",
+    "jurisdiction": "CCPA",
+    "right_type": "erasure",
+    "applicant": "David Miller",
+    "extended": false
+  }
+]

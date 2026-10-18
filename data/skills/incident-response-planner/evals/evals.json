@@ -1,0 +1,168 @@
+{
+  "skill_name": "incident-response-planner",
+  "version": "1.0.0",
+  "standard": "ISO/IEC 27701:2025",
+  "evals": [
+    {
+      "id": "eval-pos-01-ransomware-exfiltration-response-plan",
+      "type": "positive_trigger",
+      "prompt": "Hola, hemos detectado una intrusión en nuestros servidores centrales y los atacantes afirman haber exfiltrado una base de datos de clientes antes de cifrar los volúmenes con ransomware. ¿Cómo debemos articular el plan de respuesta inmediata bajo ISO 27701 y qué pasos debemos dar en las primeras horas para contener la fuga y gestionar la crisis?",
+      "files": [],
+      "expected_output": "La skill 'incident-response-planner' debe activarse de forma inequívoca al identificar la solicitud como una respuesta ante un incidente crítico de seguridad con afectación comprobada de PII (brecha de confidencialidad y disponibilidad por ransomware y exfiltración) bajo los controles A.3.11, A.3.12, A.3.14 y A.3.25 de ISO/IEC 27701:2025. Debe confirmar su competencia, desglosar el flujo de contingencia inmediata en 5 fases (contención técnica sin apagar servidores para preservar RAM, triaje y valoración de riesgo a titulares, preservación de cadena de custodia A.3.14, preparación de la notificación regulatoria en 72 horas A.3.11, y registro formal de brecha B.3.12).",
+      "expectations": [
+        "El agente activa la skill 'incident-response-planner' positivamente sin rechazar la solicitud.",
+        "Identifica el evento como una brecha de datos personales (PII Breach) que compromete Confidencialidad y Disponibilidad.",
+        "Cita expresamente los controles A.3.11 (Planificación y notificación) y A.3.12 (Respuesta y registro) de ISO/IEC 27701:2025.",
+        "Menciona las acciones de preservación forense de evidencia bajo el control A.3.14 (volcado de RAM, logs inmutables, cadena de custodia) y verificación de respaldos bajo A.3.25.",
+        "Alerta de manera perentoria sobre la ventana legal de 72 horas para notificar a la Autoridad de Protección de Datos.",
+        "No deriva erróneamente la consulta a skills ajenas como privacy-policy-reviewer ni processor-contract-validator."
+      ]
+    },
+    {
+      "id": "eval-pos-02-dpa-72h-regulatory-notification-draft",
+      "type": "positive_trigger",
+      "prompt": "Necesitamos redactar con urgencia la notificación formal de brecha de seguridad para enviarla a la Agencia Española de Protección de Datos (AEPD). ¿Qué secciones obligatorias debe contener el formulario según el control A.3.11 y la guía B.3.11 de ISO 27701:2025, y cómo gestionamos el reporte si aún no tenemos todos los detalles técnicos antes de que venza el plazo de 72 horas?",
+      "files": [],
+      "expected_output": "La skill 'incident-response-planner' se activa directamente reconociendo la formulación del protocolo de notificación a la Autoridad de Supervisión bajo los controles A.3.11 y B.3.11 de ISO/IEC 27701:2025 y el Art. 33 del RGPD. Debe detallar la estructura del formulario oficial (8 secciones: datos generales y DPO, cronología y 72h, naturaleza CIA y vector, categorías y volumen de PII, evaluación de consecuencias, medidas de contención/remediación, comunicación a afectados y firma), y explicar taxativamente que ante investigaciones inconclusas debe remitirse una 'Notificación Inicial por Fases' (Fase 1) dentro de las 72 horas, sin demorar el reporte a la espera del informe forense final.",
+      "expectations": [
+        "El agente activa la skill 'incident-response-planner' sin dilación.",
+        "Cita con rigor los controles A.3.11 y la guía B.3.11 de ISO/IEC 27701:2025 y el Art. 33 del RGPD.",
+        "Enumera las secciones esenciales del formulario de notificación a la autoridad (identificación y DPO, cronología, naturaleza de la brecha, categorías y volumen de PII, consecuencias y medidas de contención).",
+        "Establece taxativamente que la falta de conclusiones periciales definitivas NO justifica demorar la notificación más allá de 72 horas, prescribiendo una notificación inicial preliminar por fases.",
+        "Advierte que el cómputo de las 72 horas inicia desde que se tiene constancia formal (awareness) de la brecha.",
+        "Ofrece estructurar el documento mediante la plantilla oficial estandarizada de notificación."
+      ]
+    },
+    {
+      "id": "eval-pos-03-formal-breach-register-b312-audit",
+      "type": "positive_trigger",
+      "prompt": "Audita nuestra plantilla para el libro de registro de brechas de datos personales. Queremos asegurarnos de que el expediente contemple todos los campos obligatorios exigidos por la norma ISO 27701 (control A.3.12 y Guía B.3.12) y entender qué evidencias forenses debemos archivar bajo el control A.3.14.",
+      "files": [],
+      "expected_output": "La skill 'incident-response-planner' se activa y presenta la lista exhaustiva de los 10 campos mandatorios de evidencia probatoria requeridos por ISO/IEC 27701:2025 Guía B.3.12 (identificador único, descripción de hechos y causa raíz, cronología con marcas temporales UTC, informante y receptores, clasificación CIA, categorías y volumen de PII, consecuencias observadas y potenciales, pasos de resolución con responsable, notificaciones a autoridad/titulares/clientes, y lecciones aprendidas). Detalla los requisitos de preservación probatoria de A.3.14 (cadena de custodia, hashes criptográficos SHA-256) y refiere el script automatizado incident_record_generator.py.",
+      "expectations": [
+        "El agente activa 'incident-response-planner' de forma inmediata.",
+        "Cita expresamente los controles A.3.12, Guía B.3.12 y Control A.3.14 de ISO/IEC 27701:2025.",
+        "Detalla al menos 7 de los 10 campos mandatorios de B.3.12 (cronología, informante, afectación CIA, categorías de PII, consecuencias, medidas de mitigación con responsable, registro de notificaciones).",
+        "Menciona los requisitos de cadena de custodia, inmutabilidad de logs y hashes SHA-256 bajo el control A.3.14.",
+        "Indica que el registro formal debe conservarse como información documentada protegida disponible para auditorías y requerimientos de la autoridad.",
+        "Menciona o recomienda la herramienta determinista 'incident_record_generator.py' para garantizar consistencia técnica."
+      ]
+    },
+    {
+      "id": "eval-pos-04-data-subject-high-risk-communication",
+      "type": "positive_trigger",
+      "prompt": "Se confirmó una brecha que expuso números de cuenta bancaria y contraseñas de usuarios. Nuestro comité evaluó que existe un riesgo alto para los titulares. ¿Qué contenido debe incluir la comunicación directa a los afectados según ISO 27701:2025 y qué recomendaciones de seguridad debemos darles?",
+      "files": [],
+      "expected_output": "La skill 'incident-response-planner' se activa y formula las directrices de comunicación directa a titulares bajo A.3.11, B.3.11 y el Art. 34 del RGPD. Explica que ante riesgo alto o extremo la comunicación debe realizarse sin dilación indebida, en lenguaje claro y transparente, desglosando los 5 bloques obligatorios: 1) Naturaleza de los hechos; 2) Datos personales involucrados (y confirmación de los no afectados); 3) Medidas técnicas ya adoptadas por la entidad; 4) Medidas recomendadas al titular (cambio inmediato de contraseñas, activación de 2FA, alerta sobre spear-phishing y contacto con su banco); 5) Canales de contacto del DPO y línea de asistencia exclusiva.",
+      "expectations": [
+        "El agente activa la skill 'incident-response-planner'.",
+        "Cita los controles A.3.11 y Guía B.3.11 de ISO/IEC 27701:2025 y el Art. 34 del RGPD.",
+        "Establece que la notificación a los titulares debe realizarse sin dilación indebida cuando se constate riesgo alto para sus derechos y libertades.",
+        "Exige el uso de un lenguaje claro, sencillo y libre de jerga técnica oscura.",
+        "Detalla las medidas de mitigación personal obligatorias para datos financieros/credenciales (cambio de credenciales, MFA, vigilancia de extractos bancarios, alerta de fraude).",
+        "Proporciona la estructura o plantilla de comunicación con datos de contacto del DPO."
+      ]
+    },
+    {
+      "id": "eval-neg-01-privacy-policy-review-delegation",
+      "type": "negative_trigger",
+      "prompt": "Por favor revisa el aviso de privacidad de nuestra página web para verificar si la cláusula informativa sobre derechos ARCO y el contacto del DPO cumplen con los elementos obligatorios de ISO 27701:2025 antes de publicarlo.",
+      "files": [],
+      "expected_output": "La skill 'incident-response-planner' DEBE IDENTIFICAR que la consulta se refiere a la auditoría preventiva de un aviso de privacidad web y a la suficiencia informativa hacia titulares bajo la Cláusula 5.2 y los controles A.1.3.3 y A.1.3.4 de ISO/IEC 27701:2025. Al tratarse de una revisión documental en frío sin la existencia de un incidente de seguridad ni brecha activa de PII, declina la tarea y DERIVA formalmente la consulta a la skill especializada 'privacy-policy-reviewer'.",
+      "expectations": [
+        "El agente NO ejecuta la auditoría del aviso de privacidad web ni procesa la solicitud como un incidente.",
+        "Reconoce con precisión que se trata de la revisión preventiva de un aviso de privacidad informativo para titulares.",
+        "Deriva o transfiere explícitamente la consulta a la skill 'privacy-policy-reviewer'.",
+        "Cita los controles pertinentes de transparencia y políticas (A.1.3.3, A.1.3.4 o Cláusula 5.2) en lugar de los controles de incidentes (A.3.11/A.3.12).",
+        "Explica sucintamente que 'incident-response-planner' se circunscribe a planes de contingencia, gestión de brechas de seguridad activas y registros de incidentes."
+      ]
+    },
+    {
+      "id": "eval-neg-02-processor-contract-dpa-audit-delegation",
+      "type": "negative_trigger",
+      "prompt": "Queremos que audites el Data Processing Agreement (DPA) que vamos a firmar con un nuevo proveedor de servicios cloud para ver si cumple las cláusulas contractuales obligatorias de la Tabla A.2 y las instrucciones de tratamiento.",
+      "files": [],
+      "expected_output": "La skill 'incident-response-planner' DEBE RECONOCER que el documento sometido es un contrato marco B2B de encargo de tratamiento (DPA) regulado por el control A.1.2.7 y la Tabla A.2 de ISO/IEC 27701:2025 (y Art. 28 RGPD). Aunque los DPAs regulan la notificación contractual de brechas en frío, la auditoría contractual general corresponde en exclusiva a la skill 'processor-contract-validator'. Por tanto, declina la revisión contractual y deriva formalmente a dicha skill.",
+      "expectations": [
+        "El agente NO audita las cláusulas del contrato DPA en frío.",
+        "Identifica con exactitud que se trata de un contrato entre responsable y encargado del tratamiento (Data Processing Agreement).",
+        "Deriva o transfiere formalmente la tarea a la skill especializada 'processor-contract-validator'.",
+        "Cita los controles de gobernanza de encargados de ISO/IEC 27701:2025 (A.1.2.7 y Tabla A.2) en vez de A.3.11/A.3.12.",
+        "Mantiene el estricto respeto a los límites de demarcación del ecosistema arquitectónico."
+      ]
+    },
+    {
+      "id": "eval-neg-03-post-breach-dsar-erasure-delegation",
+      "type": "negative_trigger",
+      "prompt": "A raíz de una filtración reciente, varios clientes afectados nos están enviando solicitudes formales exigiendo el borrado total de sus datos personales de nuestras bases de datos y la entrega de una copia en formato legible. ¿Cómo debemos tramitar operativamente estas solicitudes de supresión y portabilidad?",
+      "files": [],
+      "expected_output": "La skill 'incident-response-planner' DEBE DETECTAR que, si bien las solicitudes surgen a consecuencia de una brecha, la tramitación procedimental de solicitudes individuales de derechos ARCO / DSAR (derecho de supresión A.1.3.7, portabilidad A.1.3.9, verificación de identidad y registro de peticiones A.1.3.10) NO forma parte del plan de contención de incidentes, sino de la gestión de derechos del titular. En consecuencia, declina la gestión operativa de los tickets y DERIVA la solicitud a la skill 'pii-rights-manager'.",
+      "expectations": [
+        "El agente NO tramita operativamente las solicitudes individuales de supresión ni portabilidad.",
+        "Distingue claramente entre las medidas de contención/notificación del incidente y la tramitación formal de derechos individuales de los titulares.",
+        "Deriva formalmente la tramitación procedimental de los derechos a la skill 'pii-rights-manager'.",
+        "Cita los controles normativos pertinentes sobre derechos de titulares (A.1.3.7 Supresión, A.1.3.9 Portabilidad, A.1.3.10 Gestión de solicitudes).",
+        "Señala que 'incident-response-planner' se enfoca en la erradicación del incidente, notificación regulatoria y registro formal B.3.12."
+      ]
+    },
+    {
+      "id": "eval-beh-01-ransomware-breach-response-and-timeline",
+      "type": "behavioral",
+      "prompt": "Evalúa la memoria técnica del incidente crítico de ransomware y exfiltración de 50.000 expedientes de clientes contenida en `skills/incident-response-planner/evals/fixtures/sample_ransomware_exfiltration_breach.json`.\nFormula el Plan Integral de Respuesta y Gestión de Crisis bajo ISO/IEC 27701:2025 (A.3.11, A.3.12, A.3.14, A.3.25) que resuelva taxativamente:\n1) El dilema de la Dirección sobre pagar el rescate de 2.5M USD frente a las obligaciones regulatorias y de seguridad.\n2) El cómputo matemático exacto de la ventana perentoria de 72 horas desde la confirmación de la brecha hasta el vencimiento del plazo de notificación a la Autoridad de Control, indicando fecha y hora límite en UTC.\n3) La calificación del nivel de riesgo sobre los derechos y libertades de los 50.000 clientes y la determinación fundada de obligatoriedad de notificación individualizada.\n4) Las deficiencias forenses detectadas en la contención inicial bajo A.3.14 y el protocolo de restauración segura desde backups bajo A.3.25.\n5) La tabla de hallazgos estandarizada de 6 columnas con la clasificación formal de severidad de cada incumplimiento.",
+      "files": [
+        "skills/incident-response-planner/evals/fixtures/sample_ransomware_exfiltration_breach.json"
+      ],
+      "expected_output": "Dictamen pericial y Plan Integral de Respuesta para Crédito y Finanzas Continental S.A. ante el incidente INC-20261001-RANSOM-50K. El dictamen debe: 1) Rechazar de forma categórica el pago del rescate, fundamentando que pagar no confiere garantía técnica ni legal de destrucción de la PII exfiltrada por ciberdelincuentes, no convalida la violación de confidencialidad consumada, no exime de las obligaciones de notificación legal bajo el RGPD/ISO 27701 y expone a responsabilidades por financiación ilícita; 2) Computar con precisión matemática la ventana de 72 horas: confirmada el 2026-09-30 a las 09:00:00Z, el plazo fatal expira indefectiblemente el 2026-10-03 a las 09:00:00Z, exigiendo la presentación inmediata de una Notificación Inicial por Fases (Fase 1); 3) Calificar el riesgo como 'Extremo / Crítico' debido a la combinación de datos identificativos, DNI, IBAN bancario y scoring de solvencia patrimonial, dictaminando la obligatoriedad perentoria de notificar individualmente a los 50.000 clientes sin dilación indebida; 4) Censurar como deficiencia crítica bajo A.3.14 el reinicio de BD-01 sin volcado de RAM y la ausencia de cadena de custodia formal con hashes SHA-256, y ordenar bajo A.3.25 el saneamiento de vulnerabilidades y verificación de réplicas inmutables en AWS S3 antes de cualquier restauración; 5) Emitir la tabla de hallazgos de 6 columnas con al menos 4 hallazgos clasificados con severidad Crítica y Mayor.",
+      "expectations": [
+        "Rechaza categóricamente la pretensión de la Dirección General de pagar el rescate, argumentando que los ciberdelincuentes carecen de fe pública, que el pago no revierte la divulgación de PII ni exime de las obligaciones legales de notificación ante la Autoridad y los titulares.",
+        "Calcula con exactitud el plazo límite de 72 horas para la notificación regulatoria: marca de confirmación formal '2026-09-30T09:00:00Z' con vencimiento exacto el '2026-10-03T09:00:00Z'.",
+        "Ordena la remisión perentoria de una Notificación Inicial por Fases (Fase 1) ante la Agencia de Protección de Datos (AEPD) sin esperar a la finalización de los peritajes forenses.",
+        "Califica el impacto y severidad del riesgo para los derechos y libertades de los clientes como 'Extremo' o 'Crítico' (SEV >= 4.0).",
+        "Dictamina la obligatoriedad ineludible de notificar individualmente a los 50.000 clientes afectados conforme al Art. 34 del RGPD y Control ISO 27701 A.3.11 / Guía B.3.11, prescribiendo medidas inmediatas de autoprotección frente a fraude bancario e identidad.",
+        "Identifica como no conformidad 'Crítica' bajo el Control A.3.14 el reinicio precipitado del servidor BD-01 sin captura de memoria RAM volátil y la falta de registro de cadena de custodia.",
+        "Exige bajo el Control A.3.25 la verificación de integridad de los respaldos inmutables en AWS S3 y el saneamiento previo de las vulnerabilidades (MFA y parches) antes de restaurar los sistemas a producción.",
+        "Presenta una tabla de hallazgos que sigue estrictamente las 6 columnas estándar: ID, Control ISO/IEC 27701:2025, Elemento Evaluado, Severidad, Hallazgo / Evidencia Faltante, y Recomendación de Subsanación.",
+        "Asigna severidad 'Crítica' a la falta de notificación regulatoria dentro de la ventana de 72 horas y a la destrucción de evidencia en memoria RAM.",
+        "Cita con rigor técnico los controles A.3.11, A.3.12, A.3.14, A.3.25, B.3.11 y B.3.12 de ISO/IEC 27701:2025."
+      ]
+    },
+    {
+      "id": "eval-beh-02-encrypted-laptop-risk-assessment-exemption",
+      "type": "behavioral",
+      "prompt": "Analiza el informe de incidente por extravío del ordenador portátil corporativo en `skills/incident-response-planner/evals/fixtures/sample_lost_encrypted_laptop_incident.json` bajo ISO/IEC 27701:2025 (A.3.11, A.3.12 y Guías B.3.11, B.3.12) y el RGPD (Arts. 33 y 34).\nDetermina de forma técnica y jurídicamente motivada:\n1) La calificación del nivel de riesgo sobre los derechos y libertades de los 1.200 empleados cuyos datos estaban en el equipo.\n2) Si resulta obligatoria o no la comunicación a los empleados titulares, citando las excepciones normativas aplicables y las evidencias técnicas que la sustentan.\n3) Si procede la notificación formal a la Autoridad de Protección de Datos o si aplica exención fundada por falta de riesgo previsible.\n4) Si la exención de notificaciones externas exime a la organización de documentar el suceso en el Libro de Registro de Incidentes (A.3.12 / B.3.12).\n5) Las medidas técnicas de contención y preservación de evidencia probatoria que deben quedar integradas en el expediente del SGIP.",
+      "files": [
+        "skills/incident-response-planner/evals/fixtures/sample_lost_encrypted_laptop_incident.json"
+      ],
+      "expected_output": "Dictamen de apreciación de riesgo y conformidad para Consultoría Estratégica Ibérica S.A. ante el incidente INC-20261001-LAPTOP-02. El dictamen debe: 1) Evaluar los controles criptográficos implementados (BitLocker Full Disk Encryption AES-256, chip TPM 2.0, PIN de pre-arranque y custodia de claves en Microsoft Entra ID Cloud HSM sin compromiso) y calificar el riesgo residual para los 1.200 empleados como 'Bajo / Nulo'; 2) Fundamentar formalmente la exención de notificación a los titulares al amparo del Art. 34.3(a) del RGPD y Guía ISO 27701 B.3.11, demostrando que los datos personales eran y permanecen totalmente ininteligibles para terceros; 3) Determinar que no es preceptiva la notificación a la Autoridad de Control bajo el Art. 33.1 del RGPD por ser improbable que la brecha entrañe riesgo para los derechos y libertades, debiendo no obstante quedar archivado el informe técnico de justificación; 4) Subrayar con severidad que la exención de notificaciones externas NO exonera de la obligación legal de asentar el incidente en el Libro de Registro de Incidentes de Privacidad bajo el Control A.3.12 y Guía B.3.12; 5) Validar las medidas de contención ejecutadas (bloqueo y borrado remoto Intune MDM, revocación de tokens y certificados en Entra ID, denuncia policial POL-2026-MAD-44109 y preservación de logs bajo A.3.14).",
+      "expectations": [
+        "Evalúa exhaustivamente las salvaguardas técnicas implementadas: cifrado BitLocker FDE con algoritmo robusto AES-256, módulo TPM 2.0 y custodia exclusiva de la clave de 48 dígitos en el HSM de Entra ID.",
+        "Califica formalmente el nivel de riesgo para los derechos y libertades de los 1.200 empleados como 'Bajo' o 'Nulo' (SEV < 2.0).",
+        "Determina que NO es obligatoria la notificación directa a los empleados afectados, invocando expresamente la exención del Artículo 34.3(a) del RGPD y los controles A.3.11 / Guía B.3.11 de ISO/IEC 27701:2025 (adopción previa de medidas técnicas que hacen ininteligible la PII).",
+        "Determina que la notificación a la Autoridad de Protección de Datos NO es preceptiva con base en el Artículo 33.1 del RGPD por ser improbable que la brecha entrañe riesgo para los derechos y libertades.",
+        "Afirma taxativamente que la exención de notificaciones externas NO exime a la organización de la obligación de registrar documentalmente el incidente en el Registro Interno de Brechas bajo el Control A.3.12 y la Guía B.3.12.",
+        "Verifica y acredita las medidas técnicas de contención adoptadas: revocación de tokens/sesiones activas en Entra ID, orden de borrado remoto (Wipe) vía Intune MDM y denuncia policial de extravío.",
+        "Confirma que se preservaron los registros de auditoría y evidencias de no lectura de la clave bajo el Control A.3.14 con sellado criptográfico.",
+        "Emite la tabla de hallazgos estándar de 6 columnas reconociendo la conformidad del tratamiento técnico y señalando oportunidades de mejora preventiva."
+      ]
+    },
+    {
+      "id": "eval-beh-03-mandatory-forensic-breach-register-generation",
+      "type": "behavioral",
+      "prompt": "A partir de los datos del incidente de ransomware exfiltrado en `skills/incident-response-planner/evals/fixtures/sample_ransomware_exfiltration_breach.json`, realiza la auditoría de completitud del expediente formal según ISO/IEC 27701:2025 Control A.3.12 y Guía B.3.12.\nEjecuta o apóyate en el script determinista `scripts/incident_record_generator.py` para verificar el expediente formal inmutable en Markdown y JSON, y produce:\n1) La verificación exhaustiva de los 10 campos mandatorios de evidencia probatoria de B.3.12.\n2) La auditoría del estado de cumplimiento de los controles de seguridad A.3.14 (Cadena de custodia forense) y A.3.25 (Verificación de integridad de respaldos).\n3) El cálculo de la ventana regulatoria de 72 horas y el dictamen de estado (PENDIENTE / CONFORME / NO CONFORME).\n4) El informe formal de auditoría con la tabla de hallazgos estandarizada de 6 columnas y las acciones correctivas post-mortem requeridas para la revisión del SGIP (Cláusulas 6.1.2 y 8.2).",
+      "files": [
+        "skills/incident-response-planner/evals/fixtures/sample_ransomware_exfiltration_breach.json"
+      ],
+      "expected_output": "Auditoría formal y generación de expediente conforme a ISO/IEC 27701:2025 A.3.12, B.3.12, A.3.14 y A.3.25 para el incidente INC-20261001-RANSOM-50K. El informe debe: 1) Verificar la presencia y completitud de los 10 campos mandatorios de B.3.12 (identificador, título/descripción, cronología con marcas temporales, informante, receptores/CSIRT, afectación CIA, inventario de PII, consecuencias y severidad, pasos de resolución y notificaciones); 2) Integrar el análisis cuantitativo arrojado por el script determinista incident_record_generator.py, reportando que la notificación regulatoria se encuentra en estado 'PENDING' con el cómputo de horas transcurridas y restantes antes de las 72 horas; 3) Dictaminar como NO CONFORME la cadena de custodia bajo A.3.14 debido a la destrucción de evidencia en memoria volátil de BD-01 y la ausencia de perito formal; 4) Dictaminar como NO CONFORME la verificación de backups bajo A.3.25 debido al cifrado parcial del NAS local y a que la restauración desde AWS S3 está detenida sin prueba de saneamiento; 5) Presentar la tabla de hallazgos estandarizada de 6 columnas clasificando los incumplimientos de notificación, forense y respaldos con severidad Crítica y Mayor; 6) Elaborar el plan de acción post-mortem con fechas límite y responsables para la actualización de la gestión de riesgos del SGIP (Cláusulas 6.1.2 y 8.2).",
+      "expectations": [
+        "Verifica de forma sistemática los 10 campos mandatorios de evidencia probatoria estipulados por la Guía B.3.12 de ISO/IEC 27701:2025.",
+        "Ejecuta, simula o referencia el análisis determinista del script 'scripts/incident_record_generator.py', validando la estructura del JSON y generando el informe estructurado en Markdown.",
+        "Reporta el estado cuantitativo de la ventana legal de 72 horas (horas transcurridas y horas restantes hasta el límite del 2026-10-03T09:00:00Z) con estado 'PENDING' y alerta de urgencia.",
+        "Audita el Control A.3.14 determinando el incumplimiento de la cadena de custodia ('NO CONFORME' / forensic_custody_compliant: False) por omisión de volcado de RAM y pérdida de artefactos volátiles.",
+        "Audita el Control A.3.25 determinando la falta de verificación formal de integridad de respaldo ('NO CONFORME' / backup_verification_logged: False) para restauración segura.",
+        "Estructura la tabla de hallazgos en las 6 columnas estándar unificadas: ID, Control ISO/IEC 27701:2025, Elemento Evaluado, Severidad, Hallazgo / Evidencia Faltante, y Recomendación de Subsanación.",
+        "Asigna severidades precisas: Crítica a la ausencia de notificación formal de 72h ante la autoridad (H-IR-01) y a la destrucción de evidencia volátil (H-IR-02); Mayor a la falta de prueba de restauración aislada de backup (H-IR-04).",
+        "Formula un plan estructurado de acciones post-mortem con responsables y plazos concretos para retroalimentar la apreciación de riesgos del PIMS (Cláusulas 6.1.2 y 8.2)."
+      ]
+    }
+  ]
+}

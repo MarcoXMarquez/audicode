@@ -1,0 +1,158 @@
+{
+  "incident_id": "INC-20261001-LAPTOP-02",
+  "title": "Informe Técnico de Incidente: Extravío de Portátil Corporativo con Cifrado de Disco Completo BitLocker AES-256 y Claves no Comprometidas",
+  "organization": {
+    "name": "Consultoría Estratégica Ibérica S.A.",
+    "role": "PII Controller",
+    "dpo_contact": "privacidad@estrategicaiberica.example.com",
+    "ciso_contact": "ciso@estrategicaiberica.example.com"
+  },
+  "time_period": {
+    "occurred_at": "2026-10-01T08:15:00Z",
+    "detected_at": "2026-10-01T08:45:00Z",
+    "confirmed_at": "2026-10-01T09:10:00Z",
+    "contained_at": "2026-10-01T09:30:00Z",
+    "resolved_at": "2026-10-01T11:00:00Z",
+    "status": "CERRADO - RESIDUO DE RIESGO BAJO / EXENCIÓN DE NOTIFICACIÓN EXTERNA FUNDADA"
+  },
+  "reporter": {
+    "name": "Santiago Valdés",
+    "role": "Director Asociado de Recursos Humanos y Talento",
+    "reporting_channel": "Llamada telefónica a Línea de Emergencia SOC/Service Desk + Ticket ITSM INC-77412"
+  },
+  "reported_to": {
+    "body": "Equipo de Respuesta a Incidentes de Privacidad (CSIRT / DPO)",
+    "primary_lead": "Lucía Barrenechea (DPO) e Ignacio Prieto (IT Sec Manager)"
+  },
+  "description": "El directivo Santiago Valdés reportó el extravío involuntario de su ordenador portátil corporativo (Dell Latitude 5440, número de serie SN-DL5440-88192) en el compartimiento de equipaje superior del vagón 4 del tren de alta velocidad AVE 03091 (trayecto Madrid-Barcelona). El disco duro del equipo contenía una réplica sincronizada local de carpetas de OneDrive con hojas de cálculo salariales, planes de compensación por objetivos y evaluaciones anuales de desempeño de 1.200 empleados de la organización. Las auditorías técnicas de la consola Microsoft Intune y Microsoft Entra ID confirman que el equipo contaba con cifrado de disco completo BitLocker (AES-256 con protección por chip criptográfico TPM 2.0 y PIN de pre-arranque), que la clave de recuperación de 48 dígitos se encuentra exclusivamente custodiada en el HSM en la nube de Microsoft Entra ID y que no existen indicios ni registros de inicio de sesión o intentos de intrusión posteriores al extravío.",
+  "root_cause_and_vulnerabilities": "Extravío físico involuntario de soporte móvil de tratamiento fuera de las instalaciones corporativas durante desplazamiento profesional.",
+  "impact_classification": {
+    "confidentiality": {
+      "impacted": false,
+      "detail": "No existe compromiso de confidencialidad de los datos personales. La totalidad de los sectores del disco se encuentran cifrados bajo AES-256 mediante BitLocker con hardware TPM 2.0 y la clave de descifrado no ha sido expuesta ni comprometida."
+    },
+    "integrity": {
+      "impacted": false,
+      "detail": "No se produjo alteración de datos personales; los ficheros corporativos maestros permanecen íntegros en los repositorios centrales de SharePoint y OneDrive."
+    },
+    "availability": {
+      "impacted": true,
+      "detail": "Pérdida material del dispositivo físico para el usuario individual. Sin impacto sobre la disponibilidad operativa de la empresa al existir sincronización continua en la nube corporativa."
+    }
+  },
+  "pii_compromised": {
+    "estimated_principals_affected": 1200,
+    "estimated_records_affected": 1200,
+    "categories": [
+      "Nombres y apellidos completos de empleados",
+      "Dirección de correo electrónico corporativo y personal",
+      "Número de empleado y departamento",
+      "Evaluación semestral de rendimiento y competencias",
+      "Banda salarial y bonificaciones por objetivos"
+    ],
+    "sensitive_data_involved": false,
+    "sensitive_data_description": "Datos de gestión laboral interna y compensaciones económicas habituales. No contiene categorías especiales de datos (salud, biometría, ideología) ni datos de menores de edad."
+  },
+  "cryptographic_protection_evidence": {
+    "encryption_algorithm": "AES-256 XTS",
+    "encryption_technology": "Microsoft BitLocker Full Disk Encryption (FDE)",
+    "tpm_module": "TPM 2.0 con Secure Boot y validación de plataforma PCR",
+    "preboot_auth": "PIN de pre-arranque alfanumérico obligatorio",
+    "recovery_key_custody": "Almacenada exclusivamente en Microsoft Entra ID Cloud HSM corporativo con acceso restringido a administradores de Nivel 3. El usuario no portaba la clave.",
+    "remote_wipe_status": "Comando de borrado remoto (Wipe) emitido exitosamente a las 09:25:00Z vía Microsoft Intune (bloqueo inmediato si el dispositivo se enciende y conecta).",
+    "credential_revocation": "Sesiones activas de Microsoft 365 revocadas y certificados de autenticación de dispositivo revocados en Microsoft Entra ID a las 09:28:00Z."
+  },
+  "consequences": {
+    "impact_on_principals": "Riesgo Bajo / Nulo para los derechos y libertades de los titulares. De conformidad con las directrices EDPB 01/2021 y el estándar ISO/IEC 27701:2025, el cifrado de última generación con algoritmo robusto y clave protegida hace que los datos sean completamente ininteligibles e inaccesibles para cualquier tercero que tome posesión física del hardware.",
+    "impact_on_organization": "Coste económico de reposición del equipo portátil extraviado (1.250 EUR). Sin contingencias sancionadoras ni reclamaciones previsibles.",
+    "overall_risk_level": "Bajo"
+  },
+  "forensic_evidence_preservation": {
+    "chain_of_custody_logged": true,
+    "custodian_name": "Ignacio Prieto (IT Sec Manager)",
+    "actions_taken": [
+      "Exportación con firma digital y hash SHA-256 del reporte de estado de cifrado BitLocker del dispositivo SN-DL5440-88192 desde Microsoft Intune.",
+      "Extracción de los logs de auditoría de Microsoft Entra ID acreditando que la clave de recuperación nunca fue leída ni descargada.",
+      "Registro de la denuncia formal de extravío tramitada ante la Oficina de Objetos Perdidos de Renfe y Policía Nacional con número POL-2026-MAD-44109."
+    ]
+  },
+  "backup_restoration_verification": {
+    "backup_integrity_verified": true,
+    "backup_technology": "Sincronización en tiempo real con versionado inmutable en Microsoft OneDrive for Business con retención de 93 días.",
+    "data_recovered": "100% de la información del empleado restaurada en nuevo equipo de trabajo a las 10:45:00Z.",
+    "rto_achieved_hours": 1.5
+  },
+  "resolution_steps": [
+    {
+      "step": "Recepción de alerta de extravío y apertura formal de expediente de incidente",
+      "responsible": "Service Desk / CSIRT",
+      "timestamp": "2026-10-01T09:10:00Z"
+    },
+    {
+      "step": "Verificación y extracción del informe de cifrado BitLocker AES-256 en consola Intune",
+      "responsible": "Ignacio Prieto (IT Sec)",
+      "timestamp": "2026-10-01T09:20:00Z"
+    },
+    {
+      "step": "Emisión de comando de borrado remoto (Device Wipe) y bloqueo de hardware",
+      "responsible": "Ignacio Prieto (IT Sec)",
+      "timestamp": "2026-10-01T09:25:00Z"
+    },
+    {
+      "step": "Revocación inmediata de todas las credenciales, tokens OAuth2 y certificados de dispositivo en Entra ID",
+      "responsible": "Administrador de Identidad",
+      "timestamp": "2026-10-01T09:28:00Z"
+    },
+    {
+      "step": "Formalización de denuncia de extravío/hurto ante autoridades policiales",
+      "responsible": "Santiago Valdés",
+      "timestamp": "2026-10-01T10:15:00Z"
+    },
+    {
+      "step": "Entrega y configuración de nuevo portátil corporativo con restauración de datos",
+      "responsible": "Service Desk",
+      "timestamp": "2026-10-01T10:45:00Z"
+    },
+    {
+      "step": "Dictamen fundado del DPO documentando la exención de notificación externa y cierre en registro A.3.12",
+      "responsible": "Lucía Barrenechea (DPO)",
+      "timestamp": "2026-10-01T11:00:00Z"
+    }
+  ],
+  "notifications": {
+    "supervisory_authority": {
+      "required": false,
+      "authority_name": "Agencia Española de Protección de Datos (AEPD)",
+      "notified_at": null,
+      "status": "NO EXIGIBLE (Riesgo Bajo / Falta de riesgo fundada)",
+      "official_ticket_reference": null,
+      "delay_justification": "Conforme al Artículo 33.1 del RGPD y Control ISO/IEC 27701:2025 A.3.11 / Guía B.3.11, la notificación a la Autoridad de Control no es obligatoria por ser improbable que la brecha entrañe un riesgo para los derechos y libertades de las personas físicas, al haberse acreditado la eficacia del cifrado de disco completo."
+    },
+    "data_subjects": {
+      "required": false,
+      "reason": "Exención formal bajo el Artículo 34.3(a) del RGPD y Control ISO/IEC 27701:2025 A.3.11 / Guía B.3.11: La organización implementó medidas de protección técnica y organizativa apropiadas sobre los datos afectados con carácter previo a la brecha, en particular medidas que hacen que la PII sea ininteligible para cualquier persona no autorizada (cifrado BitLocker AES-256 con hardware TPM 2.0 y clave bajo custodia segura).",
+      "notified_at": null,
+      "status": "EXENTO - NO REQUERIDO",
+      "communication_channel": null
+    },
+    "corporate_customers_processors": {
+      "required": false,
+      "detail": "No aplica; se trata de datos de personal interno propio."
+    }
+  },
+  "post_mortem_and_lessons_learned": {
+    "review_meeting_date": "2026-10-01T12:00:00Z",
+    "action_items": [
+      {
+        "action": "Refuerzo formativo sobre la política de seguridad en desplazamientos y custodia visual de activos móviles",
+        "owner": "Seguridad Corporativa / RRHH",
+        "deadline": "2026-10-15"
+      },
+      {
+        "action": "Auditoría automatizada quincenal en Intune para verificar que ningún endpoint opera sin cifrado BitLocker activo",
+        "owner": "IT Sec",
+        "deadline": "2026-10-05"
+      }
+    ]
+  }
+}

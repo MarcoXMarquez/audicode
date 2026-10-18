@@ -1,0 +1,84 @@
+{
+  "cmp_name": "Acme Enterprise CMP",
+  "cmp_version": "3.4.1",
+  "banner_id": "cmp-banner-corporate-web",
+  "role": "controller",
+  "has_privacy_notice_link": false,
+  "privacy_notice_url": null,
+  "first_layer": {
+    "title": "Aviso de Cookies y Tecnologías de Rastreo",
+    "description": "Utilizamos cookies propias y de terceros con fines técnicos, analíticos para cuantificar visitas y navegación, y publicitarios para crear perfiles comerciales basados en sus hábitos de consumo y transferir datos a nuestros socios de adtech.",
+    "buttons": [
+      {
+        "id": "btn-accept-all",
+        "label": "Aceptar todas las cookies",
+        "action": "accept_all",
+        "style": "primary-highlighted",
+        "prominence": "dominant"
+      },
+      {
+        "id": "btn-customize",
+        "label": "Configurar opciones",
+        "action": "open_settings_modal",
+        "style": "text-link-subtle",
+        "prominence": "low"
+      }
+    ],
+    "reject_all_button_present": false,
+    "reject_all_available_first_layer": false,
+    "dark_pattern_detected": "asymmetric_choice_missing_reject_all"
+  },
+  "second_layer_modal": {
+    "title": "Centro de Preferencias de Cookies",
+    "description": "Configure las categorías de cookies que consiente para su navegación.",
+    "close_action_implies_consent": false
+  },
+  "checkboxes": [
+    {
+      "id": "chk-essential",
+      "label": "Cookies estrictamente necesarias",
+      "purpose": "technical_essential",
+      "description": "Necesarias para la navegación y el funcionamiento técnico de la sesión.",
+      "required": true,
+      "always_active": true,
+      "default_checked": false,
+      "pre_ticked": false,
+      "disabled": true
+    },
+    {
+      "id": "chk-analytics-marketing-bundled",
+      "label": "Analítica web, perfilado de comportamiento y publicidad personalizada de terceros",
+      "purpose": "marketing_analytics_and_behavioral_profiling_bundle",
+      "description": "Mide el rendimiento web, elabora perfiles publicitarios detallados y comparte identificadores con 120 empresas de publicidad externa sin opción de separación.",
+      "bundled_purposes": [
+        "web_traffic_analytics",
+        "behavioral_profiling",
+        "third_party_targeted_advertising",
+        "cross_device_tracking"
+      ],
+      "is_bundled": true,
+      "required": false,
+      "default_checked": true,
+      "pre_ticked": true,
+      "disabled": false
+    },
+    {
+      "id": "chk-commercial-newsletter",
+      "label": "Comunicaciones comerciales y promociones personalizadas",
+      "purpose": "marketing_email_newsletter",
+      "description": "Envío de comunicaciones periódicas y ofertas comerciales por correo electrónico.",
+      "required": false,
+      "default_checked": true,
+      "pre_ticked": true,
+      "disabled": false
+    }
+  ],
+  "revocation_mechanism": null,
+  "revocation_policy": {
+    "channel": "postal_or_phone",
+    "instructions": "Para revocar su consentimiento otorgado digitalmente, envíe una carta postal certificada a nuestro DPO o llame a nuestro conmutador telefónico en días laborables de 9:00 a 14:00.",
+    "direct_opt_out_link": null,
+    "preference_center_accessible_post_consent": false,
+    "asymmetric_friction": true
+  }
+}

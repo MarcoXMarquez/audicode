@@ -1,0 +1,163 @@
+{
+  "skill_name": "pii-transfer-auditor",
+  "version": "1.0.0",
+  "standard": "ISO/IEC 27701:2025",
+  "evals": [
+    {
+      "id": "eval-pos-01-audit-international-transfers",
+      "type": "positive_trigger",
+      "prompt": "Hola, queremos auditar nuestras transferencias internacionales de datos personales conforme a la norma ISO/IEC 27701:2025. Tenemos contratados varios servicios cloud y filiales en el extranjero. ¿Podrías indicarnos qué controles aplican, cómo validar la base jurídica bajo el control A.1.5.2 y qué debemos revisar en el inventario territorial según A.1.5.3?",
+      "files": [],
+      "expected_output": "La skill 'pii-transfer-auditor' debe activarse de forma inmediata e inequívoca reconociendo la auditoría de transferencias transfronterizas de PII bajo los controles A.1.5.2 (Identificación de la base jurídica de transferencia) y A.1.5.3 (Países y organizaciones internacionales de destino) de ISO/IEC 27701:2025. Debe confirmar su competencia especializada, detallar la jerarquía de instrumentos legales habilitantes (Decisiones de Adecuación, Cláusulas Contractuales Tipo SCC, Normas Corporativas Vinculantes BCR y excepciones tasadas), advertir que los accesos remotos y soporte 24/7 constituyen transferencias internacionales plenas, y presentar el flujo de auditoría de 6 pasos.",
+      "expectations": [
+        "El agente activa la skill 'pii-transfer-auditor' de manera positiva y directa.",
+        "Cita textualmente los controles A.1.5.2 y A.1.5.3 de ISO/IEC 27701:2025.",
+        "Explica la jerarquía de mecanismos de transferencia: 1) Decisión de Adecuación, 2) Garantías adecuadas (SCC / BCR), 3) TIA con medidas suplementarias, y 4) Excepciones tasadas (derogaciones).",
+        "Advierte que el soporte técnico remoto, administración de sistemas y consolas SOC ubicados fuera del país de origen constituyen transferencias internacionales plenas sujetas a A.1.5.2.",
+        "Distingue claramente sus funciones respecto a processor-contract-validator, indicando que solo audita la dimensión geográfica y transfronteriza del flujo."
+      ]
+    },
+    {
+      "id": "eval-pos-02-evaluate-us-cloud-legality-tia",
+      "type": "positive_trigger",
+      "prompt": "Estamos planeando migrar nuestra base de clientes a servidores de un proveedor SaaS ubicado en Estados Unidos que no figura en la lista del Data Privacy Framework. ¿Es legal este envío de datos al extranjero bajo ISO 27701:2025, qué requisitos debemos cumplir para el control A.1.5.2 y cómo estructurar una Evaluación de Impacto de Transferencia (TIA) y salvaguardas técnicas en tránsito bajo A.3.7?",
+      "files": [],
+      "expected_output": "La skill 'pii-transfer-auditor' se activa reconociendo un flujo hacia un tercer país sin decisión general de adecuación (EE.UU. sin certificación DPF activa). Dictamina que la transferencia no puede ampararse en adecuación y exige obligatoriamente Cláusulas Contractuales Tipo (SCC Módulo 2 C2P) y un expediente formal de Evaluación de Impacto de la Transferencia (TIA) bajo A.1.5.2. Debe detallar la evaluación de legislaciones de vigilancia (FISA 702 y CLOUD Act), las salvaguardas técnicas en tránsito (A.3.7: TLS 1.3 con PFS, mTLS) y advertir que el cifrado solo es eficaz si las claves criptográficas son custodiadas exclusivamente por el exportador fuera del alcance del proveedor foráneo.",
+      "expectations": [
+        "El agente activa 'pii-transfer-auditor'.",
+        "Identifica que Estados Unidos sin certificación activa en el EU-US DPF carece de adecuación, requiriendo garantías adecuadas bajo A.1.5.2.",
+        "Exige la suscripción de Cláusulas Contractuales Tipo (SCC) con anexos I y II completados.",
+        "Detalla los requisitos de la Evaluación de Impacto de la Transferencia (TIA): análisis de leyes de vigilancia (FISA Section 702 / CLOUD Act) y eficacia de salvaguardas.",
+        "Subraya el requisito de medidas suplementarias técnicas bajo A.3.7 y el principio de custodia exclusiva de claves de cifrado en origen (Bring Your Own Key / HYOK).",
+        "Advierte que amparar un SaaS continuo y estructural en el 'consentimiento' o 'ejecución contractual' es improcedente bajo A.1.5.2."
+      ]
+    },
+    {
+      "id": "eval-pos-03-review-transfer-log-register",
+      "type": "positive_trigger",
+      "prompt": "Necesitamos revisar nuestro libro de registro de transferencias y comunicaciones de datos personales bajo los controles A.1.5.2 y A.1.5.4 de ISO 27701:2025. ¿Cuáles son los campos obligatorios que debe incluir el inventario para pasar una auditoría y cómo se articulan con las peticiones de revelación judicial de A.1.5.5 y A.2.5.5?",
+      "files": [],
+      "expected_output": "La skill 'pii-transfer-auditor' se activa y presenta los requerimientos mandatorios del Libro de Registro de Transferencias (A.1.5.4) y del Libro de Divulgaciones Oficiales (A.1.5.5 / A.2.5.5). Detalla los campos mínimos de A.1.5.4 (ID de flujo, país origen, país destino explícito, destinatario/rol, categorías de PII, mecanismo de transferencia, referencia a TIA vigente, medidas de seguridad y fecha de revisión periódica). Además, explica el tratamiento de requerimientos de autoridades judiciales o policiales foráneas (A.2.5.5 y A.2.5.6) y ofrece ejecutar la validación determinista mediante transfer_record_validator.py.",
+      "expectations": [
+        "El agente activa la skill 'pii-transfer-auditor'.",
+        "Cita expresamente los controles A.1.5.4 (Registro de transferencias) y A.1.5.5 (Registro de divulgaciones) de ISO/IEC 27701:2025.",
+        "Enumera al menos 6 campos obligatorios del registro de A.1.5.4 (ID, origen/destino, destinatario, categorías de datos, base jurídica, referencia a TIA, medidas de seguridad, fecha de revisión).",
+        "Explica los requisitos del registro de divulgaciones a autoridades (A.1.5.5) y las obligaciones de notificación y rechazo de órdenes no vinculantes para encargados (A.2.5.5 y A.2.5.6).",
+        "Menciona la disponibilidad del validador determinista 'transfer_record_validator.py' para auditar inventarios masivos en CSV o JSON."
+      ]
+    },
+    {
+      "id": "eval-pos-04-offshore-soc-remote-access",
+      "type": "positive_trigger",
+      "prompt": "Nuestra empresa tiene los servidores alojados en Alemania, pero contratamos un centro de operaciones de seguridad (SOC) en Filipinas e India para monitorización nocturna 24/7 con acceso remoto a consolas. ¿Esto se considera una transferencia internacional bajo A.1.5.2 y A.1.5.3 de ISO 27701:2025 aunque los datos 'no salgan físicamente de Europa'?",
+      "files": [],
+      "expected_output": "La skill 'pii-transfer-auditor' se activa y desmiente de forma rotunda la falsa creencia de que el acceso remoto no es transferencia. Dictamina que el acceso remoto, visualización o gestión de soporte desde países fuera del EEE constituye legal y técnicamente una transferencia internacional plena sujeta a los controles A.1.5.2 y A.1.5.3 de ISO/IEC 27701:2025. Por tanto, exige la firma de SCC (Módulo 2 o 3), realización obligatoria de TIA para India y Filipinas, inclusión explícita de ambos países en el aviso de privacidad y registro (A.1.5.3/A.1.5.4), y medidas estrictas de seguridad en tránsito bajo A.3.7 (VPN, autenticación multifactor, cifrado extremo a extremo).",
+      "expectations": [
+        "El agente activa 'pii-transfer-auditor'.",
+        "Aclara categóricamente que el acceso remoto de soporte técnico o SOC desde terceros países constituye transferencia internacional plena bajo ISO/IEC 27701:2025.",
+        "Rechaza el argumento de que el almacenamiento en servidores europeos exime del cumplimiento de A.1.5.2.",
+        "Exige formalizar SCC y ejecutar expedientes de TIA para los destinos involucrados (India y Filipinas).",
+        "Exige que India y Filipinas figuren en el inventario geográfico transparente bajo A.1.5.3 y en el libro de transferencias bajo A.1.5.4.",
+        "Menciona las salvaguardas técnicas obligatorias bajo A.3.7 para accesos de administración remota."
+      ]
+    },
+    {
+      "id": "eval-neg-01-processor-subcontracting-clauses",
+      "type": "negative_trigger",
+      "prompt": "Por favor audita las cláusulas de subcontratación y derecho de auditoría del Data Processing Agreement (DPA) que nos propone un proveedor de hosting local. Queremos saber si cumple con los requisitos de autorización previa y cláusulas espejo bajo ISO 27701:2025.",
+      "files": [],
+      "expected_output": "La skill 'pii-transfer-auditor' DEBE DETECTAR que la consulta trata sobre cláusulas operativas generales de un contrato de encargo de tratamiento (DPA), gestión de subencargados (A.2.5.7, A.2.5.8, A.2.5.9) y facultades de auditoría (A.1.2.7 y Tabla A.2 de ISO/IEC 27701:2025), y NO sobre transferencias transfronterizas o geográficas. En consecuencia, declina la revisión contractual general y DERIVA formalmente la solicitud a la skill 'processor-contract-validator'.",
+      "expectations": [
+        "El agente NO audita las cláusulas operativas del DPA dentro de esta skill.",
+        "Identifica con precisión que la solicitud corresponde a gobernanza contractual de encargados y subcontratistas (A.1.2.7, A.2.5.7 - A.2.5.9).",
+        "Deriva o transfiere formalmente la consulta a la skill 'processor-contract-validator'.",
+        "Explica los límites de demarcación: pii-transfer-auditor solo audita la dimensión transfronteriza (SCC/TIA), mientras que processor-contract-validator audita el cuerpo del DPA.",
+        "Cita los controles de la Tabla A.2 o A.1.2.7 de ISO/IEC 27701:2025 correspondientes al DPA."
+      ]
+    },
+    {
+      "id": "eval-neg-02-dsar-right-of-access-response",
+      "type": "negative_trigger",
+      "prompt": "Un cliente nos envió un burofax ejerciendo su derecho de acceso a sus datos personales y solicitando copia de todo su expediente. ¿Cómo debemos verificar su identidad, cuál es el plazo legal de respuesta y qué formato debemos usar bajo la norma ISO 27701?",
+      "files": [],
+      "expected_output": "La skill 'pii-transfer-auditor' DEBE RECONOCER que la petición se refiere al trámite y resolución de un derecho ARCO / DSAR (derecho de acceso y entrega de copia) bajo los controles A.1.3.7, A.1.3.9 y A.1.3.10 de ISO/IEC 27701:2025. Dado que no involucra flujos transfronterizos ni adecuación territorial, declina el trámite y DERIVA formalmente a la skill 'pii-rights-manager'.",
+      "expectations": [
+        "El agente NO procesa la consulta como una transferencia de datos.",
+        "Reconoce que se trata de la tramitación de una solicitud de derechos de los titulares (DSAR / Derecho de Acceso).",
+        "Deriva formalmente la consulta a la skill especializada 'pii-rights-manager'.",
+        "Cita los controles pertinentes de derechos de titulares (A.1.3.7, A.1.3.9, A.1.3.10 de ISO/IEC 27701:2025).",
+        "Distingue entre el registro de transferencias a terceros (A.1.5.4) y la entrega de copia de datos al titular (A.1.3.9)."
+      ]
+    },
+    {
+      "id": "eval-neg-03-full-privacy-notice-drafting",
+      "type": "negative_trigger",
+      "prompt": "Necesitamos redactar desde cero el texto completo del aviso de privacidad para nuestro nuevo portal de comercio electrónico en España, cubriendo la identidad del responsable, base legal, cookies y derechos de los usuarios según ISO 27701.",
+      "files": [],
+      "expected_output": "La skill 'pii-transfer-auditor' DEBE IDENTIFICAR que la redacción integral de un aviso de privacidad para titulares corresponde al dominio de 'privacy-policy-reviewer' (controles A.1.3.3 y A.1.3.4 de ISO/IEC 27701:2025). Por tanto, declina la redacción del aviso completo y DERIVA al usuario a 'privacy-policy-reviewer', señalando que pii-transfer-auditor solo interviene para auditar la cláusula específica de transferencias internacionales e inventario de países receptores.",
+      "expectations": [
+        "El agente NO redacta la política o aviso de privacidad integral.",
+        "Identifica que la redacción de avisos y políticas completas corresponde a 'privacy-policy-reviewer'.",
+        "Deriva formalmente a la skill 'privacy-policy-reviewer'.",
+        "Cita los controles A.1.3.3 y A.1.3.4 de ISO/IEC 27701:2025 referentes a la provisión de información a titulares.",
+        "Aclara que la intervención de pii-transfer-auditor se restringe a auditar la sección de flujos internacionales y geolocalización."
+      ]
+    },
+    {
+      "id": "eval-beh-01-audit-transfer-inventory-csv",
+      "type": "behavioral",
+      "prompt": "Audita exhaustivamente el inventario de transferencias internacionales ubicado en `skills/pii-transfer-auditor/evals/fixtures/sample_international_transfer_inventory.csv` frente a los controles A.1.5.2, A.1.5.3, A.1.5.4, A.2.5.2 y A.3.7 de ISO/IEC 27701:2025. Ejecuta o contrasta los hallazgos con la herramienta determinista `transfer_record_validator.py`, clasifica las no conformidades en la tabla estándar de 4 columnas (Control, Severidad, Evidencia Detectada, Recomendación de Subsanación) y emite el dictamen de cumplimiento territorial cuantitativo.",
+      "files": [
+        "skills/pii-transfer-auditor/evals/fixtures/sample_international_transfer_inventory.csv"
+      ],
+      "expected_output": "Informe técnico de auditoría de transferencias internacionales basado en el inventario CSV analizado. Debe reportar métricas cuantitativas exactas: 6 transferencias auditadas, únicamente 2 conformes (TRF-EU-001 y TRF-UK-002, 33.33% de conformidad) y 4 no conformes (66.67%), con un saldo de 8 hallazgos Críticos, 4 Mayores y 1 Menor. La tabla estándar de 4 columnas debe desglosar las no conformidades: 1) TRF-US-003: transferencia continua a EE.UU. sin DPF amparada indebidamente en excepción contractual (A.1.5.2 Crítica), sin TIA realizada (A.1.5.2 Crítica) y sin notificación de cliente (A.2.5.2 Mayor); 2) TRF-IN-004: declaración falsa/fraudulenta de adecuación para India (A.1.5.2 Crítica), falta de TIA para datos de KYC/biometría (A.1.5.2 Crítica) y falta de notificación (A.2.5.2 Mayor); 3) TRF-PH-005: TIA vencida con más de 900 días de antigüedad (> 365 días, A.1.5.2 Mayor) y transmisión de chats y PII sobre canal sin cifrar en texto plano CLEAR_TEXT (A.3.7 Crítica); 4) TRF-GL-006: destino territorial ambiguo e indeterminado 'GLOBAL' (A.1.5.3 Crítica), carencia total de base legal y de TIA (A.1.5.2 Crítica), y omisión de razón social del destinatario (A.1.5.4 Menor). Además, señalar que los 4 registros deficientes omiten la fecha de última auditoría según A.1.5.4.",
+      "expectations": [
+        "El informe reporta con precisión cuantitativa los resultados del validador: 6 registros auditados, 2 conformes (33.33% de conformidad) y 4 no conformes.",
+        "Reporta el balance cuantitativo de severidad: 8 hallazgos Críticos, 4 Mayores y 1 Menor.",
+        "Presenta la tabla estructurada de 4 columnas estandarizada: Control, Severidad, Evidencia Detectada, Recomendación de Subsanación.",
+        "Identifica la vulneración en TRF-US-003: uso indebido de derogación 'CONTRACT' para tratamiento masivo continuo en país sin adecuación (A.1.5.2 Crítica) y ausencia de TIA.",
+        "Identifica la vulneración en TRF-IN-004: falsa alegación de adecuación territorial para India (IN) sin amparo legal (A.1.5.2 Crítica) y ausencia de TIA para datos sensibles de KYC.",
+        "Identifica la vulneración en TRF-PH-005: canal de transmisión en texto plano CLEAR_TEXT (A.3.7 Crítica) y TIA caducada de más de 900 días (A.1.5.2 Mayor).",
+        "Identifica la vulneración en TRF-GL-006: designación geográfica ambigua e inadmisible 'GLOBAL' violando A.1.5.3 (Crítica), carencia de base jurídica y falta de identificación del receptor (A.1.5.4 Menor).",
+        "Señala la omisión sistemática del campo de fecha de última auditoría / revisión periódica en los 4 registros observados bajo el control A.1.5.4.",
+        "Emite dictamen de riesgo elevado y recomienda la regularización contractual inmediata mediante SCCs y suspensión de transferencias inseguras."
+      ]
+    },
+    {
+      "id": "eval-beh-02-audit-cross-border-cloud-flow-json",
+      "type": "behavioral",
+      "prompt": "Realiza una auditoría técnica y jurídica profunda del flujo de integración transfronteriza descrito en `skills/pii-transfer-auditor/evals/fixtures/sample_cross_border_cloud_flow.json` (CRM europeo a plataforma de telemetría en EE.UU./India). Evalúa la base jurídica (A.1.5.2), la transparencia y registro (A.1.5.3, A.1.5.4) y las medidas de seguridad técnica en tránsito y reposo (A.3.7). Emite el reporte de hallazgos clasificados por severidad y determina si el flujo debe ser suspendido de inmediato.",
+      "files": [
+        "skills/pii-transfer-auditor/evals/fixtures/sample_cross_border_cloud_flow.json"
+      ],
+      "expected_output": "Dictamen exhaustivo de auditoría sobre el flujo 'FLOW-CRM-TEL-01'. Constata que el flujo transmite diariamente ~4.2 millones de eventos con PII crítica y sensible (UUIDs, nombres completos, emails en claro, IPs, geolocalización GPS exacta, telemetría de dispositivo y metadatos financieros de transacciones) desde Frankfurt (Alemania/España) hacia OmniTelemetry Inc. en EE.UU. (us-east-1) y Bangalore (India). El dictamen debe señalar 4 no conformidades críticas y mayores: 1) A.1.5.2 (Crítica): Falta absoluta de mecanismo jurídico de transferencia (proveedor no certificado en el EU-US DPF, sin Cláusulas Contractuales Tipo SCC formalizadas y sin TIA ejecutada frente a FISA 702 / CLOUD Act); 2) A.3.7 (Crítica): Extrema vulnerabilidad en tránsito al utilizar protocolo HTTP plano (puerto 80) o TLS 1.0 obsoleto sin Perfect Forward Secrecy (PFS), token estático de API expuesto en parámetros URL y payload JSON en texto claro; 3) A.1.5.2 / A.3.7 (Crítica): Invalidez de medidas suplementarias técnicas al residir la custodia de claves criptográficas en el propio proveedor estadounidense (AWS KMS us-east-1) bajo soberanía de inteligencia foránea; 4) A.1.5.3 / A.1.5.4 (Mayor): Falta de transparencia en aviso público ('nube segura') y ausencia de registro en el libro de transferencias. Concluye con la orden de SUSPENSIÓN INMEDIATA del flujo o aplicación de filtros perimetrales de bloqueo por infracción grave.",
+      "expectations": [
+        "Identifica unívocamente el flujo auditado como FLOW-CRM-TEL-01 y las jurisdicciones involucradas (Origen: Alemania/España; Destinos: EE.UU. e India).",
+        "Analiza el inventario de PII transmitido, destacando la presencia de datos directos (emails, nombres), geolocalización GPS, huellas de dispositivo y metadatos de transacciones de pago.",
+        "Califica como Severidad Crítica bajo A.1.5.2 la ausencia de instrumento legal (no figura en EU-US DPF, sin SCC Módulo 2 firmadas) y la ausencia total de expediente de TIA.",
+        "Califica como Severidad Crítica bajo A.3.7 la transmisión insegura: protocolo HTTP plano, suites de cifrado obsoletas sin PFS, API key en la query string y payload sin cifrar.",
+        "Dictamina la ineficacia de las medidas suplementarias conforme a Schrems II al estar las claves de descifrado custodiadas por el importador en EE.UU. (Vendor-Held Key) sujetas a FISA 702.",
+        "Señala el incumplimiento del deber de transparencia geográfica de A.1.5.3 y la omisión de alta en el registro formal de A.1.5.4.",
+        "Emite la recomendación preceptiva de SUSPENDER cautelarmente la ingesta del webhook o bloquear la transmisión de PII hasta regularizar SCC y cifrado pre-egreso."
+      ]
+    },
+    {
+      "id": "eval-beh-03-transfer-remediation-and-tia-framework",
+      "type": "behavioral",
+      "prompt": "A partir de las vulneraciones detectadas en `skills/pii-transfer-auditor/evals/fixtures/sample_cross_border_cloud_flow.json`, diseña el Plan de Subsanación y Regularización Transfronteriza Integral conforme a ISO/IEC 27701:2025. El plan debe incluir: 1) Selección justificada del módulo contractual SCC (Decisión 2021/914/UE) y anexos obligatorios; 2) Estructura del expediente formal de TIA con evaluación de leyes de vigilancia (FISA 702 y CLOUD Act); 3) Arquitectura técnica de salvaguardas suplementarias en tránsito y reposo bajo A.3.7 (cifrado pre-egreso y custodia de claves); 4) Protocolo para requerimientos de revelación de autoridades extranjeras (A.2.5.5, A.2.5.6); y 5) Delimitación estricta de fronteras declarando qué elementos corresponden a otras skills del ecosistema.",
+      "files": [
+        "skills/pii-transfer-auditor/evals/fixtures/sample_cross_border_cloud_flow.json"
+      ],
+      "expected_output": "Plan de Regularización Transfronteriza Integral para NovaCRM y OmniTelemetry Inc. El plan debe articular: 1) Formalización de Cláusulas Contractuales Tipo bajo la Decisión 2021/914/UE seleccionando estrictamente el MÓDULO 2 (Responsable a Encargado / C2P), completando Anexo I.A (partes), Anexo I.B (flujo de telemetría y retención) y Anexo II (medidas técnicas TOMs); 2) Expediente de TIA estructurado en 6 pasos según la guía de referencia, evaluando formalmente la aplicabilidad de FISA Section 702 y el alcance extraterritorial del CLOUD Act; 3) Reingeniería técnica bajo A.3.7 que imponga: TLS 1.3 mandatorio con suites PFS, autenticación mutua mTLS con certificados X.509, token de autorización en cabecera HTTP 'Authorization: Bearer', y cifrado simétrico a nivel de campo pre-egreso (pre-egress field-level encryption AES-GCM-256) con modelo Hold-Your-Own-Key (HYOK) donde las claves residen en un HSM en Alemania fuera del alcance de la filial o matriz estadounidense; 4) Procedimiento Operativo para Autoridades (A.2.5.5 / A.2.5.6) exigiendo notificación previa al exportador, impugnación procesal de órdenes judiciales y rechazo motivado de peticiones informales; 5) Protocolo formal de Handoffs: asignación de la redacción integral del DPA a 'processor-contract-validator', actualización del aviso de privacidad web a 'privacy-policy-reviewer' y plan de contingencia ante fugas a 'incident-response-planner'.",
+      "expectations": [
+        "Selecciona y justifica específicamente el Módulo 2 de las SCC (Responsable a Encargado / Controller-to-Processor) conforme a la Decisión (UE) 2021/914.",
+        "Exige la formalización circunstanciada de los Anexos I (categorías de PII y finalidades) y II (medidas de seguridad técnicas y organizativas TOMs).",
+        "Estructura el expediente formal de TIA siguiendo las fases metodológicas: evaluación de marco normativo (FISA 702 / CLOUD Act), práctica de acceso de inteligencia y dictamen de riesgo residual.",
+        "Especifica salvaguardas técnicas estrictas bajo A.3.7: TLS 1.3 obligatorio con PFS, mTLS, traslado del token a cabecera Authorization y supresión de parámetros en query URL.",
+        "Impone el modelo criptográfico HYOK (Hold Your Own Key / claves custodiadas exclusivamente en origen en la UE) y cifrado pre-egreso a nivel de campo.",
+        "Diseña el protocolo de atención a peticiones gubernamentales de A.2.5.5 y A.2.5.6 (deber de notificación, revisión de vinculatoriedad jurídica y rechazo de peticiones no vinculantes).",
+        "Define explícitamente los límites de frontera con derivación formal (handoffs) a processor-contract-validator, privacy-policy-reviewer e incident-response-planner."
+      ]
+    }
+  ]
+}

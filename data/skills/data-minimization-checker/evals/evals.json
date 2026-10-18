@@ -1,0 +1,167 @@
+{
+  "skill_name": "data-minimization-checker",
+  "version": "1.0.0",
+  "standard": "ISO/IEC 27701:2025",
+  "evals": [
+    {
+      "id": "eval-pos-01-sql-ddl-minimization-audit",
+      "type": "positive_trigger",
+      "prompt": "Hola, acabamos de diseñar el esquema SQL DDL de la base de datos de usuarios para nuestra plataforma web de comercio electrónico. ¿Podrías auditarlo contra el control A.1.4.2 de ISO 27701:2025 para comprobar si estamos recopilando campos de datos personales excesivos o redundantes?",
+      "files": [],
+      "expected_output": "La skill 'data-minimization-checker' debe activarse reconociendo directamente la solicitud como una auditoría de minimización técnica de un esquema de base de datos SQL DDL bajo los controles A.1.4.2 (Limit collection) y A.1.4.5 (PII minimization objectives) de ISO/IEC 27701:2025. Debe requerir el artefacto SQL o solicitar el propósito específico de negocio si no está completamente aclarado, anticipar que identificará atributos PII directos, indirectos y sensibles, evaluará restricciones NOT NULL contrarias a la privacidad por defecto, y emitirá un reporte estructurado con recomendaciones de de-identificación según ISO/IEC 20889:2018.",
+      "expectations": [
+        "El agente activa la skill 'data-minimization-checker' sin rechazar la solicitud.",
+        "Cita de forma explícita el Control A.1.4.2 (Limit collection) y/o A.1.4.5 (PII minimization objectives) de ISO/IEC 27701:2025.",
+        "Menciona la necesidad de contrastar los campos del esquema contra la finalidad legítima declarada del negocio.",
+        "Indica que inspeccionará restricciones 'NOT NULL' para validar el principio de privacidad por defecto (no hacer obligatorios campos no esenciales).",
+        "Hace referencia a la aplicación de técnicas de desidentificación conforme a la norma ISO/IEC 20889:2018.",
+        "No deriva erróneamente la consulta a skills ajenas como consent-validator o privacy-policy-reviewer."
+      ]
+    },
+    {
+      "id": "eval-pos-02-api-payload-overfetching-review",
+      "type": "positive_trigger",
+      "prompt": "Tenemos un endpoint REST en nuestra API móvil que envía telemetría de uso y diagnóstico de caídas al backend. Sospechamos que hay sobre-recolección (over-fetching) de datos personales y de hardware. ¿Puedes inspeccionar la carga útil JSON y decirnos qué campos violan la minimización de ISO 27701 y cómo remediarlos?",
+      "files": [],
+      "expected_output": "La skill 'data-minimization-checker' se activa inmediatamente, identificando el caso como una auditoría de sobre-recolección (over-fetching) en cargas útiles de APIs JSON bajo los controles A.1.4.2, A.1.4.5 y A.1.4.7 de ISO/IEC 27701:2025. Debe indicar su capacidad para inspeccionar identificadores de dispositivo, cuasi-identificadores de red (IP, MAC, BSSID), telemetría de interacción y logs temporales, recomendando técnicas de minimización como truncamiento, muestreo agregado y sustitución por identificadores sintéticos de sesión.",
+      "expectations": [
+        "El agente activa la skill 'data-minimization-checker' positivamente.",
+        "Identifica el problema técnico como sobre-recolección (over-fetching) en APIs y telemetría bajo A.1.4.2.",
+        "Cita los controles A.1.4.2 (Limit collection) y A.1.4.5 (PII minimization objectives) de ISO/IEC 27701:2025.",
+        "Menciona que la telemetría y diagnósticos deben auditarse respecto al control A.1.4.7 (Temporary files) y la fijación de TTLs estrictos.",
+        "Anticipa el uso de técnicas de la norma ISO/IEC 20889 (truncamiento de IP, generalización o anonimización estadística).",
+        "Ofrece estructurar los hallazgos en la matriz de severidades (Crítica, Mayor, Menor, Oportunidad de Mejora)."
+      ]
+    },
+    {
+      "id": "eval-pos-03-deidentification-and-masking-compliance",
+      "type": "positive_trigger",
+      "prompt": "¿Nuestra técnica actual de almacenar los números de identificación nacional con hashing SHA-256 sin sal y enmascarar los correos como u***@domain.com cumple con los objetivos de minimización de ISO 27701:2025 y las recomendaciones de ISO/IEC 20889?",
+      "files": [],
+      "expected_output": "La skill 'data-minimization-checker' se activa reconociendo una consulta técnica sobre la validez de mecanismos de desidentificación, seudonimización y enmascaramiento bajo el control A.1.4.5 de ISO/IEC 27701:2025 y las directrices de ISO/IEC 20889:2018. Dictamina con precisión técnica que el hashing SHA-256 sin sal para identificadores de bajo espacio de búsqueda (como DNIs/SSNs) es un hallazgo de severidad CRÍTICA debido a su vulnerabilidad inmediata a ataques por tablas precalculadas (Rainbow Tables) o fuerza bruta; exige el uso de sal criptográfica única y pimienta (HMAC-SHA256 con clave en HSM/KMS) o tokenización. Asimismo, valida favorablemente el enmascaramiento dinámico del correo para interfaces visuales.",
+      "expectations": [
+        "El agente activa la skill 'data-minimization-checker'.",
+        "Cita expresamente el control A.1.4.5 (PII minimization objectives) y la norma técnica ISO/IEC 20889:2018.",
+        "Califica como hallazgo CRÍTICO el uso de hashing sin sal (un入れted SHA-256) para identificadores nacionales por vulnerabilidad a Rainbow Tables y fuerza bruta.",
+        "Exige formalmente la incorporación de sal criptográfica aleatoria (>= 128 bits) y/o pimienta en KMS (HMAC-SHA256) o tokenización con vault seguro.",
+        "Valida que el enmascaramiento dinámico (Data Masking) para correo electrónico en UI es una técnica reconocida por ISO 20889, pero aclara que en la base de datos subyacente debe existir minimización o segregación.",
+        "No delega incorrectamente a otras skills la evaluación técnica del algoritmo criptográfico."
+      ]
+    },
+    {
+      "id": "eval-pos-04-temporary-files-and-retention-ttl",
+      "type": "positive_trigger",
+      "prompt": "Queremos verificar si nuestra política de purga de archivos temporales y rotación de volcados de memoria cumple con el control A.1.4.7 de ISO 27701:2025. ¿Qué tiempos máximos de retención (TTL) y métodos de destrucción segura se consideran aceptables?",
+      "files": [],
+      "expected_output": "La skill 'data-minimization-checker' se activa abordando la gobernanza del ciclo de vida de archivos temporales bajo los controles A.1.4.7 (Temporary files), A.1.4.6 (Supresión al término del tratamiento), A.1.4.8 (Retención) y A.3.20/A.3.21 de ISO/IEC 27701:2025. Establece que los archivos temporales (logs, cachés, swaps, core dumps) deben tener un TTL acotado documental y técnicamente (máximo 24 a 48 horas) con rutinas cron automatizadas de borrado físico, y referencia estándares de descarte seguro como NIST SP 800-88 Rev 1 o DIN 66399.",
+      "expectations": [
+        "El agente activa la skill 'data-minimization-checker'.",
+        "Cita con precisión el control A.1.4.7 (Temporary files) y los controles de retención y disposición A.1.4.8 y A.3.20/A.3.21.",
+        "Indica que el TTL para volcados, registros de depuración y archivos temporales debe ser estrictamente acotado (máximo 24 a 48 horas para temporales puros).",
+        "Advierte que el borrado lógico ('is_deleted = true') es insuficiente sin un procedimiento de purga física o sanitización irreversible.",
+        "Menciona estándares técnicos de sanitización de medios como NIST SP 800-88 Rev 1 (Clear/Purge/Destroy) o DIN 66399.",
+        "Presenta recomendaciones para la automatización mediante cron jobs, directivas tmpwatch o políticas de ciclo de vida en almacenamiento cloud (S3 Lifecycle)."
+      ]
+    },
+    {
+      "id": "eval-neg-01-dsar-erasure-request-redirection",
+      "type": "negative_trigger",
+      "prompt": "Un cliente de la Unión Europea nos acaba de enviar un correo formal exigiendo el ejercicio de su derecho de supresión (derecho al olvido) bajo el RGPD para que borremos todos sus datos personales de nuestros sistemas. ¿Cuál es el procedimiento y el plazo legal para contestar y ejecutar su solicitud?",
+      "files": [],
+      "expected_output": "La skill 'data-minimization-checker' DEBE IDENTIFICAR que la solicitud corresponde al ejercicio operativo y reglamentado de un derecho de titular de PII (DSAR / supresión / borrado) bajo los controles A.1.3.7, A.1.3.9 y A.1.3.10 de ISO/IEC 27701:2025. Aunque guarda relación con la eliminación de datos, el trámite operativo, la verificación de identidad del solicitante, los plazos de respuesta legal (30 días) y la gestión del expediente corresponden con exclusividad a la skill 'pii-rights-manager'. En consecuencia, declina procesar el ticket y DERIVA formalmente la consulta a 'pii-rights-manager'.",
+      "expectations": [
+        "El agente NO procesa la consulta como una auditoría técnica de esquemas o APIs de minimización.",
+        "Reconoce explícitamente que se trata del ejercicio de un derecho de supresión/olvido por parte de un titular (DSAR / ARCO).",
+        "Deriva o transfiere formalmente la consulta a la skill especializada 'pii-rights-manager'.",
+        "Cita los controles pertinentes de derechos de titulares de ISO/IEC 27701:2025 (A.1.3.7, A.1.3.9 o A.1.3.10) en contraposición a los controles de minimización técnica (A.1.4.2/A.1.4.5).",
+        "Explica con claridad la demarcación: data-minimization-checker audita la arquitectura y proporcionalidad de los datos, mientras que pii-rights-manager tramita las peticiones individuales de los titulares."
+      ]
+    },
+    {
+      "id": "eval-neg-02-pia-dpias-macro-assessment-redirection",
+      "type": "negative_trigger",
+      "prompt": "Estamos evaluando lanzar un nuevo sistema de reconocimiento facial biométrico y monitoreo masivo para el control de acceso en todas nuestras sucursales corporativas. ¿Podrías preparar el cuestionario de umbral y la Evaluación de Impacto en la Privacidad (PIA) para presentarla al comité de riesgos y dirección ejecutiva?",
+      "files": [],
+      "expected_output": "La skill 'data-minimization-checker' DEBE DISTINGUIR que la formulación de una Evaluación de Impacto en la Privacidad (PIA / EIPD / DPIA) integral, el análisis de umbral de alto riesgo institucional, el diagrama de flujo general (DFD) y el balance macro de derechos fundamentales corresponden al ámbito estratégico gobernado por el control A.1.2.6 y la norma ISO/IEC 29134. Por tanto, declina confeccionar el informe de PIA y DERIVA la solicitud a la skill 'pia-reviewer', precisando que data-minimization-checker intervendrá posteriormente para la micro-inspección técnica de los esquemas y algoritmos de plantilla biométrica.",
+      "expectations": [
+        "El agente NO elabora la Evaluación de Impacto en la Privacidad (PIA/DPIA) ni el informe estratégico para dirección.",
+        "Identifica con precisión que el requerimiento es una evaluación macro de impacto previa bajo el control A.1.2.6 y la norma ISO/IEC 29134.",
+        "Deriva formal e inequívocamente la tarea a la skill especializada 'pia-reviewer'.",
+        "Cita el control A.1.2.6 (Privacy Impact Assessment) de ISO/IEC 27701:2025.",
+        "Explica la frontera arquitectónica: pia-reviewer realiza el análisis estratégico de impacto y necesidad del proyecto, mientras que data-minimization-checker audita a nivel micro los esquemas DDL, payloads y técnicas criptográficas de los artefactos resultantes."
+      ]
+    },
+    {
+      "id": "eval-neg-03-cookie-consent-banner-redirection",
+      "type": "negative_trigger",
+      "prompt": "¿Es legal que en nuestro banner de cookies CMP configuremos el botón 'Aceptar todas' en color verde brillante y el botón de 'Rechazar' como un enlace gris diminuto y escondido?",
+      "files": [],
+      "expected_output": "La skill 'data-minimization-checker' DEBE CONSTATAR que la consulta trata sobre mecanismos de captación del consentimiento en interfaces de usuario (UI/UX), patrones oscuros (dark patterns), asimetría de opciones y validez del consentimiento informado bajo los controles A.1.2.4 y A.1.2.5 de ISO/IEC 27701:2025. Por consiguiente, declina evaluar el diseño visual del banner y DERIVA formalmente la consulta a la skill 'consent-validator'.",
+      "expectations": [
+        "El agente NO aborda la consulta como un problema de minimización técnica de datos o esquemas.",
+        "Reconoce explícitamente que se trata de mecanismos de obtención de consentimiento, patrones oscuros (dark patterns) y asimetría de botones en CMP.",
+        "Deriva formalmente a la skill 'consent-validator'.",
+        "Cita los controles de consentimiento aplicables de ISO/IEC 27701:2025 (A.1.2.4 Consentimiento libre y válido, A.1.2.5 Registro probatorio de consentimiento).",
+        "Mantiene el estricto respeto a las fronteras arquitectónicas definidas en workspace/02-architecture.md."
+      ]
+    },
+    {
+      "id": "eval-beh-01-audit-ecommerce-sql-ddl",
+      "type": "behavioral",
+      "prompt": "Realiza una auditoría técnica completa de minimización de datos conforme a ISO/IEC 27701:2025 (A.1.4.2, A.1.4.5, A.1.4.6, A.1.4.7, A.1.4.8) e ISO/IEC 20889:2018 sobre el script DDL SQL ubicado en `skills/data-minimization-checker/evals/fixtures/sample_ecommerce_ddl.sql`. La plataforma tiene como finalidad exclusiva: 'Compra, licenciamiento y streaming online de bienes digitales y software'. Detecta todos los atributos PII desproporcionados, evalúa las violaciones de privacidad por defecto (NOT NULL), clasifica cada hallazgo en la tabla consolidada con su severidad y genera las sentencias SQL de remediación técnica y recomendaciones de de-identificación.",
+      "files": [
+        "skills/data-minimization-checker/evals/fixtures/sample_ecommerce_ddl.sql"
+      ],
+      "expected_output": "Informe técnico pericial de auditoría de minimización sobre el esquema `sample_ecommerce_ddl.sql`. El informe debe analizar el propósito declarado (compras digitales sin entrega física ni servicios médicos), contrastar cada tabla (`users`, `digital_purchases`, `user_payment_methods`, `customer_service_audit_logs`), identificar al menos 8 no conformidades cuantitativas con severidades justificadas, y aportar la tabla de hallazgos estandarizada de 6 columnas y las sentencias SQL de remediación: 1) `users.blood_type` (A.1.4.2 - CRÍTICA: categoría especial de salud totalmente impertinente para compras digitales; supresión obligatoria); 2) `users.religion` (A.1.4.2 - CRÍTICA: datos de convicciones/creencias prohibidos por defecto; supresión obligatoria); 3) `user_payment_methods.pan_credit_card` y `user_payment_methods.card_cvv` (A.1.4.2/A.1.4.5 - CRÍTICA: almacenamiento en texto plano de tarjeta completa y CVV; prohibición absoluta bajo PCI-DSS y A.1.4.5; reemplazo por tokenización con pasarela de pago y almacenamiento exclusivo de últimos 4 dígitos truncados); 4) `users.national_id` (A.1.4.2/A.1.4.5 - CRÍTICA/MAYOR: DNI/identificador nacional marcado NOT NULL para checkout digital; reemplazo por seudónimo o hash HMAC-SHA256 si se exige para deduplicación fiscal); 5) `digital_purchases.precise_gps_latitude` y `precise_gps_longitude` (A.1.4.2/A.1.4.5 - MAYOR: coordenadas GPS con 7 decimales para descargas de software; reducción a país/región IP); 6) `users.mother_maiden_name` (A.1.4.2 - MAYOR: pregunta secreta insegura y captura innecesaria de PII de terceros; sustitución por 2FA TOTP/FIDO2); 7) `users.birth_date` (A.1.4.5 - MAYOR: fecha completa de nacimiento con granularidad de día para verificar mayoría de edad; generalización a rango o año); 8) `customer_service_audit_logs.client_ip` (A.1.4.5 - MENOR/MAYOR: IP completa sin truncamiento; truncar último octeto /24); 9) `customer_service_audit_logs.temp_payload_dump` y ausencia de TTL (A.1.4.7/A.1.4.8 - MAYOR: volcado crudo de payloads y falta de retención acotada; política de TTL <= 24h); 10) `users.is_deleted` (A.1.4.6 - MAYOR: borrado lógico permanente sin rutina de purga física o anonimización irreversible).",
+      "expectations": [
+        "El informe identifica y cita formalmente los controles A.1.4.2, A.1.4.5, A.1.4.6, A.1.4.7 y A.1.4.8 de ISO/IEC 27701:2025 y la norma técnica ISO/IEC 20889:2018.",
+        "Presenta una tabla consolidada de hallazgos que sigue estrictamente las 6 columnas estándar: ID, Control ISO 27701, Severidad, Atributo/Campo, Evidencia Técnica Detectada, y Recomendación Técnica de Minimización (ISO 20889).",
+        "Identifica al menos 6 hallazgos únicos con sus respectivos identificadores (H-01 a H-06 o similar).",
+        "Califica como severidad 'CRÍTICA' el almacenamiento de `blood_type` (salud) y/o `religion` en la tabla `users`, exigiendo su supresión inmediata bajo A.1.4.2 por impertinencia funcional absoluta para compras digitales.",
+        "Califica como severidad 'CRÍTICA' el almacenamiento de `pan_credit_card` y `card_cvv` en texto plano en `user_payment_methods`, exigiendo tokenización mediante pasarela PCI-DSS y prohibiendo el almacenamiento de CVV.",
+        "Señala la violación de privacidad por defecto (A.1.4.2) por el uso abusivo de restricciones 'NOT NULL' en campos desproporcionados (como `national_id`, `mother_maiden_name`, `birth_date`).",
+        "Recomienda la técnica de generalización (ISO 20889) para `birth_date` (reemplazo por rango etario o verificación booleana +18) y para geolocalización `precise_gps_latitude/longitude` (reducción a nivel de país o truncamiento de decimales).",
+        "Exige el truncamiento de subred (/24 para IPv4) en `client_ip` y la definición de un TTL acotado (A.1.4.7) con purga automatizada para `customer_service_audit_logs`.",
+        "Denuncia la insuficiencia del borrado lógico `is_deleted = true` sin una rutina de purga física efectiva o crypto-shredding bajo el control A.1.4.6.",
+        "Proporciona sentencias SQL de remediación técnica concretas (e.g., `ALTER TABLE users DROP COLUMN blood_type;`, `DROP COLUMN religion;`, `DROP COLUMN mother_maiden_name;`)."
+      ]
+    },
+    {
+      "id": "eval-beh-02-audit-mobile-telemetry-payload",
+      "type": "behavioral",
+      "prompt": "Audita la carga útil JSON de telemetría de aplicación móvil adjunta en `skills/data-minimization-checker/evals/fixtures/sample_mobile_analytics_payload.json`. El propósito declarado por el equipo de desarrollo es: 'Métricas agregadas de rendimiento de la pantalla de lectura y diagnóstico básico de fallos en app de libros digitales'. Evalúa el payload contra ISO/IEC 27701:2025 (A.1.4.2, A.1.4.5, A.1.4.7) y la taxonomía de desidentificación de ISO/IEC 20889:2018. Especifica los identificadores de hardware y PII excesivos transmitidos, las severidades de los hallazgos y presenta el JSON minimizado remediado.",
+      "files": [
+        "skills/data-minimization-checker/evals/fixtures/sample_mobile_analytics_payload.json"
+      ],
+      "expected_output": "Dictamen de auditoría de sobre-recolección (over-fetching) y violación de minimización en el payload `sample_mobile_analytics_payload.json`. El informe debe denunciar que para una métrica básica de renderizado de pantalla (`screen_view`), el cliente móvil está transmitiendo identificadores persistentes de hardware de alta trazabilidad, datos de perfil directo, geolocalización de precisión militar y logs de depuración con tokens. Debe clasificar los hallazgos en la matriz de severidades: 1) `hardware_identifiers` (`imei`, `mac_address`, `sim_serial_number`, `device_serial`) - Severidad MAYOR/CRÍTICA bajo A.1.4.2 por tratarse de identificadores persistentes no rotativos que permiten el rastreo permanente del usuario entre aplicaciones; 2) `user_profile` (`user_email`, `phone`, `birth_date`) - Severidad MAYOR bajo A.1.4.2 por vincular telemetría técnica con PII directa identificable; 3) `network_and_location` (`precise_gps_latitude/longitude`, `wifi_bssid_list`) - Severidad MAYOR bajo A.1.4.2/A.1.4.5 por sobre-recolección masiva (la lista de BSSIDs WiFi y GPS con 7 decimales permite triangular la ubicación física del hogar a menos de 3 metros, innecesario para un visor de libros); 4) `interaction_details.debug_log` - Severidad MAYOR/CRÍTICA bajo A.1.4.7 por fuga de tokens Bearer/JWT y correos en volcados de depuración; 5) Proponer el payload JSON corregido con eliminación de PII directa, uso de identificador de instalación efímero rotativo (App Instance ID / UUIDv4), IP truncada y supresión de coordenadas y hardware IDs.",
+      "expectations": [
+        "El informe evalúa formalmente el payload JSON frente a los controles A.1.4.2, A.1.4.5 y A.1.4.7 de ISO/IEC 27701:2025.",
+        "Genera una tabla de hallazgos estructurada de 6 columnas clasificando severidades y controles.",
+        "Denuncia explícitamente la recolección indebida de identificadores permanentes de hardware (`imei`, `mac_address`, `sim_serial_number`, `device_serial`), calificándola como severidad 'Mayor' o 'Crítica' bajo A.1.4.2.",
+        "Denuncia la inclusión de datos directos de usuario (`user_email`, `phone`, `birth_date`) en un evento de telemetría de rendimiento bajo el principio de necesidad estricta (A.1.4.2).",
+        "Advierte que la lista de BSSIDs WiFi (`wifi_bssid_list`) y las coordenadas GPS precisas permiten la geolocalización exacta del titular mediante técnicas de triangulación (Wi-Fi positioning), resultando totalmente desproporcionadas para una aplicación de lectura.",
+        "Señala la filtración de credenciales/tokens y correos en `interaction_details.debug_log` como un incumplimiento del control A.1.4.7 (Temporary files) y exige filtros de sanitización previa (client-side scrubbing).",
+        "Recomienda técnicas formales de ISO/IEC 20889: sustitución de identificadores de dispositivo por UUID v4 efímero de sesión/instalación, truncamiento de dirección IP (/24) y muestreo agregado.",
+        "Aporta una versión JSON minimizada y remediada del payload (`remediated_payload.json`) que elimina toda la PII superflua y preserva exclusivamente las métricas funcionales de rendimiento (`telemetry_metrics`)."
+      ]
+    },
+    {
+      "id": "eval-beh-03-retention-ttl-and-sanitization-plan",
+      "type": "behavioral",
+      "prompt": "A partir de los hallazgos identificados en `skills/data-minimization-checker/evals/fixtures/sample_ecommerce_ddl.sql` y `sample_mobile_analytics_payload.json`, elabora el Plan Maestro de Retención, Ciclo de Vida de Temporales (TTL) y Sanitización Segura de Medios conforme a los controles A.1.4.6, A.1.4.7, A.1.4.8, A.1.4.9 y A.3.20/A.3.21 de ISO/IEC 27701:2025. El plan debe incluir: 1) Matriz de Retención por tipología de datos con justificación legal de prescripción; 2) Reglas operativas para la sustitución del borrado lógico (`is_deleted`) por purga física y crypto-shredding; 3) Configuración de TTL y scripts automatizados de limpieza de temporales; 4) Procedimiento técnico de sanitización de medios bajo NIST SP 800-88 Rev 1 y DIN 66399; y 5) Delimitación estricta de fronteras indicando qué materias deben derivarse a 'pia-reviewer' y 'pii-rights-manager'.",
+      "files": [
+        "skills/data-minimization-checker/evals/fixtures/sample_ecommerce_ddl.sql",
+        "skills/data-minimization-checker/evals/fixtures/sample_mobile_analytics_payload.json"
+      ],
+      "expected_output": "Documento rector y Plan Maestro de Retención, Temporales y Sanitización para la plataforma. El plan debe estructurar: 1) Matriz formal de retención con plazos específicos objetivamente fundados (ej. datos contables de compras: 5-10 años por Código de Comercio/Fiscal; datos de sesión/IPs: máximo 30 días; archivos temporales/debug dumps: 24 a 48 horas); 2) Plan de remediación para A.1.4.6 erradicando el borrado lógico pasivo `is_deleted = true`, implementando un cron job de purga física irreversible a los 30 días de inactividad o borrado criptográfico (*crypto-shredding*) de la llave KMS de columna; 3) Especificación técnica de TTL bajo A.1.4.7 para `customer_service_audit_logs.temp_payload_dump` y los payloads de telemetría, con política de retención en particiones y directivas de expiración automática; 4) Procedimiento de sanitización física y lógica conforme a NIST SP 800-88 Rev 1 (Clear para reutilización interna, Purge para cambio de destino, Destroy para fin de vida útil) y triturado DIN 66399 (nivel P-4 / O-4 para medios ópticos y magnéticos); 5) Fronteras operativas declarando expresamente que si surge la necesidad de evaluar el impacto sistémico de nuevos identificadores biométricos se transfiere a 'pia-reviewer', y si un usuario invoca formalmente su derecho de supresión se canaliza a través de 'pii-rights-manager'.",
+      "expectations": [
+        "Cita y articula con rigor los controles A.1.4.6, A.1.4.7, A.1.4.8, A.1.4.9, A.3.20 y A.3.21 de ISO/IEC 27701:2025.",
+        "Incluye una tabla formal de Calendario de Retención con al menos 4 tipologías de datos (compras/facturación, perfil de usuario, logs de auditoría, volcados temporales) con plazos numéricos cuantificados y base legal/operativa justificada.",
+        "Establece una solución técnica concreta frente a la insuficiencia del borrado lógico `is_deleted = true` (rutina cron de purga física periódica o borrado criptográfico / crypto-shredding de llaves KMS en reposo).",
+        "Fija un TTL máximo de 24 a 48 horas para archivos de depuración y volcados temporales (`temp_payload_dump`), exigiendo tareas automatizadas de purga (cron, directivas cloud lifecycle o particiones rotativas con DROP PARTITION).",
+        "Define el estándar de sanitización de soportes referenciando expresamente NIST SP 800-88 Rev 1 (métodos Clear, Purge y Destroy) y/o la norma DIN 66399.",
+        "Incorpora una sección explícita de delimitación de fronteras arquitectónicas que derive formalmente las Evaluaciones de Impacto sistémicas a 'pia-reviewer' y la atención de solicitudes individuales de ejercicio de derechos a 'pii-rights-manager'."
+      ]
+    }
+  ]
+}

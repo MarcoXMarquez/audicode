@@ -1,0 +1,163 @@
+{
+  "skill_name": "pii-rights-manager",
+  "version": "1.0.0",
+  "standard": "ISO/IEC 27701:2025",
+  "evals": [
+    {
+      "id": "eval-pos-01-erasure-request-processing",
+      "type": "positive_trigger",
+      "prompt": "Hola, un cliente que canceló su suscripción a nuestra plataforma SaaS nos acaba de enviar un correo exigiendo que borremos inmediatamente todos sus datos personales de nuestras bases de datos bajo el derecho al olvido. ¿Cómo debemos gestionar esta solicitud de supresión según la ISO 27701 y qué debemos tener en cuenta si tenemos facturas guardadas?",
+      "files": [],
+      "expected_output": "La skill 'pii-rights-manager' debe activarse de forma inequívoca reconociendo la tramitación de una solicitud de supresión / derecho al olvido conforme a los controles A.1.3.7 (Acceso, rectificación o supresión) y A.1.3.10 (Gestión de peticiones) de ISO/IEC 27701:2025. Debe indicar el flujo de 5 etapas, el plazo perentorio legal (1 mes bajo RGPD), el principio de autenticación proporcional, la diferenciación crítica entre datos eliminables (marketing/CRM) y datos sujetos a retención legal obligatoria (facturas/contabilidad bajo bloqueo lógico o data freezing), y el deber de notificar en cascada a terceros receptores bajo el control A.1.3.8.",
+      "expectations": [
+        "El agente activa la skill 'pii-rights-manager' de manera directa sin declinar la solicitud.",
+        "Identifica explícitamente el ejercicio del derecho de supresión / olvido bajo el control A.1.3.7 de ISO/IEC 27701:2025 (o Art. 17 RGPD).",
+        "Advierte que las facturas y registros contables NO deben ser destruidos materialmente si existen deberes legales de conservación fiscal/mercantil, prescribiendo en su lugar el protocolo de 'bloqueo lógico' (data freezing).",
+        "Menciona la obligación de notificar en cascada a terceros receptores y encargados del tratamiento bajo el control A.1.3.8 de ISO/IEC 27701:2025.",
+        "Señala el plazo límite legal de atención (ej. 1 mes calendario bajo RGPD o 20 días hábiles en normativas locales) y la necesidad de registrar el ticket en el log de auditoría DSAR."
+      ]
+    },
+    {
+      "id": "eval-pos-02-dsar-access-response-drafting",
+      "type": "positive_trigger",
+      "prompt": "Recibimos una solicitud formal de acceso (DSAR) de un usuario que nos pide copia de toda la información que tenemos sobre él, finalidades del tratamiento y con quién la compartimos. ¿Qué estructura debe tener la respuesta formal y cómo debemos entregar la copia de los datos según los controles A.1.3.7 y A.1.3.9?",
+      "files": [],
+      "expected_output": "La skill 'pii-rights-manager' se activa reconociendo una solicitud de acceso formal (DSAR) bajo el control A.1.3.7 y entrega de copia estructurada bajo el control A.1.3.9 de ISO/IEC 27701:2025. Debe desglosar la estructura mandatoria de la resolución formal (categorías de PII, finalidades, bases jurídicas, destinatarios, plazos de conservación y vías de tutela ante la autoridad de control), detallar los requisitos técnicos de portabilidad (formatos abiertos y legibles por máquina como JSON/CSV) y especificar los protocolos de entrega segura (repositorio cifrado TLS 1.3, enlace temporal con caducidad de máximo 7 días y autenticación fuera de banda con OTP).",
+      "expectations": [
+        "El agente activa positivamente la skill 'pii-rights-manager'.",
+        "Cita con rigor los controles A.1.3.7 (Acceso a PII) y A.1.3.9 (Entrega de copia de PII procesada) de ISO/IEC 27701:2025.",
+        "Detalla los elementos informativos indispensables en la respuesta de acceso: categorías de datos, fines de tratamiento, bases jurídicas, destinatarios/terceros y plazos de conservación.",
+        "Establece los requisitos de formato interoperable para la copia de datos, priorizando JSON o CSV de lectura mecánica y rechazando capturas de pantalla o volcados binarios propietarios.",
+        "Describe las salvaguardas de seguridad en la entrega de la copia (enlace cifrado temporal, caducidad no mayor a 7 días y autenticación de dos factores / OTP fuera de banda).",
+        "Recuerda la obligación de informar al titular su derecho a recurrir ante la Autoridad de Control de Protección de Datos."
+      ]
+    },
+    {
+      "id": "eval-pos-03-third-party-cascade-notification",
+      "type": "positive_trigger",
+      "prompt": "Acabamos de resolver favorablemente la solicitud de rectificación y supresión de un cliente, pero sus datos fueron compartidos previamente con nuestro proveedor de CRM en la nube y la plataforma de email marketing. ¿Cómo coordinamos la notificación en cascada a estos terceros según el control A.1.3.8 de ISO 27701:2025 y qué debemos exigirles?",
+      "files": [],
+      "expected_output": "La skill 'pii-rights-manager' se activa abordando de forma exhaustiva el control A.1.3.8 (PII controllers' obligations to inform third parties) y su vinculación con A.2.3.2. Debe detallar los mecanismos operativos (APIs/webhooks de privacidad cifrados para sistemas automatizados o notificación formal documental con la Plantilla 7 de cascada), los datos mínimos de la instrucción (identificador unívoco, tipo de acción técnica, plazos de SLA menores a 24-72 horas), la exigencia de acuse de recibo técnico o confirmación escrita, la obligación del tercero de trasladar la orden a sus subencargados (sub-processors) y el registro probatorio en el ticket de auditoría.",
+      "expectations": [
+        "El agente activa la skill 'pii-rights-manager' sin desviar la consulta.",
+        "Cita expresamente el control A.1.3.8 de ISO/IEC 27701:2025 (y su relación con A.2.3.2 para encargados).",
+        "Describe los canales técnicos de cascada: webhooks de privacidad / buses de eventos para plataformas SaaS y comunicaciones formales documentadas para proveedores tradicionales.",
+        "Exige como requisito no negociable la obtención de un acuse de recibo técnico (código HTTP 200/202) o confirmación escrita firmada por el DPO del tercero.",
+        "Destaca que la orden de supresión/rectificación debe trasladarse en cascada a ulteriores subencargados (sub-processors).",
+        "Advierte que el expediente o ticket DSAR no debe cerrarse hasta contar con la evidencia verificable de confirmación de los terceros."
+      ]
+    },
+    {
+      "id": "eval-pos-04-id-verification-proportionality",
+      "type": "positive_trigger",
+      "prompt": "¿Podemos exigirle a cualquier usuario que nos pida acceso o borrado de sus datos que nos envíe una copia escaneada de su pasaporte o documento de identidad oficial, o la ISO 27701 y el RGPD prohíben pedir eso si el usuario ya tiene cuenta en la web?",
+      "files": [],
+      "expected_output": "La skill 'pii-rights-manager' se activa analizando el principio de proporcionalidad en la verificación de identidad bajo el control A.1.3.10 (Handling requests) de ISO/IEC 27701:2025 y el Art. 12.6 del RGPD (Directrices 01/2022 EDPB). Debe clarificar taxativamente que está prohibido exigir copias de documentos oficiales de identidad (DNI/Pasaporte) a usuarios que ya cuentan con sesión activa autenticada en la plataforma, debiendo recurrir a validación por sesión, paso a paso (step-up auth) o códigos OTP al correo/móvil registrado. La solicitud de documento oficial es una medida de último recurso reservada para casos de duda razonable insanable en canales abiertos, admitiendo siempre el tachado de datos no relevantes.",
+      "expectations": [
+        "El agente activa la skill 'pii-rights-manager' reconociendo la gobernanza de autenticación bajo el control A.1.3.10 de ISO/IEC 27701:2025.",
+        "Determina con claridad que solicitar pasaporte o documento oficial a usuarios autenticados con sesión activa o credenciales es desproporcionado e infractor del principio de minimización (A.1.4.2).",
+        "Expone la graduación de mecanismos de verificación: sesión activa con MFA, step-up authentication mediante token OTP y cotejo contextual de datos no públicos.",
+        "Señala que la copia de documento oficial solo es admisible como último ratio ante duda razonable real y debe permitir el tachado (redaction) de campos no pertinentes como fotos o firmas.",
+        "Cita las directrices regulatorias aplicables (ej. Directrices 01/2022 del EDPB o guías de la AEPD/INAI)."
+      ]
+    },
+    {
+      "id": "eval-neg-01-consent-opt-in-checkbox",
+      "type": "negative_trigger",
+      "prompt": "¿Es legal bajo ISO 27701 que dejemos premarcada la casilla de suscripción comercial en nuestro formulario web de registro de clientes para obtener su consentimiento rápido?",
+      "files": [],
+      "expected_output": "La skill 'pii-rights-manager' DEBE DETECTAR que esta consulta versa sobre la obtención y validez del consentimiento como base jurídica (mecanismos de UI, casillas premarcadas, dark patterns y regla de opt-in expreso no condicionado). Al no tratarse del ejercicio reglado de un derecho ARCO/DSAR por un titular individual, la skill debe DECLINAR la tramitación directa y DERIVAR formalmente la consulta a la skill especializada 'consent-validator' (controles A.1.2.4 y A.1.2.5 de ISO/IEC 27701:2025).",
+      "expectations": [
+        "El agente NO procesa la solicitud como un trámite de derechos de titular ni aplica plantillas DSAR.",
+        "Identifica explícitamente que la consulta trata sobre mecanismos de captación y validez del consentimiento (casillas premarcadas / opt-in libre).",
+        "Deriva o transfiere formalmente al usuario a la skill 'consent-validator'.",
+        "Cita los controles correctos de consentimiento de ISO/IEC 27701:2025 (A.1.2.4 Consentimiento libre y A.1.2.5 Registro de consentimiento).",
+        "Explica sucintamente la frontera operativa: consent-validator atiende la base jurídica de captación/revocación de marketing, mientras que pii-rights-manager atiende el ejercicio reglado de derechos ARCO/DSAR."
+      ]
+    },
+    {
+      "id": "eval-neg-02-processor-dpa-clauses",
+      "type": "negative_trigger",
+      "prompt": "Por favor revisa el Data Processing Agreement (DPA) que nos ha remitido un proveedor de hosting cloud para ver si cumple con las cláusulas contractuales obligatorias para encargados del tratamiento bajo la ISO 27701.",
+      "files": [],
+      "expected_output": "La skill 'pii-rights-manager' DEBE RECONOCER que el documento sometido es un contrato bilateral entre Responsable y Encargado del Tratamiento (Acuerdo de Encargo / Data Processing Agreement según Art. 28 RGPD y controles de la familia A.2 de ISO/IEC 27701:2025), y NO una solicitud individual de un titular de datos. En consecuencia, declina la revisión contractual y DERIVA formalmente la consulta a la skill 'processor-contract-validator' (controles A.1.2.7 y Tabla A.2).",
+      "expectations": [
+        "El agente NO procesa la consulta como una solicitud de derechos de titulares.",
+        "Reconoce con precisión que se trata de la auditoría jurídica de un contrato de encargo con un proveedor de servicios (DPA / PII Processor).",
+        "Deriva o transfiere formalmente a la skill 'processor-contract-validator'.",
+        "Cita los controles contractuales pertinentes de ISO/IEC 27701:2025 (Control A.1.2.7 y Tabla A.2 de la norma / Art. 28 RGPD).",
+        "Aclara que pii-rights-manager solo interviene en la relación con proveedores cuando se requiere instruir una notificación en cascada por un derecho resuelto (A.1.3.8), no para auditar el contrato marco."
+      ]
+    },
+    {
+      "id": "eval-neg-03-database-schema-minimization",
+      "type": "negative_trigger",
+      "prompt": "Necesitamos inspeccionar el esquema DDL de la base de datos de usuarios en PostgreSQL para ver si contiene columnas innecesarias o datos desproporcionados y definir políticas de retención TTL.",
+      "files": [],
+      "expected_output": "La skill 'pii-rights-manager' DEBE IDENTIFICAR que la solicitud corresponde a una auditoría técnica estructural de esquemas de bases de datos, evaluación del principio de minimización de datos y configuración de caducidad temporal (TTL) en repositorios generales, y NO a la resolución de una solicitud ARCO de un titular concreto. Por tanto, declina la tarea y DERIVA formalmente a la skill 'data-minimization-checker' (controles A.1.4.2, A.1.4.5 y A.1.4.8 de ISO/IEC 27701:2025).",
+      "expectations": [
+        "El agente NO trata la consulta como una gestión de derechos individuales ARCO / DSAR.",
+        "Identifica que la necesidad es una auditoría técnica de esquemas de datos (DDL SQL) y políticas de minimización/retención general.",
+        "Deriva formalmente a la skill 'data-minimization-checker'.",
+        "Cita los controles de minimización y retención de ISO/IEC 27701:2025 (A.1.4.2 Minimizacion de PII, A.1.4.5 Limitación de recolección y A.1.4.8 Retención y disposición).",
+        "Mantiene de forma estricta los límites del conjunto arquitectónico sin solapamientos."
+      ]
+    },
+    {
+      "id": "eval-beh-01-complex-erasure-handling",
+      "type": "behavioral",
+      "prompt": "Tramita y resuelve integralmente el expediente de solicitud formal de supresión / derecho al olvido adjunto en `skills/pii-rights-manager/evals/fixtures/sample_erasure_request_complex.json` conforme a ISO/IEC 27701:2025 y el RGPD. Tu dictamen operacional debe incluir: 1) Tipificación del derecho y cálculo del plazo límite legal perentorio a la fecha de corte de auditoría (2026-10-01); 2) Evaluación de autenticación del solicitante; 3) Análisis jurídico de procedencia diferenciando estrictamente datos suprimibles de datos sujetos a deberes legales de conservación (bloqueo lógico / data freezing); 4) Protocolo de ejecución técnica interna y cascada a terceros receptores bajo el control A.1.3.8 con instrucciones específicas para cada proveedor; 5) Redacción de la resolución formal motivada al titular Carlos Mendoza siguiendo la plantilla estandarizada de la norma e informando las vías de tutela ante la autoridad de control.",
+      "files": [
+        "skills/pii-rights-manager/evals/fixtures/sample_erasure_request_complex.json"
+      ],
+      "expected_output": "Dictamen operacional completo de resolución del expediente DSAR-2026-0894 de Carlos Mendoza Alarcón. El informe debe: 1) Tipificar el trámite como derecho de supresión / olvido bajo A.1.3.7 y Art. 17 RGPD, computando que con fecha de recepción 2026-09-15 la fecha límite estatutaria vence el 2026-10-15 (1 mes calendario), restando exactamente 14 días corridos a la fecha de auditoría 2026-10-01 (estado ON_TRACK); 2) Validar que la autenticación nivel 2 (sesión con TOTP y confirmación por correo verificado) es plenamente suficiente y proporcional según A.1.3.10, sin requerir DNI adicional; 3) Determinar la estimación parcial: supresión definitiva e inmediata de datos comerciales/perfil en PostgreSQL Core DB y Salesforce CRM (34 registros), y BLOQUEO LÓGICO obligatorio de las 8 facturas (1.450 EUR) en SAP ERP amparado en el Art. 17.3 b RGPD por obligaciones tributarias y mercantiles (4 años LGT y 6 años Código de Comercio), restringiendo su acceso solo a legal/fiscal; 4) Diseñar las órdenes de cascada a terceros (A.1.3.8): instrucción de purga y cese a MailSend Cloud Ltd. vía webhook con exigencia de acuse HTTP 200, orden de borrado de perfil a LeadScore Analytics Inc., y notificación de bloqueo cautelar a FastPay Gateway S.L.; 5) Redactar la resolución formal estandarizada al titular (Plantilla 4 de rights_timeline_matrix.md) con motivación clara de la supresión comercial y el bloqueo legal de facturación, recordando expresamente su derecho a recurrir ante la Agencia Española de Protección de Datos (AEPD).",
+      "expectations": [
+        "Tipifica unívocamente el derecho ejercido como derecho de supresión / derecho al olvido conforme al Control A.1.3.7 de ISO/IEC 27701:2025 y el Artículo 17 del RGPD.",
+        "Calcula con exactitud matemática el plazo legal perentorio: recepción el 2026-09-15, vencimiento el 2026-10-15 (1 mes calendario), determinando que a fecha de auditoría 2026-10-01 restan exactamente 14 días naturales y el estado es 'ON_TRACK'.",
+        "Evalúa la identidad del solicitante conforme a A.1.3.10 concluyendo que la verificación por credenciales, TOTP y correo electrónico es suficiente y proporcional, prohibiendo expresamente exigir DNI o pasaporte escaneado.",
+        "Aplica la excepción legal de conservación para las 8 facturas comerciales (1.450 EUR) en SAP ERP citando las obligaciones tributarias y mercantiles de España (4 años prescripción fiscal según Ley General Tributaria Art. 66 y 6 años según Código de Comercio Art. 30 / Art. 17.3 b RGPD).",
+        "Prescribe y detalla técnicamente el protocolo de bloqueo lógico ('data freezing'): aislamiento de datos, cifrado, restricción de acceso exclusiva para el área legal y prohibición de uso operativo o comercial.",
+        "Ordena la purga técnica inmediata de los datos en PostgreSQL Core DB y los 34 registros de interacción en Salesforce CRM / HubSpot con inclusión en lista de exclusión (suppression list), así como el registro en lista negra de restauración para los backups en AWS S3.",
+        "Diseña el procedimiento de cascada informativa a terceros bajo el Control A.1.3.8 de ISO/IEC 27701:2025 para los 3 proveedores identificados (MailSend Cloud Ltd., LeadScore Analytics Inc. y FastPay Gateway S.L.), exigiendo acuses de recibo técnicos.",
+        "Redacta una resolución formal completa y lista para ser remitida al titular Carlos Mendoza basada en la Plantilla 4 oficial, explicando el desglose entre datos borrados y facturas bloqueadas, e indicando expresamente la vía de reclamación ante la Agencia Española de Protección de Datos (AEPD)."
+      ]
+    },
+    {
+      "id": "eval-beh-02-excessive-auth-and-deadline-audit",
+      "type": "behavioral",
+      "prompt": "Audita exhaustivamente el expediente de solicitud de acceso adjunto en `skills/pii-rights-manager/evals/fixtures/sample_excessive_auth_access_case.json` conforme a los controles A.1.3.7, A.1.3.9 y A.1.3.10 de ISO/IEC 27701:2025. Tu informe de auditoría debe contener: 1) La tabla de hallazgos estandarizada de 5 columnas con código, control ISO 27701:2025, severidad, descripción del hallazgo y recomendación de mitigación; 2) El cálculo cuantitativo exacto del vencimiento del plazo legal de respuesta a la fecha de corte 2026-10-01; 3) La calificación jurídica y técnica de la exigencia de pasaporte apostillado ante notario para una cuenta de e-commerce; 4) La evaluación de la omisión de la notificación de prórroga formal; 5) El dictamen de subsanación inmediata con las acciones operativas urgentes que la organización debe ejecutar para mitigar la responsabilidad sancionadora.",
+      "files": [
+        "skills/pii-rights-manager/evals/fixtures/sample_excessive_auth_access_case.json"
+      ],
+      "expected_output": "Dictamen de auditoría ISO/IEC 27701:2025 sobre el expediente DSAR-2026-0612 de Elena Rostova en ModaTrends Online. El informe debe estructurar una tabla de hallazgos rigurosa de 5 columnas con al menos 3 no conformidades identificadas: 1) Incumplimiento crítico de plazo legal perentorio (HAL-DSAR-01 / A.1.3.7 y A.1.3.10 - Severidad Crítica) al constatar que la solicitud recibida el 2026-08-10 venció el 2026-09-10 (1 mes calendario según Art. 12.3 RGPD) y a la fecha de corte 2026-10-01 acumula 52 días transcurridos y 21 días de mora legal consumada sin respuesta ni prórroga; 2) Exigencia ilegítima y desproporcionada de verificación de identidad (HAL-DSAR-03 / A.1.3.10 y A.1.4.2 - Severidad Mayor/Crítica) por solicitar pasaporte apostillado y selfie a una usuaria con cuenta activa en la app móvil, violando el principio de proporcionalidad y minimización; 3) Ausencia de mecanismos automatizados para entrega de copias estructuradas en formatos interoperables (HAL-DSAR-05 / A.1.3.9 - Severidad Menor). Debe dictaminar un plan correctivo urgente: revocar de inmediato la exigencia notarial, validar la identidad mediante OTP al teléfono registrado, extraer y entregar el paquete de datos en JSON/CSV con enlace cifrado temporal (máximo 7 días) y remitir comunicación formal de disculpa informando el derecho a reclamar ante la autoridad de control.",
+      "expectations": [
+        "Estructura una tabla de hallazgos formal que respeta estrictamente las 5 columnas estándar: ID/Código, Control ISO 27701:2025, Severidad, Descripción del Hallazgo / Evidencia, y Recomendación de Mitigación.",
+        "Calcula con rigor matemático los días transcurridos y la mora legal: recepción el 2026-08-10, fecha límite el 2026-09-10 (1 mes calendario según Art. 12.3 RGPD), acumulando exactamente 52 días naturales transcurridos y 21 días de retraso legal a la fecha de corte 2026-10-01 (estado 'EXPIRED').",
+        "Clasifica el vencimiento de plazo con código HAL-DSAR-01 y le asigna 'Severidad Crítica' bajo los controles A.1.3.7 y A.1.3.10.",
+        "Constata y censura que la organización no emitió ninguna notificación de prórroga formal motivada dentro del mes ordinario conforme al Art. 12.3 del RGPD y el control A.1.3.10, perdiendo la facultad legal de extender el plazo.",
+        "Clasifica la exigencia de pasaporte apostillado ante notario con código HAL-DSAR-03 y le asigna 'Severidad Mayor' o 'Severidad Crítica' bajo el control A.1.3.10 y A.1.4.2, argumentando la violación al principio de autenticación proporcional y minimización (Directrices 01/2022 EDPB).",
+        "Identifica la deficiencia en los formatos de entrega bajo el control A.1.3.9 (HAL-DSAR-05 / Severidad Menor) exigiendo JSON o CSV de lectura mecánica.",
+        "Formula un dictamen de mitigación inmediata que incluye: reactivación inmediata del expediente, verificación no invasiva por OTP en app/teléfono, generación de paquete estructurado interoperable protegido con cifrado y enlace de 7 días, y emisión de respuesta formal con información de recurso ante la Autoridad de Control."
+      ]
+    },
+    {
+      "id": "eval-beh-03-batch-deadline-monitoring-audit",
+      "type": "behavioral",
+      "prompt": "Ejecuta una auditoría de plazos cuantitativa sobre el lote de 5 solicitudes DSAR / ARCO contenido en `skills/pii-rights-manager/evals/fixtures/sample_batch_dsar_log.json` a la fecha de corte de auditoría 2026-10-01, apoyándote en la calculadora determinista de plazos de la skill (`scripts/deadline_calculator.py`). Tu dictamen de control de gestión debe: 1) Procesar cada una de las 5 solicitudes calculando la fecha límite reglamentaria, los días restantes o de mora, el estado del ticket (EXPIRED, WARNING, ON_TRACK) y la severidad asociada; 2) Discriminar con precisión las reglas de cómputo por jurisdicción (días hábiles para México y Colombia vs días naturales o meses para RGPD y CCPA); 3) Generar la tabla ejecutiva consolidada de plazos de auditoría; 4) Calcular la tasa porcentual de incumplimiento del lote; 5) Proponer el protocolo de gobernanza y alertas tempranas del SGIP para asegurar la conformidad continua con el Control A.1.3.10 de ISO/IEC 27701:2025.",
+      "files": [
+        "skills/pii-rights-manager/evals/fixtures/sample_batch_dsar_log.json"
+      ],
+      "expected_output": "Informe técnico de auditoría y monitoreo cuantitativo de plazos DSAR/ARCO sobre el lote de 5 solicitudes a fecha de corte 2026-10-01. El informe debe: 1) Ejecutar o reflejar fielmente los cálculos deterministas de la herramienta deadline_calculator.py para cada uno de los 5 casos: DSAR-2026-0612 (GDPR, límite 2026-09-10, -21 días, EXPIRED, Severidad Crítica); DSAR-2026-0901 (MX_LFPDPPP, 20 días hábiles, límite 2026-10-06, 5 días restantes, WARNING, Severidad Media); DSAR-2026-0920 (CO_LEY1581, 10 días hábiles para acceso, límite 2026-10-06, 5 días restantes, WARNING, Severidad Media); DSAR-2026-0850 (CCPA, 45 días naturales, límite 2026-10-09, 8 días restantes, ON_TRACK, Severidad Baja); DSAR-2026-0894 (GDPR, 1 mes, límite 2026-10-15, 14 días restantes, ON_TRACK, Severidad Baja); 2) Explicar las diferencias jurídicas de cómputo (exclusión de fines de semana para México y Colombia frente a meses completos para RGPD y días naturales para CCPA); 3) Presentar la tabla comparativa consolidada de auditoría; 4) Cuantificar la tasa de morosidad (1 de 5 solicitudes vencida = 20% de no conformidad crítica) y el volumen en riesgo preventivo (2 de 5 en WARNING = 40%); 5) Diseñar el procedimiento de alertas tempranas del SGIP conforme a A.1.3.10 (alerta amarilla a los 10 días de recepción, alerta roja a los 5 días antes del vencimiento y SLA interno preventivo a 15 días).",
+      "expectations": [
+        "Procesa cuantitativamente las 5 solicitudes del lote identificando con precisión sus marcos jurídicos (GDPR, MX_LFPDPPP, CO_LEY1581, CCPA).",
+        "Calcula con exactitud los valores matemáticos de fecha límite y días restantes para cada solicitud a fecha de corte 2026-10-01, coincidiendo con los resultados de deadline_calculator.py.",
+        "Identifica inequívocamente el ticket DSAR-2026-0612 como vencido con 21 días de mora legal (estado 'EXPIRED', fecha límite 2026-09-10) y severidad 'Crítica'.",
+        "Identifica los tickets DSAR-2026-0901 (México) y DSAR-2026-0920 (Colombia) en estado 'WARNING' con exactamente 5 días hábiles restantes hasta el 2026-10-06.",
+        "Identifica los tickets DSAR-2026-0850 (CCPA) y DSAR-2026-0894 (GDPR) en estado 'ON_TRACK' con 8 y 14 días naturales restantes respectivamente.",
+        "Diferencia formalmente el cómputo de días hábiles (excluyendo sábados y domingos en México y Colombia) del cómputo por meses o días corridos en Europa y California.",
+        "Calcula la métrica porcentual de rendimiento del lote: 20% de expedientes en infracción legal consumada (1/5) y 40% en riesgo inminente de caducidad (2/5).",
+        "Formula recomendaciones de gobernanza conforme al Control A.1.3.10: fijar SLA preventivo interno, automatizar la ejecución periódica de deadline_calculator.py en CI/cron y establecer protocolo obligatorio de emisión de prórroga formal antes del día 20."
+      ]
+    }
+  ]
+}

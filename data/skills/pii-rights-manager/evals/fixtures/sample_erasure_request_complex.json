@@ -1,0 +1,143 @@
+{
+  "request_metadata": {
+    "request_id": "DSAR-2026-0894",
+    "received_date": "2026-09-15T09:42:00Z",
+    "received_channel": "AUTHENTICATED_PORTAL_FORM",
+    "jurisdiction": "GDPR",
+    "statutory_law": "Reglamento General de Protección de Datos (UE 2016/679), Art. 17",
+    "audit_reference_date": "2026-10-01"
+  },
+  "applicant": {
+    "full_name": "Carlos Mendoza Alarcón",
+    "email": "cmendoza@fintechsol.es",
+    "user_id": "usr-8841-cmendoza",
+    "account_status": "ACTIVE_PAID_SUBSCRIPTION",
+    "country_of_residence": "España",
+    "authentication_level": "LEVEL_2_SESSION_MFA_CONFIRMED",
+    "authentication_evidence": "Login verificado con credenciales y TOTP el 2026-09-15 09:40 UTC. Confirmación de solicitud vía email verificado con token de un solo uso."
+  },
+  "request_details": {
+    "right_exercised": "erasure",
+    "subject_statement": "Por medio del presente ejerzo mi derecho de supresión / derecho al olvido conforme al RGPD y la norma ISO/IEC 27701. Exijo que eliminen inmediatamente de manera definitiva e irrevocable todos mis datos personales, registros de cuenta, correos electrónicos, historiales de pago y facturas de sus servidores y bases de datos, y que informen a cualquier tercero al que hayan cedido mis datos.",
+    "explicit_scope_demanded": "TOTAL_PURGE"
+  },
+  "data_inventory_mapping": {
+    "internal_systems": [
+      {
+        "system_name": "PostgreSQL Core DB (Production)",
+        "database_type": "Relational RDBMS",
+        "data_categories": [
+          "Perfil de usuario",
+          "Credenciales hashed",
+          "Preferencias de UI",
+          "Registro de sesión"
+        ],
+        "records_count": 1,
+        "legal_basis": "Consentimiento / Ejecución contractual",
+        "erasure_applicability": "PURGE_FEASIBLE",
+        "erasure_method": "Hard delete de credenciales y registros personales, preservando UUID anonimizado disociado."
+      },
+      {
+        "system_name": "Salesforce CRM & HubSpot",
+        "database_type": "Cloud CRM",
+        "data_categories": [
+          "Historial de llamadas comerciales",
+          "Notas de ejecutivo de cuentas",
+          "Etiquetas de scoring de cliente",
+          "Métricas de interacción con newsletters"
+        ],
+        "records_count": 34,
+        "legal_basis": "Interés legítimo / Consentimiento mercadológico",
+        "erasure_applicability": "PURGE_FEASIBLE",
+        "erasure_method": "Eliminación inmediata de registros de prospecto/cliente e inclusión en lista de exclusión (suppression list) para evitar futuros contactos."
+      },
+      {
+        "system_name": "SAP Financial & Invoicing ERP",
+        "database_type": "Enterprise ERP",
+        "data_categories": [
+          "Facturas emitidas (8 facturas comerciales años 2024-2026)",
+          "NIF/DNI fiscal",
+          "Dirección de facturación",
+          "Historial contable de transacciones bancarias (total 1.450 EUR)"
+        ],
+        "records_count": 8,
+        "legal_basis": "Obligación legal (Ley General Tributaria / Código de Comercio de España / Art. 17.3 b RGPD)",
+        "retention_period_mandatory": "4 años por prescripción tributaria (LGT Art. 66) y 6 años para libros de comercio (Código de Comercio Art. 30)",
+        "erasure_applicability": "LEGAL_RETENTION_OVERRIDE",
+        "required_action": "BLOQUEO_LOGICO (Data Freezing). Cifrado de registros contables, restricción estricta de privilegios de acceso reservada al área legal/fiscal, prohibición absoluta de explotación comercial u operativa."
+      },
+      {
+        "system_name": "AWS S3 Backup Archive",
+        "database_type": "Encrypted Glacier/S3",
+        "data_categories": [
+          "Snapshots periódicos de bases de datos de producción"
+        ],
+        "records_count": "Disperso en imágenes comprimidas",
+        "legal_basis": "Continuidad del negocio / Resiliencia técnica (Control ISO 27701 A.1.3.7)",
+        "erasure_applicability": "RESTRICTED_PURGE_AT_ROTATION",
+        "required_action": "Registro en lista negra de restauración. Si una contingencia fuerza la recuperación de respaldos, el script de post-restauración re-aplica el borrado del titular."
+      }
+    ],
+    "third_party_transfers": [
+      {
+        "processor_name": "MailSend Cloud Ltd.",
+        "category": "Email Marketing ESP (Encargado del tratamiento)",
+        "data_shared": [
+          "Nombre",
+          "Email",
+          "Segmento de mercado"
+        ],
+        "purpose": "Campañas de email marketing",
+        "legal_obligation_ref": "Control ISO/IEC 27701:2025 A.1.3.8 / Art. 17.2 y 19 RGPD",
+        "cascade_required": true,
+        "instruction_to_send": "SUPPRESS_AND_PURGE",
+        "channel": "API Webhook HTTPS con carga útil JSON cifrada solicitando acuse de recibo HTTP 200/202."
+      },
+      {
+        "processor_name": "LeadScore Analytics Inc.",
+        "category": "Plataforma de Perfilado Predictivo SaaS (Encargado)",
+        "data_shared": [
+          "Identificador anonimizado",
+          "Eventos de clics",
+          "Puntuación comercial"
+        ],
+        "purpose": "Modelos predictivos de conversión",
+        "legal_obligation_ref": "Control ISO/IEC 27701:2025 A.1.3.8",
+        "cascade_required": true,
+        "instruction_to_send": "DELETE_ANALYTIC_PROFILE",
+        "channel": "Notificación documental formal a su Delegado de Protección de Datos según Plantilla 7."
+      },
+      {
+        "processor_name": "FastPay Gateway S.L.",
+        "category": "Pasarela de Cobros y Liquidación (Encargado/Responsable)",
+        "data_shared": [
+          "Token de pago cifrado",
+          "Importe de transacción",
+          "ID de cargo"
+        ],
+        "purpose": "Procesamiento financiero de cobros y conciliación",
+        "legal_obligation_ref": "Control ISO/IEC 27701:2025 A.1.3.8 y normativa PSD2/AML",
+        "cascade_required": true,
+        "instruction_to_send": "FREEZE_RECORDS_FOR_LEGAL_DEFENSE",
+        "channel": "Notificación formal de supresión con advertencia de conservación bloqueada por periodo de contracargo/reclamación bancaria."
+      }
+    ]
+  },
+  "current_status": {
+    "status": "UNDER_LEGAL_AND_TECHNICAL_ANALYSIS",
+    "days_elapsed_as_of_audit": 16,
+    "statutory_deadline_original": "2026-10-15",
+    "days_remaining_to_deadline": 14,
+    "actions_completed": [
+      "Ticket creado DSAR-2026-0894 el 2026-09-15",
+      "Identidad validada automáticamente por nivel de autenticación MFA en sesión",
+      "Mapeo de sistemas y ROPA ejecutado"
+    ],
+    "pending_actions": [
+      "Confirmar y ejecutar bloqueo formal en ERP contable (SAP)",
+      "Ejecutar purga técnica en Core DB y Salesforce CRM",
+      "Emitir comunicaciones de cascada a MailSend Cloud, LeadScore y FastPay (A.1.3.8)",
+      "Redactar y remitir resolución formal de estimación parcial (supresión con bloqueo legal motivado) al titular Carlos Mendoza"
+    ]
+  }
+}

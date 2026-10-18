@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "flow_id": "FLOW-CRM-TEL-01",
+  "flow_name": "European CRM to Third-Country Telemetry Streaming Ingestion",
+  "version": "1.3.0",
+  "environment": "production",
+  "flow_classification": "Cross-Border International PII Transfer",
+  "timestamp_created": "2024-06-15T08:30:00Z",
+  "last_modified": "2026-08-20T14:15:00Z",
+  "source_system": {
+    "system_name": "NovaCRM Enterprise EU",
+    "component": "Customer Engagement & Billing Core",
+    "hosting_region": "eu-central-1 (Frankfurt, Germany)",
+    "data_exporter_entity": "NovaFintech Payments S.L.",
+    "exporter_role": "PII Controller",
+    "exporter_jurisdiction": "European Union (Spain / Germany)"
+  },
+  "destination_system": {
+    "system_name": "OmniTelemetry Realtime Cloud Platform",
+    "component": "Event Ingestion & Behavioral Analytics Engine",
+    "hosting_provider": "OmniTelemetry Global Corp.",
+    "data_importer_entity": "OmniTelemetry Inc. (Delaware Corporation)",
+    "primary_datacenter": "AWS us-east-1 (North Virginia, United States)",
+    "secondary_support_datacenter": "Bangalore Cloud Center (India)",
+    "importer_role": "PII Processor",
+    "importer_jurisdiction": "United States (Third country without general adequacy decision)",
+    "eu_us_dpf_status": {
+      "certified": false,
+      "status": "NOT_REGISTERED",
+      "verification_date": "2026-09-15",
+      "notes": "Entity not listed in US Department of Commerce Data Privacy Framework participant list"
+    }
+  },
+  "transferred_data_inventory": {
+    "volume_profile": "Continuous real-time stream (~4.2 million events/day)",
+    "pii_categories": [
+      "User Unique Identifiers (UUIDv4 customer ID)",
+      "Direct Identifiers (full customer name, unhashed email address)",
+      "Network Identifiers (source IPv4/IPv6, MAC address hash, TCP port)",
+      "Device Telemetry (Browser user-agent, hardware canvas fingerprint, OS build)",
+      "Precise Geolocation (GPS latitude/longitude extracted from mobile checkout)",
+      "Financial Transaction Metadata (transaction amount, payment method token, card brand, currency, decline error codes)",
+      "Behavioral Session URLs (full deep links to session recording replay containing form input coordinates)"
+    ],
+    "sample_event_payload": {
+      "event_id": "evt_98432749283472",
+      "timestamp": "2026-09-30T18:44:21.104Z",
+      "customer_id": "cst_84739210",
+      "customer_email": "carlos.mendoza@ejemplo.es",
+      "customer_name": "Carlos Mendoza Alarcón",
+      "ip_address": "88.24.112.45",
+      "geolocation": {
+        "lat": 40.4168,
+        "lon": -3.7038,
+        "city": "Madrid",
+        "country": "ES"
+      },
+      "device": {
+        "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15",
+        "fingerprint": "fp_ios_a4b98c32d1e0"
+      },
+      "transaction_context": {
+        "cart_value_eur": 1250.00,
+        "card_brand": "VISA",
+        "auth_result": "SUCCESS"
+      }
+    }
+  },
+  "legal_transfer_basis_governance": {
+    "iso_control_reference": "ISO/IEC 27701:2025 A.1.5.2",
+    "documented_basis": null,
+    "internal_justification_note": "Considered internal technical telemetry for performance monitoring; no formal legal instrument executed by procurement or legal teams",
+    "standard_contractual_clauses_scc": {
+      "executed": false,
+      "scc_module": null,
+      "execution_date": null,
+      "annexes_completed": false,
+      "notes": "Vendor standard click-through terms accepted without European SCCs (Decision 2021/914/EU Module 2)"
+    },
+    "binding_corporate_rules_bcr": {
+      "applicable": false,
+      "lead_authority_approval": null
+    },
+    "transfer_impact_assessment_tia": {
+      "conducted": false,
+      "tia_reference_id": null,
+      "last_audit_date": null,
+      "fisa_section_702_analysis": false,
+      "us_cloud_act_evaluation": false,
+      "third_country_surveillance_risk_rating": "NOT_ASSESSED"
+    },
+    "derogation_claimed": "None formally invoked. Informal claim of 'legitimate interest' or 'execution of service' by DevOps team (invalid under A.1.5.2 for structural mass transfers)"
+  },
+  "geographic_transparency_and_records": {
+    "iso_control_reference": "ISO/IEC 27701:2025 A.1.5.3, A.1.5.4, A.1.5.5",
+    "included_in_public_privacy_notice": false,
+    "privacy_notice_wording": "Information is securely processed using standard cloud partners and industry telemetry",
+    "transparency_gap": "Destination countries (USA, India) and third-party importer (OmniTelemetry Inc.) not identified to PII principals",
+    "internal_transfer_register_entry": {
+      "registered": false,
+      "register_id": null,
+      "last_audit_date": null,
+      "review_frequency": null
+    }
+  },
+  "transmission_security_and_safeguards": {
+    "iso_control_reference": "ISO/IEC 27701:2025 A.3.7, A.1.5.2",
+    "transport_layer": {
+      "protocol": "HTTP",
+      "port": 80,
+      "tls_enforced": false,
+      "tls_configuration": {
+        "min_version": "TLS 1.0",
+        "supported_ciphers": [
+          "TLS_RSA_WITH_AES_128_CBC_SHA",
+          "TLS_RSA_WITH_3DES_EDE_CBC_SHA"
+        ],
+        "perfect_forward_secrecy_pfs": false,
+        "plaintext_fallback_allowed": true
+      },
+      "authentication": {
+        "mechanism": "Static API Token in Query Parameter",
+        "query_pattern": "POST http://ingest.omnitelemetry-us.net/api/v1/stream?api_key=omni_live_k8s_9921_secret",
+        "header_token_auth": false,
+        "mutual_tls_mtls": false,
+        "client_certificate_deployed": false
+      }
+    },
+    "payload_security": {
+      "pre_egress_field_level_encryption": false,
+      "pseudonymization_applied": false,
+      "pii_cleartext_status": "All customer PII fields transmitted in plain unencrypted JSON payload"
+    },
+    "cryptographic_key_custody": {
+      "key_custody_model": "Vendor-Held-Key",
+      "key_manager_entity": "OmniTelemetry Inc. (AWS KMS us-east-1)",
+      "exporter_holds_keys": false,
+      "safeguard_deficiency": "Keys are held in destination country under foreign surveillance jurisdiction; zero technical mitigation against US CLOUD Act or FISA 702"
+    }
+  },
+  "records": [
+    {
+      "transfer_id": "FLOW-CRM-TEL-01",
+      "origin_country": "DE",
+      "destination_country": "US",
+      "recipient_name": "OmniTelemetry Inc.",
+      "recipient_role": "PII Processor",
+      "data_categories": "Customer credentials, direct PII, IP addresses, geolocation, financial events, session replay",
+      "legal_basis": "",
+      "is_recurring": true,
+      "is_processor": true,
+      "tia_conducted": false,
+      "tia_date": null,
+      "safeguards": "None",
+      "transit_encryption": "CLEAR_TEXT",
+      "customer_notified": false,
+      "review_date": null,
+      "last_audit_date": null,
+      "purpose": "Real-time user behavior telemetry and application analytics ingestion"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "project_id": "PRJ-2026-BIO-AI-01",
+  "project_name": "BioGate & TalentScan AI - Control Biométrico Facial y Perfilado Psicométrico Laboral",
+  "organization": "Nexus Industrial Technologies S.A.",
+  "department": "Dirección de Operaciones y Recursos Humanos",
+  "system_version": "1.0-RC2",
+  "evaluation_date": "2026-10-01",
+  "lead_architect": "Ing. Carlos Mendoza (IoT & Platform Lead)",
+  "dpo_involvement": false,
+  "prior_pia_conducted": false,
+
+  "c1_profiling": true,
+  "c2_automated_decisions": true,
+  "c3_sensitive_data": true,
+  "c4_public_surveillance": true,
+  "c5_vulnerable_subjects": true,
+  "c6_emerging_tech_ai": true,
+  "c7_data_matching": true,
+  "c8_prevent_rights_service": true,
+  "c9_large_scale": false,
+  "c10_cross_border_transfers": true,
+
+  "system_description": {
+    "summary": "Sistema integrado de control de acceso físico y analítica de comportamiento para 2,800 empleados y contratistas distribuidos en cuatro plantas industriales y sede corporativa. Integra reconocimiento facial en tiempo real en torniquetes y un módulo de IA que infiere fatiga, estrés y predisposición anímica al momento del fichaje.",
+    "objectives": [
+      "Agilizar el acceso físico a plantas industriales eliminando tarjetas plásticas de proximidad.",
+      "Detectar patrones de fatiga laboral o alteración emocional para reducir siniestralidad industrial antes de operar maquinaria pesada.",
+      "Monitorear asistencia y horas de trabajo efectivas de manera automatizada."
+    ],
+    "modules": [
+      {
+        "module_name": "BioGate Access",
+        "technology": "Cámaras IP 4K de alta velocidad + Modelo de reconocimiento facial DeepFace-v4.",
+        "functionality": "Captura continua de streaming de video en 16 torniquetes de acceso peatonal. Genera vectores biométricos faciales (embeddings de 512 dimensiones) y realiza matching 1:N contra la base centralizada de empleados en menos de 300 ms.",
+        "alternatives_offered": "Ninguna. El fichaje biométrico es de carácter compulsorio para todo el personal operativo y administrativo."
+      },
+      {
+        "module_name": "TalentScan Emotion & Behavioral AI",
+        "technology": "Red neuronal convolucional de visión artificial entrenada para microexpresiones faciales y análisis térmico.",
+        "functionality": "Calcula un índice psicométrico de 'Aptitud Diaria' (escala 0-100) evaluando microexpresiones de estrés, somnolencia, irritabilidad y dilatación pupilar durante el escaneo en el torniquete. Si el índice de aptitud es inferior a 45 puntos, el torniquete se bloquea automáticamente impidiendo el ingreso y genera un correo de alerta inmediato al supervisor de turno con la etiqueta 'No apto para trabajo seguro'."
+      }
+    ]
+  },
+
+  "data_inventory": {
+    "pii_categories": [
+      {
+        "category": "Datos Biométricos de Identificación Unívoca",
+        "fields": ["Fotografías faciales HD", "Embeddings vectoriales de 512 floats", "Malla facial 3D"],
+        "nature": "Categoría Especial / Datos Sensibles (ISO 27701 A.1.4.2 / RGPD Art. 9)"
+      },
+      {
+        "category": "Datos de Salud y Psicometría Inferred",
+        "fields": ["Índice de fatiga inferido", "Nivel de estrés", "Marcadores de microexpresiones", "Historial de bloqueos de acceso"],
+        "nature": "Categoría Especial / Datos Sensibles de Salud y Comportamiento"
+      },
+      {
+        "category": "Datos Identificativos y Laborales",
+        "fields": ["Nombre completo", "Documento de identidad", "ID de empleado", "Turno asignado", "Puesto de trabajo", "Sindicato de adscripción"],
+        "nature": "Datos Personales Ordinarios"
+      },
+      {
+        "category": "Metadatos y Telemetría",
+        "fields": ["Timestamp exacto de fichaje", "ID de torniquete", "Dirección IP de cámara", "Logs de streaming de video"],
+        "nature": "Metadatos de Telemetría"
+      }
+    ],
+    "volume_of_principals": 2800,
+    "retention_period": "Indefinido (almacenamiento histórico de todos los fichajes e índices para modelos de analítica de RRHH)"
+  },
+
+  "technical_architecture_and_data_flows": {
+    "capture_point": "16 cámaras inteligentes instaladas en accesos peatonales y recepciones de plantas industriales.",
+    "edge_processing": "Servidor local edge (NVIDIA Jetson) extrae frames y genera embeddings.",
+    "central_repository": "Base de datos PostgreSQL alojada en nube de terceros (AWS us-east-1, Norte de Virginia, EE.UU.).",
+    "cloud_processor": {
+      "vendor_name": "CognitiveVision Labs LLC",
+      "location": "Delaware / Virginia, Estados Unidos",
+      "service": "Procesamiento algorítmico y hosting del modelo psicométrico TalentScan AI SaaS.",
+      "contract_dpa_status": "Términos y condiciones estándar de suscripción web (sin DPA firmado ni cláusula de asistencia en PIA bajo Control A.2.2.2).",
+      "model_training_rights": "El contrato otorga al proveedor licencia para usar datos anonimizados o desidentificados de los empleados para reentrenar sus modelos globales de visión artificial."
+    },
+    "data_matching": "El sistema cruza diariamente los índices de estrés de TalentScan con las evaluaciones anuales de desempeño de RRHH y el registro de ausencias laborales para predecir propensión a bajas médicas."
+  },
+
+  "governance_and_compliance_gaps": {
+    "threshold_assessment": "No se realizó cuestionario de screening formal ni se documentó la decisión en el SGIP.",
+    "pia_eipd_status": "No se ha elaborado ningún informe de PIA o EIPD con base en ISO/IEC 29134 o ISO/IEC 27701 A.1.2.6.",
+    "dpo_consultation": "El Delegado de Protección de Datos no fue informado del proyecto; se enteró por quejas del sindicato.",
+    "proportionality_and_necessity": "No se consideraron alternativas menos intrusivas como tarjetas RFID con PIN o autenticación descentralizada match-on-card.",
+    "risk_assessment_approach": "Se elaboró una matriz de ciberseguridad tradicional enfocada exclusivamente en el tiempo de caída del servidor y el costo financiero de los torniquetes, sin evaluar el impacto en los derechos y libertades de los trabajadores (enfoque unipolar contrario a Cláusula 6.1.2).",
+    "residual_risk": "Extremadamente alto debido a falsos positivos en el modelo psicométrico que deniegan indebidamente el acceso laboral a empleados sin revisión humana."
+  }
+}

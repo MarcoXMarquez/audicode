@@ -1,0 +1,158 @@
+{
+  "skill_name": "processor-contract-validator",
+  "version": "1.0.0",
+  "standard": "ISO/IEC 27701:2025",
+  "evals": [
+    {
+      "id": "eval-pos-01-cloud-provider-dpa-audit",
+      "type": "positive_trigger",
+      "prompt": "Hola, acabamos de recibir el anexo de protección de datos (DPA) de un proveedor de infraestructura cloud con el que queremos alojar nuestra plataforma. ¿Podrías auditar este anexo bajo la norma ISO/IEC 27701:2025 para comprobar si cumple con los requisitos del encargado y qué cláusulas le faltan?",
+      "files": [],
+      "expected_output": "La skill 'processor-contract-validator' debe activarse de forma inequívoca al reconocer la solicitud como una auditoría de un Acuerdo de Tratamiento de Datos (DPA) entre responsable y encargado bajo el Control A.1.2.7 y la Tabla A.2 de ISO/IEC 27701:2025. Debe confirmar su competencia para el análisis, requerir o inspeccionar el artefacto, e indicar que auditará el decálogo de cláusulas obligatorias (instrucciones documentadas, confidencialidad, medidas técnicas de seguridad, régimen de subcontratación y derecho de veto, asistencia en derechos y PIAs, notificación de brechas, devolución/destrucción segura y derechos de auditoría sin restricciones).",
+      "expectations": [
+        "El agente activa la skill 'processor-contract-validator' positivamente sin rechazar la solicitud.",
+        "Identifica explícitamente el alcance como una auditoría contractual bajo el Control A.1.2.7 y la Tabla A.2 de ISO/IEC 27701:2025.",
+        "Menciona la regla presuntiva de relevancia de la Tabla A.2 (todos los controles se presumen obligatorios para el encargado salvo justificación documental formal en el SoA).",
+        "Cita al menos 4 estipulaciones nucleares del decálogo contractual (instrucciones documentadas, confidencialidad, subencargo, notificación de brechas, auditorías o disposición final).",
+        "Indica que el dictamen se presentará en la tabla estándar de 5 columnas con clasificación de severidades (Crítica, Mayor, Menor, Oportunidad de Mejora)."
+      ]
+    },
+    {
+      "id": "eval-pos-02-mandatory-clauses-table-a2",
+      "type": "positive_trigger",
+      "prompt": "¿Cuáles son las cláusulas obligatorias que debemos exigir contractualmente a un encargado de tratamiento tecnológico según el control A.1.2.7 y la Tabla A.2 de ISO/IEC 27701:2025?",
+      "files": [],
+      "expected_output": "La skill 'processor-contract-validator' se activa directamente y desglosa el decálogo de estipulaciones contractuales indispensables bajo A.1.2.7 y los controles de la Tabla A.2 (A.2.2.2 a A.2.2.7, A.2.3.2, A.2.4.3, A.2.5.7 a A.2.5.9, A.3.10), explicando la presunción de aplicabilidad de la Tabla A.2 y las exigencias de redacción verificable para evitar fórmulas vacías.",
+      "expectations": [
+        "El agente activa la skill 'processor-contract-validator'.",
+        "Enumera las estipulaciones del decálogo obligatorio bajo A.1.2.7: sujeción estricta a instrucciones (A.2.2.3), deber de confidencialidad (A.3.10), medidas técnicas y organizativas de seguridad (A.3.10), subcontratación y flow-down (A.2.5.7/8), notificación de cambios y objeción (A.2.5.9), asistencia en derechos (A.2.3.2), asistencia en PIAs (A.2.2.2), notificación inmediata de brechas (B.2.2.2), destino final seguro (A.2.4.3) y derecho de auditoría (A.2.2.6).",
+        "Explica el principio de no explotación para fines propios o entrenamiento de inteligencia artificial sin mandato del cliente.",
+        "Menciona la disponibilidad del script de apoyo determinista clause_gap_detector.py y las referencias técnicas especializadas."
+      ]
+    },
+    {
+      "id": "eval-pos-03-saas-dpa-review-and-redlines",
+      "type": "positive_trigger",
+      "prompt": "Estamos revisando el borrador de DPA de un proveedor de software SaaS de CRM antes de la firma. Sospechamos que sus términos de subcontratación y sus limitaciones a las auditorías de seguridad no cumplen con la norma ISO 27701:2025. ¿Podrías evaluar si respetan los controles A.2.5.9 y A.2.2.6 y proponernos una redacción correctiva equilibrada?",
+      "files": [],
+      "expected_output": "La skill 'processor-contract-validator' se activa reconociendo la revisión de cláusulas específicas de subcontratación y auditoría en un contrato SaaS bajo los controles A.2.5.9 (gestión de cambios y derecho de objeción) y A.2.2.6 (auditorías y demostración de cumplimiento). Debe anticipar la evaluación de cláusulas abusivas comunes (notificación web pasiva, tarifas disuasorias de auditoría) y comprometerse a redactar cláusulas de sustitución (*redlines*) listas para negociación.",
+      "expectations": [
+        "El agente activa la skill 'processor-contract-validator'.",
+        "Cita con precisión los controles A.2.5.9 (Derecho de oposición a nuevos subencargados) y A.2.2.6 (Auditorías e inspecciones) de ISO/IEC 27701:2025.",
+        "Describe las malas prácticas habituales en contratos SaaS (cambios no notificados activamente en web, cobro de tarifas exorbitantes por auditoría o prohibición de inspección in situ).",
+        "Confirma que emitirá propuestas de redacción sustitutiva redactadas en lenguaje contractual vinculante y equilibrado.",
+        "No deriva erróneamente el caso a pii-transfer-auditor salvo que se consulte sobre transferencias fuera de jurisdicción."
+      ]
+    },
+    {
+      "id": "eval-pos-04-joint-controller-agreement-a128",
+      "type": "positive_trigger",
+      "prompt": "Vamos a codesarrollar y explotar una plataforma digital de salud con una cadena hospitalaria asociada. Como ambas entidades definiremos conjuntamente los fines y medios de tratamiento, ¿qué estipulaciones obligatorias debe incluir nuestro acuerdo de corresponsabilidad según el control A.1.2.8 de ISO/IEC 27701:2025?",
+      "files": [],
+      "expected_output": "La skill 'processor-contract-validator' se activa al identificar la consulta como una relación de corresponsabilidad (joint controllers) bajo el control A.1.2.8 de ISO/IEC 27701:2025. Debe detallar los requisitos del acuerdo de corresponsabilidad: delimitación de funciones y responsabilidades, protocolo coordinado de notificación de incidentes/brechas, asignación de responsabilidades de seguridad, régimen de información transparente y la designación obligatoria de un punto de contacto único para los interesados.",
+      "expectations": [
+        "El agente activa 'processor-contract-validator'.",
+        "Identifica la relación jurídica como Corresponsabilidad del Tratamiento bajo el Control A.1.2.8 de ISO/IEC 27701:2025.",
+        "Destaca el requisito mandatorio de designar un Punto de Contacto Único para los titulares de datos.",
+        "Detalla los elementos esenciales del acuerdo: atribución de roles para el aviso de privacidad, protocolo mancomunado de brechas de seguridad y régimen de responsabilidades internas.",
+        "Distingue claramente entre la figura de corresponsable (A.1.2.8) y la de encargado del tratamiento (A.1.2.7)."
+      ]
+    },
+    {
+      "id": "eval-neg-01-cross-border-transfer-scc-tia",
+      "type": "negative_trigger",
+      "prompt": "Nuestra empresa acaba de contratar infraestructura en la nube en Virginia (EE.UU.) y necesitamos auditar la base jurídica de la transferencia transfronteriza, evaluar el marco legal de vigilancia de EE.UU. bajo FISA 702 y redactar una Evaluación de Impacto de Transferencia (TIA) con Cláusulas Contractuales Tipo (SCC). ¿Puedes auditar este tema?",
+      "files": [],
+      "expected_output": "La skill 'processor-contract-validator' debe declinar la realización de la evaluación de transferencias internacionales y TIA, reconociendo que el análisis de bases jurídicas transfronterizas, salvaguardas contractuales de exportación (SCC) y leyes de vigilancia foránea corresponde exclusivamente a la skill especializada 'pii-transfer-auditor' (Controles A.1.5.2 y A.1.5.3 de ISO/IEC 27701:2025). Debe realizar un handoff explícito a 'pii-transfer-auditor'.",
+      "expectations": [
+        "El agente reconoce que la consulta versa sobre transferencias transfronterizas de datos y TIA.",
+        "NO asume la auditoría de la legislación de vigilancia extranjera (FISA 702) ni la validación técnica de las SCCs.",
+        "Deriva formalmente la consulta a la skill especializada 'pii-transfer-auditor'.",
+        "Cita los controles pertinentes para esa derivación (A.1.5.2 y A.1.5.3 de ISO/IEC 27701:2025).",
+        "Aclara que 'processor-contract-validator' solo audita el contrato B2B general de encargo (DPA), dejando las salvaguardas internacionales a la skill de transferencias."
+      ]
+    },
+    {
+      "id": "eval-neg-02-internal-privacy-policy-drafting",
+      "type": "negative_trigger",
+      "prompt": "Necesitamos que redactes la política interna de privacidad para la gobernanza de nuestro SGIP según la Cláusula 5.2 de ISO 27701:2025 y que revises el aviso de privacidad que publicaremos en la página web para nuestros clientes.",
+      "files": [],
+      "expected_output": "La skill 'processor-contract-validator' debe identificar que la consulta versa sobre políticas internas de gobernanza del SGIP (Cláusula 5.2) y avisos de privacidad dirigidos a titulares (Controles A.1.3.3 y A.1.3.4), materias que corresponden con exclusividad a la skill 'privacy-policy-reviewer'. Debe declinar la tarea de redacción/revisión y transferir formalmente el caso a 'privacy-policy-reviewer'.",
+      "expectations": [
+        "El agente NO asume la redacción de la política interna de privacidad ni del aviso de cara a los usuarios finales.",
+        "Identifica que las políticas de gobernanza interna corresponden a la Cláusula 5.2 y los avisos a titulares a los Controles A.1.3.3 / A.1.3.4 de ISO/IEC 27701:2025.",
+        "Deriva formal y explícitamente la consulta a la skill 'privacy-policy-reviewer'.",
+        "Delimita claramente su propio ámbito operativo: contratos B2B entre responsables y encargados/proveedores tecnológicos."
+      ]
+    },
+    {
+      "id": "eval-neg-03-data-subject-erasure-request-dsar",
+      "type": "negative_trigger",
+      "prompt": "Un usuario nos ha remitido una solicitud formal por escrito exigiendo el ejercicio de su derecho de supresión y derecho al olvido, amenazando con denunciarnos si no eliminamos sus registros en 30 días. ¿Cómo debemos desahogar operativamente este ticket de derecho ARCO y qué plantilla de respuesta debemos enviarle?",
+      "files": [],
+      "expected_output": "La skill 'processor-contract-validator' debe reconocer que la gestión de solicitudes operativas de ejercicio de derechos por parte de los interesados (DSAR / derechos ARCO) corresponde a la skill especializada 'pii-rights-manager' bajo los Controles A.1.3.7 y A.1.3.9 de ISO/IEC 27701:2025. Debe indicar que no gestiona tickets individuales de titulares y derivar la consulta a 'pii-rights-manager'.",
+      "expectations": [
+        "El agente NO tramita operativamente la solicitud del titular ni redacta la contestación al interesado.",
+        "Identifica que el ejercicio y respuesta a derechos ARCO/DSAR compete a los controles A.1.3.7 y A.1.3.9 de ISO/IEC 27701:2025.",
+        "Deriva formalmente la solicitud a la skill 'pii-rights-manager'.",
+        "Aclara que processor-contract-validator solo interviene si se requiere verificar la cláusula contractual que obliga a un encargado a asistir al responsable en la ejecución del borrado en sus sistemas."
+      ]
+    },
+    {
+      "id": "eval-beh-01-audit-vendor-dpa-deficiencies",
+      "type": "behavioral_eval",
+      "prompt": "Realiza una auditoría técnica y contractual completa bajo la norma ISO/IEC 27701:2025 sobre el borrador de Acuerdo de Tratamiento de Datos (DPA) alojado en `skills/processor-contract-validator/evals/fixtures/sample_vendor_dpa_deficiencies.md`. Identifica todas las omisiones obligatorias y cláusulas abusivas, asigna la severidad correspondiente a cada hallazgo según la matriz de la skill, presenta la tabla de hallazgos estandarizada de 5 columnas y proporciona las cláusulas de redacción alternativa necesarias para blindar la posición del responsable.",
+      "files": [
+        "skills/processor-contract-validator/evals/fixtures/sample_vendor_dpa_deficiencies.md"
+      ],
+      "expected_output": "El agente ejecuta una auditoría exhaustiva sobre el fixture `sample_vendor_dpa_deficiencies.md` bajo ISO/IEC 27701:2025 (A.1.2.7, Tabla A.2, A.2.2.3, A.2.4.3, A.2.5.7 a A.2.5.9, B.2.2.2). Emite un dictamen global de 'NO CONFORME' (correlacionado con el resultado deficiente de ~15/100 y 4 Red Flags del script determinista clause_gap_detector.py). Detecta taxativamente las 4 deficiencias críticas inyectadas: 1) Auto-atribución de derechos de uso de PII para desarrollo de productos propios y entrenamiento de IA (Cláusula 2.2, Severidad Crítica bajo A.1.2.7 / A.2.2.3); 2) Notificación pasiva de subencargados en web sin preaviso ni derecho de veto u oposición (Cláusula 5.2, Severidad Mayor bajo A.2.5.9); 3) Plazo subjetivo y discrecional para notificación de brechas de seguridad (Cláusula 8.1, Severidad Crítica bajo A.1.2.7 / B.2.2.2); 4) Retención indefinida de copias de seguridad tras la terminación (Cláusula 9.3, Severidad Mayor bajo A.1.2.7 / A.2.4.3). Presenta la tabla de hallazgos de 5 columnas y suministra la redacción sustitutiva exacta para cada cláusula observada.",
+      "expectations": [
+        "El agente clasifica el documento como un Acuerdo de Tratamiento de Datos (DPA) Controller-to-Processor regido por el Control A.1.2.7 y la Tabla A.2 de ISO/IEC 27701:2025.",
+        "Emite un dictamen global negativo de 'NO CONFORME / RECHAZO' señalando que no puede firmarse en su estado actual debido a riesgos críticos inaceptables.",
+        "Detecta y transcribe la Cláusula 2.2 del documento, clasificando la reserva de derechos para desarrollo de productos propios y entrenamiento de modelos de IA con Severidad CRÍTICA bajo A.1.2.7 y A.2.2.3.",
+        "Detecta y transcribe la Cláusula 8.1 sobre notificación de brechas en 'tiempo comercialmente razonable a entera discreción', clasificándola con Severidad CRÍTICA bajo A.1.2.7, B.2.2.2 y B.3.12 por incumplir los plazos perentorios requeridos (24-48 horas).",
+        "Detecta y transcribe la Cláusula 5.2 que impone notificación pasiva en web sin previo aviso y sin derecho de oposición, clasificándola con Severidad MAYOR bajo A.2.5.7, A.2.5.8 y A.2.5.9.",
+        "Detecta y transcribe la Cláusula 9.3 relativa a la conservación de copias de respaldo por tiempo indefinido, clasificándola con Severidad MAYOR bajo A.1.2.7 y A.2.4.3.",
+        "Estructura el dictamen utilizando la tabla estándar de 5 columnas: Control ISO 27701:2025, Severidad, Cláusula Contractual Evaluada (Evidencia), Riesgo / Incumplimiento Normativo, Redacción Sugerida de Cláusula Correctiva.",
+        "Redacta cláusulas contractuales sustitutivas completas y equilibradas para las 4 deficiencias identificadas, listas para incorporarse al pliego de negociación.",
+        "Menciona o correlaciona los hallazgos con la ejecución del script determinista clause_gap_detector.py (puntuación de ~15/100 y 4 Red Flags detectadas)."
+      ]
+    },
+    {
+      "id": "eval-beh-02-audit-cloud-provider-standard-terms",
+      "type": "behavioral_eval",
+      "prompt": "Nuestro departamento de compras busca contratar la solución SaaS descrita en `skills/processor-contract-validator/evals/fixtures/sample_cloud_provider_standard_terms.md`. Realiza una auditoría de conformidad bajo ISO/IEC 27701:2025 determinando si las condiciones contractuales relativas al derecho de auditoría (Cláusula 5), asistencia en derechos de titulares (Cláusula 6) y asistencia en evaluaciones de impacto PIA (Cláusula 7) cumplen con la norma o representan incumplimientos graves.",
+      "files": [
+        "skills/processor-contract-validator/evals/fixtures/sample_cloud_provider_standard_terms.md"
+      ],
+      "expected_output": "El agente evalúa los términos estándar de OmniCloud bajo ISO/IEC 27701:2025 y emite un dictamen desfavorable de 'NO CONFORME'. Identifica que los términos de adhesión comercial suprimen de facto o desnaturalizan obligaciones estatutarias del encargado: 1) La Cláusula 5 prohíbe auditorías in situ e impone una tarifa abusiva de $5,000 USD por día de trabajo técnico, configurando una No Conformidad Crítica bajo A.1.2.7 y A.2.2.6; 2) La Cláusula 6 deniega la asistencia individualizada al responsable para atender solicitudes de derechos de titulares (DSAR), configurando una No Conformidad Mayor o Crítica bajo A.1.2.7 y A.2.3.2; 3) La Cláusula 7 rechaza la asistencia técnica en evaluaciones de impacto relativas a la protección de datos (PIA/DPIA) y consultas previas, configurando una No Conformidad Mayor bajo A.1.2.7 y A.2.2.2. El agente destaca la regla de presunción de la Tabla A.2 y propone una adenda formal (DPA específico) para subsanar los términos de contratación online.",
+      "expectations": [
+        "El agente identifica el artefacto como términos de contratación online de un servicio SaaS comercial que carece de las estipulaciones obligatorias de un DPA formal bajo ISO 27701:2025.",
+        "Detecta que la Cláusula 5 prohíbe inspecciones físicas in situ e introduce una tarifa de auditoría de $5,000 USD, clasificándolo como No Conformidad CRÍTICA bajo el Control A.1.2.7 y A.2.2.6.",
+        "Detecta que la Cláusula 6 rechaza expresamente prestar asistencia técnica para desahogar solicitudes de los titulares (DSAR), clasificándolo como No Conformidad MAYOR/CRÍTICA bajo A.1.2.7 y A.2.3.2.",
+        "Detecta que la Cláusula 7 rehúsa asistir técnicamente en la realización de PIAs y consultas previas, clasificándolo como No Conformidad MAYOR bajo A.1.2.7 y A.2.2.2.",
+        "Informa que conforme a la regla presuntiva de la Tabla A.2, el proveedor no puede eximirse unilateralmente de estos controles sin que el responsable lo justifique en su Declaración de Aplicabilidad (SoA).",
+        "Presenta los hallazgos en la tabla estándar de 5 columnas con citas exactas del texto analizado.",
+        "Suministra una propuesta de redacción correctiva para modificar las cláusulas 5, 6 y 7, eliminando las restricciones tarifarias de auditoría y garantizando la colaboración técnica en derechos y PIAs."
+      ]
+    },
+    {
+      "id": "eval-beh-03-dpa-remediation-and-redline-generation",
+      "type": "behavioral_eval",
+      "prompt": "Como auditor líder de privacidad de la organización, toma el borrador observado en `skills/processor-contract-validator/evals/fixtures/sample_vendor_dpa_deficiencies.md` y elabora un Dictamen Técnico de Subsanación Contractual (Data Processing Addendum Redline) que contenga la redacción íntegra y vinculante de las 4 cláusulas sustitutivas para negociar con el proveedor. Adicionalmente, especifica las reglas de no solapamiento operativo si se confirma que el proveedor almacena copias de datos en centros de datos fuera del país.",
+      "files": [
+        "skills/processor-contract-validator/evals/fixtures/sample_vendor_dpa_deficiencies.md"
+      ],
+      "expected_output": "El agente elabora un documento formal de enmienda contractual (Data Processing Addendum Redline) que subsana integralmente las 4 no conformidades detectadas en el fixture. Genera redacciones sustitutivas jurídicamente equilibradas y operativamente verificables: 1) Cláusula de Sujeción Estricta a Instrucciones Documentadas y Prohibición Total de Uso Propio (A.1.2.7 / A.2.2.3) con deber de advertencia (A.2.2.5); 2) Cláusula de Régimen de Subencargados con Notificación Activa Previa de 30 días, Cláusulas Espejo (Flow-Down) y Derecho de Oposición y Resolución sin penalización (A.2.5.7 a A.2.5.9); 3) Cláusula de Notificación de Brechas de Seguridad en un plazo fatal máximo de 24 a 48 horas tras tener conocimiento (A.1.2.7 / B.2.2.2 / B.3.12); 4) Cláusula de Supresión y Devolución Segura de PII al término del contrato que incluye la purga obligatoria de copias de respaldo en un ciclo perentorio (máximo 30 días) y emisión de certificado de destrucción bajo NIST SP 800-88 (A.1.2.7 / A.2.4.3). Declara formalmente el handoff hacia 'pii-transfer-auditor' para la evaluación de transferencias transfronterizas si se detectan servidores foráneos.",
+      "expectations": [
+        "El agente genera un documento de enmienda contractual (Redline / Addendum) estructurado formalmente para su inserción en el contrato principal.",
+        "Redacta una cláusula sustitutiva íntegra para A.1.2.7 / A.2.2.3 que prohíbe de forma absoluta cualquier uso de PII para desarrollo de productos propios, analítica independiente o entrenamiento de IA, e incluye el deber de advertir instrucciones ilícitas (A.2.2.5).",
+        "Redacta una cláusula sustitutiva íntegra para A.2.5.7 a A.2.5.9 que prohíbe subcontratar sin autorización previa, impone cláusulas espejo (flow-down), exige preaviso por escrito no inferior a 14-30 días y consagra el derecho de rescisión contractual sin penalización.",
+        "Redacta una cláusula sustitutiva íntegra para A.1.2.7 / B.2.2.2 fijando un plazo perentorio de notificación de brechas no superior a 24-48 horas con desglose de datos obligatorios a remitir.",
+        "Redacta una cláusula sustitutiva íntegra para A.1.2.7 / A.2.4.3 que garantiza la devolución o destrucción certificada de todos los datos personales, elimina la retención indefinida de copias de seguridad imponiendo un ciclo máximo de sobreescritura (ej. 30 días) y exige certificado formal según estándar técnico (ej. NIST SP 800-88).",
+        "Aplica la regla de no solapamiento: declara taxativamente que la auditoría de bases legales de exportación internacional, Cláusulas Contractuales Tipo (SCC) y evaluaciones de riesgo de jurisdicción foránea (TIA) debe derivarse a 'pii-transfer-auditor'.",
+        "Fundamenta cada redacción en los controles específicos de ISO/IEC 27701:2025 y el principio de responsabilidad proactiva."
+      ]
+    }
+  ]
+}
