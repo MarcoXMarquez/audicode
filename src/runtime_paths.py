@@ -26,5 +26,5 @@ def get_default_data_dir() -> str:
     written to the ephemeral, temporary extraction bundle directory.
     """
     if getattr(sys, "frozen", False):
-        return os.path.join(os.path.expanduser("~"), ".odysseus", "data")
+        return os.path.join(os.path.expanduser("~"), ".audicode", "data")
     return os.path.join(get_app_root(), "data")

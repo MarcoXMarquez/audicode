@@ -13,9 +13,11 @@ env/
 data/*.db
 data/*.db-shm
 data/*.db-wal
+data/*.json
 data/sessions/
 data/uploads/
 data/logs/
+data/personal_docs/
 *.log
 *.bak
 
@@ -24,3 +26,10 @@ data/logs/
 Thumbs.db
 .vscode/
 .idea/
+
+# PyInstaller / Build artifacts
+build/
+dist/
+*.spec
+*.zip
+test_*.py

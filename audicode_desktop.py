@@ -14,7 +14,11 @@ import threading
 import urllib.request
 
 # Ensure working directory and module path point to the app root
-APP_DIR = os.path.dirname(os.path.abspath(__file__))
+if getattr(sys, "frozen", False):
+    APP_DIR = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(sys.executable)))
+else:
+    APP_DIR = os.path.dirname(os.path.abspath(__file__))
+
 os.chdir(APP_DIR)
 if APP_DIR not in sys.path:
     sys.path.insert(0, APP_DIR)
@@ -82,7 +86,9 @@ def main():
 
     # Launch native Windows Desktop Window via pywebview (Edge WebView2)
     import webview
-    icon_path = os.path.join(APP_DIR, "static", "icon.ico")
+    icon_path = os.path.join(APP_DIR, "assets", "icon.ico")
+    if not os.path.exists(icon_path):
+        icon_path = os.path.join(APP_DIR, "static", "icon.ico")
 
     window = webview.create_window(
         title="AudiCode — Autonomous PIMS & AI Audit Agent (ISO/IEC 27701:2025)",
