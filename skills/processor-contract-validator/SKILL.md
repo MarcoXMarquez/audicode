@@ -1,7 +1,9 @@
 ---
 name: processor-contract-validator
-description: >
-  Audita y valida acuerdos de encargo de tratamiento (DPA), contratos de proveedores SaaS/cloud y convenios de corresponsabilidad (joint controllers) bajo ISO/IEC 27701:2025 (A.1.2.7, A.1.2.8, A.2.2.2 a A.2.2.7, A.2.5.7 a A.2.5.9, A.3.10) y RGPD Art. 28. Use when user says: "Audita este DPA de proveedor SaaS", "Verifica si el contrato incluye las clausulas obligatorias de la Tabla A.2", "Evalua el regimen de subcontratacion y derecho de oposicion", "Revisa este acuerdo de corresponsabilidad entre joint controllers", "Comprueba si el contrato permite auditorias de seguridad e inspecciones". Use for evaluar acuerdos B2B de encargo de PII, terminos de servicio de hosting/cloud, deber de confidencialidad, notificacion de brechas y destruccion segura de datos. No audita anexos de transferencias transfronterizas SCC ni TIAs (use pii-transfer-auditor).
+description: "Auditoría y validación de Acuerdos de Tratamiento (DPA) con proveedores Cloud y corresponsabilidad (ISO/IEC 27701:2025 A.1.2.7)."
+
+status: published
+category: ISO/IEC 27701:2025
 ---
 
 # Processor Contract Validator - Manual Operativo de Auditoría Contractual

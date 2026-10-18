@@ -5,7 +5,7 @@
 import { COMMANDS, LEGACY_ALIASES } from './slashCommands.js';
 
 const POPUP_ID = 'slash-autocomplete';
-const MAX_VISIBLE = 14;
+const MAX_VISIBLE = 20;
 
 // Flatten the registry into a searchable list of leaf entries. Each entry is
 // either a top-level command or a "cmd sub" pair (so subcommands get their
@@ -103,15 +103,17 @@ function _scoreMatch(entry, query) {
   // over substring; alias match scores slightly lower than token match.
   const q = query.toLowerCase();
   const t = entry.token.toLowerCase();
-  if (t === q) return 1000;
-  if (t.startsWith(q)) return 500 + (50 - Math.min(50, t.length - q.length));
+  const isAuditSkill = entry.category && entry.category.includes('27701');
+  const bonus = isAuditSkill ? 300 : 0;
+  if (t === q) return 1000 + bonus;
+  if (t.startsWith(q)) return 500 + (50 - Math.min(50, t.length - q.length)) + bonus;
   for (const a of entry.aliases) {
     const al = a.toLowerCase();
-    if (al === q) return 900;
-    if (al.startsWith(q)) return 400;
+    if (al === q) return 900 + bonus;
+    if (al.startsWith(q)) return 400 + bonus;
   }
-  if (t.includes(q)) return 100;
-  if (entry.help.toLowerCase().includes(q.slice(1))) return 25;  // help text
+  if (t.includes(q)) return 100 + bonus;
+  if (entry.help.toLowerCase().includes(q.slice(1))) return 25 + bonus;  // help text
   return 0;
 }
 
@@ -242,9 +244,14 @@ export function initSlashAutocomplete(textarea) {
 
   _loadSkillEntries().then(skillEntries => {
     if (!skillEntries.length) return;
-    const seen = new Set(all.map(e => e.token));
-    const merged = all.slice();
+    const seen = new Set();
+    const merged = [];
     for (const entry of skillEntries) {
+      if (seen.has(entry.token)) continue;
+      seen.add(entry.token);
+      merged.push(entry);
+    }
+    for (const entry of all) {
       if (seen.has(entry.token)) continue;
       seen.add(entry.token);
       merged.push(entry);

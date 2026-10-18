@@ -1,11 +1,9 @@
 ---
 name: pia-reviewer
-description: >
-  Evalúa y estructura Evaluaciones de Impacto en la Privacidad (PIA / EIPD) bajo ISO/IEC 27701:2025
-  (Control A.1.2.6, Cláusulas 6.1.2 y 8.2, Control A.2.2.2). Use when user asks to "evaluar PIA",
-  "realizar EIPD", "determinar necesidad de PIA", "evaluar proyecto de IA", "implementar biometría",
-  "monitoreo masivo", o "auditar apreciación del riesgo de privacidad". Limite: no realiza inspección
-  técnica de esquemas SQL ni purga de tablas (delegar a data-minimization-checker).
+description: "Evaluación de Impacto en la Privacidad (PIA / EIPD) bajo ISO/IEC 27701:2025 (Control A.1.2.6 y Cláusula 6.1.2)."
+
+status: published
+category: ISO/IEC 27701:2025
 ---
 
 # PIA Reviewer - Evaluación de Impacto en la Privacidad (ISO/IEC 27701:2025)

@@ -1,15 +1,9 @@
 ---
 name: data-minimization-checker
-description: >
-  Inspecciona y audita la minimización técnica de datos, privacidad por diseño y por defecto,
-  técnicas de desidentificación y retención (A.1.4.2, A.1.4.5, A.1.4.6, A.1.4.7, A.1.4.8, A.1.4.9,
-  A.2.4.2, A.3.20) bajo ISO/IEC 27701:2025. Se activa al auditar esquemas DDL SQL, modelos de datos,
-  endpoints JSON/REST, cargas útiles de APIs (over-fetching), formularios de captura, mecanismos de
-  seudonimización/enmascaramiento (ISO 20889), purga de temporales y disposición segura de medios.
-  Use when user says "audita este esquema SQL", "revisa esta API por recolección excesiva", "verifica
-  la minimización de este payload JSON", "evalúa técnicas de seudonimización o enmascaramiento",
-  "comprueba la retención y purga de temporales". No realiza evaluaciones de impacto de alto nivel
-  (use pia-reviewer) ni gestiona consentimientos o quejas ARCO.
+description: "Inspección y auditoría de minimización técnica de datos, esquemas SQL DDL y payloads API (ISO/IEC 27701:2025 A.1.4.2)."
+
+status: published
+category: ISO/IEC 27701:2025
 ---
 
 # Data Minimization Checker

@@ -1,6 +1,9 @@
 ---
 name: pii-transfer-auditor
-description: 'Audits international and cross-border PII transfers, legal transfer mechanisms (Adequacy, SCCs, BCRs, derogations), Transfer Impact Assessments (TIA), destination country mappings, transfer records, in-transit security, and processor obligations under ISO/IEC 27701:2025 controls A.1.5.2, A.1.5.3, A.1.5.4, A.2.5.2, A.2.5.3, and A.3.7. Use when user says "Audita nuestras transferencias de datos a servidores en el extranjero", "Verifica si la lista de países y proveedores cloud cumple A.1.5.3", "Audit our international data transfers under ISO 27701", "Evalúa el TIA y las cláusulas SCC con nuestro proveedor en Estados Unidos", or "Revisa nuestro libro de transferencias transfronterizas". Does not audit general supplier contract clauses, DPA operational terms, or supplier audit rights, which are handled by processor-contract-validator.'
+description: "Auditoría de transferencias transfronterizas de PII, Cláusulas Contractuales Tipo (SCC) y TIA (ISO/IEC 27701:2025 A.1.5.2)."
+
+status: published
+category: ISO/IEC 27701:2025
 ---
 
 # PII Transfer Auditor

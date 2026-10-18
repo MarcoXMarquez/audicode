@@ -1133,10 +1133,12 @@ def setup_skills_routes(skills_manager: SkillsManager) -> APIRouter:
         user = _owner(request)
         all_skills = {s.get("name"): s for s in skills_manager.load(owner=user)}
         entries = []
+        seen = set()
         for s in skills_manager.index_for(owner=user):
             name = (s.get("name") or "").strip()
-            if not name:
+            if not name or name in seen:
                 continue
+            seen.add(name)
             full = all_skills.get(name) or {}
             category = (s.get("category") or full.get("category") or "general").strip() or "general"
             entries.append({

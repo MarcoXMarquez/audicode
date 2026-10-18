@@ -1,11 +1,9 @@
 ---
 name: pii-rights-manager
-description: >
-  Audita y gestiona el cumplimiento de las obligaciones hacia los titulares de PII
-  y el ejercicio de sus derechos ARCO/DSAR (A.1.3, A.1.3.7, A.1.3.8, A.1.3.6, A.1.3.9, A.1.3.10, A.2.3.2)
-  bajo ISO/IEC 27701:2025. Use when user says "auditar atencion de derechos ARCO", "gestionar solicitud de supresion de datos",
-  "revisar plazo de respuesta DSAR", "exportar datos para portabilidad", o "notificar borrado a terceros receptores".
-  No gestiona revocaciones simples de consentimiento publicitario ni bajas de newsletter (use consent-validator).
+description: "Auditoría y atención técnica del ejercicio de derechos ARCO/DSAR y supresión de datos (ISO/IEC 27701:2025 A.1.3.7)."
+
+status: published
+category: ISO/IEC 27701:2025
 ---
 
 # PII Rights Manager

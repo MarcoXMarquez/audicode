@@ -1,7 +1,9 @@
 ---
 name: incident-response-planner
-description: >
-  Use when users ask to plan, handle, or respond to privacy breaches, security incidents involving PII, ransomware attacks with personal data exfiltration, or generate mandatory notification plans and breach records under ISO/IEC 27701:2025 (A.3.11, A.3.12, B.3.12). Audita, formula y ejecuta planes de respuesta a incidentes de seguridad y brechas de PII. Se activa ante "filtracion de base de datos", "ransomware con PII", "notificacion 72 horas", "brecha de datos personales", "registro de incidentes". No audita avisos de privacidad generales en frio (derivar a privacy-policy-reviewer), no valida contratos B2B estandar de proveedores (derivar a processor-contract-validator) ni tramita solicitudes de derechos ARCO post-incidente (derivar a pii-rights-manager). No emite dictamenes legales vinculantes.
+description: "Planes de respuesta, evaluación de riesgo y notificación obligatoria en 72h ante brechas de PII (ISO/IEC 27701:2025 A.3.11)."
+
+status: published
+category: ISO/IEC 27701:2025
 ---
 
 # Incident Response Planner (ISO/IEC 27701:2025)

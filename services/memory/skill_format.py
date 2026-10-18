@@ -149,19 +149,33 @@ def parse_frontmatter(text: str) -> tuple[Dict[str, Any], str]:
     body = text[end + 4:].lstrip("\n")
     fm: Dict[str, Any] = {}
     pending_key: Optional[str] = None
+    is_folded: bool = False
     for line in fm_text.splitlines():
         if not line.strip() or line.lstrip().startswith("#"):
             continue
         m = _FM_KEY_RE.match(line)
         if m:
-            key, val = m.group(1), m.group(2)
-            if val.strip() == "":
+            key, val = m.group(1), m.group(2).strip()
+            if val in (">", "|", ""):
                 pending_key = key
-                fm[key] = []
+                is_folded = (val in (">", "|"))
+                fm[key] = "" if is_folded else []
             else:
                 fm[key] = _parse_scalar(val)
                 pending_key = None
+                is_folded = False
             continue
+        if pending_key and is_folded:
+            if line.startswith("  ") or line.startswith("\t"):
+                cleaned = line.strip()
+                if fm[pending_key]:
+                    fm[pending_key] += " " + cleaned
+                else:
+                    fm[pending_key] = cleaned
+                continue
+            else:
+                pending_key = None
+                is_folded = False
         m2 = _FM_BLOCK_LIST_RE.match(line)
         if m2 and pending_key:
             existing = fm.get(pending_key)

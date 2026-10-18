@@ -1,14 +1,9 @@
 ---
 name: privacy-policy-reviewer
-description: >
-  Use when users ask to audit, review or validate privacy policies, PIMS internal governance documents,
-  or external privacy notices under ISO/IEC 27701:2025 (Clause 5.2, A.3.3, A.1.3.3, A.1.3.4).
-  Se activa ante peticiones como "revisa el aviso de privacidad de nuestra web",
-  "audit our corporate privacy policy against Clause 5.2 and control A.1.3.3",
-  "¿qué elementos obligatorios le faltan a nuestra política?", "redactar aviso de privacidad por capas",
-  o "verificar política interna PIMS". Fronteras: No evalúa checkboxes de UI ni logs de consentimiento
-  (derivar a consent-validator); no tramita solicitudes ARCO/DSAR (derivar a pii-rights-manager); no audita
-  contratos comerciales B2B con encargados (derivar a processor-contract-validator). No emite asesoramiento legal vinculante.
+description: "Auditoría y validación de avisos de privacidad por capas y gobernanza interna PIMS (ISO/IEC 27701:2025 Cláusula 5.2 y A.1.3.3)."
+
+status: published
+category: ISO/IEC 27701:2025
 ---
 
 # Privacy Policy Reviewer (ISO/IEC 27701:2025)

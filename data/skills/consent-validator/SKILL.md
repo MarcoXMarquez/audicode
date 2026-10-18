@@ -1,15 +1,9 @@
 ---
 name: consent-validator
-description: >
-  Audita los mecanismos de obtencion, registro probatorio y revocacion del consentimiento
-  segun ISO/IEC 27701:2025 (A.1.2.4, A.1.2.5, A.1.3.5, A.2.2.4). Evalua validez juridica
-  (libre, especifico, informado, inequivoco), casillas de verificacion, CMPs de cookies,
-  logs de consentimiento (Consent Ledger) y simetria de canales para revocacion/opt-out.
-  No audita textos integrales de avisos de privacidad (use privacy-policy-reviewer) ni tramita
-  solicitudes de derechos ARCO o supresion (use pii-rights-manager). Use when user says
-  "valida el consentimiento de este formulario", "audit cookie banner consent",
-  "verificar casillas premarcadas", "revisar log de consentimientos", o
-  "evaluar flujo de revocacion y opt-out".
+description: "Auditoría de obtención, registro probatorio y revocación del consentimiento (ISO/IEC 27701:2025 A.1.2.4, CMPs y opt-out)."
+
+status: published
+category: ISO/IEC 27701:2025
 ---
 
 # Consent Validator: Auditoría del Ciclo de Vida del Consentimiento (ISO/IEC 27701:2025)
