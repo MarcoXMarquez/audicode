@@ -47,6 +47,96 @@ function _revokePreviewUrl(f) {
  */
 export function init(apiBase) {
   API_BASE = apiBase;
+  initPasteAndDropHandlers();
+}
+
+/**
+ * Handle clipboard paste events on composer:
+ * - Detects screenshots/images and converts them into file attachments
+ * - Detects long text (> 12 lines or > 600 chars) and converts it into a snippet chip
+ */
+export function handlePasteEvent(e) {
+  if (!e.clipboardData) return;
+
+  // 1. Check for clipboard images (screenshots, copied images)
+  const items = e.clipboardData.items;
+  if (items && items.length > 0) {
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      if (item.type && item.type.startsWith('image/')) {
+        const blob = item.getAsFile();
+        if (blob) {
+          e.preventDefault();
+          const d = new Date();
+          const pad = (n) => String(n).padStart(2, '0');
+          const timestamp = `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+          const ext = blob.type.split('/')[1] || 'png';
+          const file = new File([blob], `screenshot_${timestamp}.${ext}`, { type: blob.type || 'image/png' });
+          addFiles([file]);
+          _showToast('Captura de pantalla adjuntada');
+          return;
+        }
+      }
+    }
+  }
+
+  // 2. Check for long pasted text (> 12 lines OR > 600 characters)
+  const text = e.clipboardData.getData('text');
+  if (text) {
+    const lines = text.split(/\r\n|\r|\n/);
+    const lineCount = lines.length;
+    const charCount = text.length;
+
+    if (lineCount > 12 || charCount > 600) {
+      e.preventDefault();
+      const d = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      const timeStr = `${pad(d.getHours())}${pad(d.getMinutes())}${pad(d.getSeconds())}`;
+      const fileName = `pasted_text_${timeStr}.txt`;
+
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const file = new File([blob], fileName, { type: 'text/plain' });
+      file._isPastedSnippet = true;
+      file._lineCount = lineCount;
+      file._charCount = charCount;
+      file._previewText = text.slice(0, 200).trim();
+
+      addFiles([file]);
+      _showToast(`Texto largo adjuntado (${lineCount} líneas)`);
+      return;
+    }
+  }
+}
+
+/**
+ * Initialize paste and drag-drop handlers on composer
+ */
+export function initPasteAndDropHandlers() {
+  const wire = () => {
+    const msg = document.getElementById('message');
+    if (!msg || msg._audiPasteWired) return;
+    msg._audiPasteWired = true;
+
+    msg.addEventListener('paste', handlePasteEvent);
+
+    msg.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      msg.classList.add('drag-active');
+    });
+    msg.addEventListener('dragleave', () => msg.classList.remove('drag-active'));
+    msg.addEventListener('drop', (e) => {
+      msg.classList.remove('drag-active');
+      if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        e.preventDefault();
+        addFiles(Array.from(e.dataTransfer.files));
+      }
+    });
+  };
+
+  wire();
+  setTimeout(wire, 200);
+  setTimeout(wire, 800);
+  document.addEventListener('DOMContentLoaded', wire);
 }
 
 /**
@@ -108,6 +198,30 @@ export function renderAttachStrip() {
 function _createChip(f, idx) {
   const chip = document.createElement('div');
   chip.className = 'thumb';
+
+  // Render compact snippet pill if text was pasted
+  if (f._isPastedSnippet) {
+    chip.classList.add('thumb-snippet');
+    chip.title = f._previewText ? `Vista previa:\n${f._previewText}...` : `Snippet de texto (${f._lineCount} líneas)`;
+
+    const iconSpan = document.createElement('span');
+    iconSpan.className = 'thumb-snippet-icon';
+    iconSpan.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>';
+    chip.appendChild(iconSpan);
+
+    const span = document.createElement('span');
+    span.className = 'thumb-snippet-label';
+    span.innerHTML = `Texto pegado <span class="thumb-snippet-lines">(${f._lineCount} líneas)</span>`;
+    chip.appendChild(span);
+
+    const x = document.createElement('button');
+    x.textContent = '\u00d7';
+    x.setAttribute('aria-label', 'Eliminar snippet');
+    x.addEventListener('click', (e) => { e.stopPropagation(); removePending(idx); });
+    chip.appendChild(x);
+    return chip;
+  }
+
   const isImage = f.type?.startsWith('image/') || /\.(png|jpg|jpeg|gif|webp|svg|bmp)$/i.test(f.name || '');
   if (isImage) {
     chip.classList.add('thumb-image');  // lets CSS overlay the remove-X on the corner (mobile)
@@ -117,8 +231,16 @@ function _createChip(f, idx) {
     img.alt = f.name || 'image';
     chip.appendChild(img);
   } else {
+    chip.classList.add('thumb-doc');
+    const ext = (f.name || '').split('.').pop().toUpperCase();
+    if (ext && ext.length <= 4 && ext !== f.name) {
+      const badge = document.createElement('span');
+      badge.className = 'thumb-doc-badge';
+      badge.textContent = ext;
+      chip.appendChild(badge);
+    }
     const span = document.createElement('span');
-    span.textContent = f.name || 'pasted-image';
+    span.textContent = f.name || 'document';
     chip.appendChild(span);
   }
   const x = document.createElement('button');

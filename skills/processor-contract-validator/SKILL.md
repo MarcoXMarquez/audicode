@@ -117,3 +117,12 @@ Para salvaguardar la exactitud técnica y evitar solapamientos funcionales en el
 
 - **Catálogo de Cláusulas Obligatorias**: Consultar [mandatory_clauses_dpa.md](references/mandatory_clauses_dpa.md) para ejemplos comparativos de cláusulas deficientes frente a cláusulas conformes.
 - **Herramienta Determinista de Soporte**: Utilizar `skills/processor-contract-validator/scripts/clause_gap_detector.py` para la comprobación preliminar automatizada de omisiones en contratos y DPAs.
+
+---
+
+## Soporte Local de Documentos, Formularios e Imágenes (AudiCode Local Engine)
+
+AudiCode procesa todos los archivos adjuntos de forma **100% local en tu CPU** antes de pasarlos a este agente:
+- **Contratos DPA y Acuerdos de Encargo (.pdf, .docx)**: Acuerdos comerciales y cláusulas RGPD Art. 28 / Tabla A.2 ISO 27701 se extraen fielmente a Markdown con pymupdf4llm y markitdown.
+- **Anexos de Subencargados y Medidas Técnicas (.xlsx, .docx)**: Matrices de subprocesadores y catálogos de medidas TOMs se entregan como tablas Markdown legibles.
+- **Términos de Servicio Web Pegados**: Fragmentos contractuales extensos pegados al chat se encapsulan como snippets para revisión exhaustiva.

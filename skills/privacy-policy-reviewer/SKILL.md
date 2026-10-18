@@ -136,3 +136,12 @@ Todo informe emitido por esta skill debe presentar los hallazgos en la siguiente
 Para consultar criterios ampliados, ejemplos de redacción y particularidades normativas:
 - **Lista detallada de verificación**: [references/checklist.md](references/checklist.md)
 - **Script de análisis determinista**: [scripts/policy_structure_scanner.py](scripts/policy_structure_scanner.py)
+
+---
+
+## Soporte Local de Documentos, Formularios e Imágenes (AudiCode Local Engine)
+
+AudiCode procesa todos los archivos adjuntos de forma **100% local en tu CPU** antes de pasarlos a este agente:
+- **Avisos de Privacidad Integrales (.pdf, .docx)**: Documentos extensos de política de privacidad se convierten a Markdown limpio estructurado vía pymupdf4llm y markitdown, conservando títulos, cláusulas y tablas de finalidades.
+- **Capturas de Capa Informativa (.png, .jpg)**: Avisos de privacidad simplificados o banners de pie de página se analizan con OCR local para auditar su visibilidad y enlaces.
+- **Políticas Pegadas en Bloque**: Textos de más de 12 líneas se compactan automáticamente como snippet adjunto, permitiendo ejecutar /privacy-policy-reviewer de manera limpia.

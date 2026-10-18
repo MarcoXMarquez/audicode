@@ -166,3 +166,12 @@ Todo dictamen de auditoría emitido por esta skill debe presentar los hallazgos 
 Para consultar criterios ampliados, matrices de riesgo, normativas por país, plantillas y herramientas deterministas:
 - **Criterios de evaluación de riesgo, plazos legales y plantillas de notificación**: [breach_notification_rules.md](references/breach_notification_rules.md)
 - **Generador determinista del registro formal de incidentes**: [incident_record_generator.py](scripts/incident_record_generator.py)
+
+---
+
+## Soporte Local de Documentos, Formularios e Imágenes (AudiCode Local Engine)
+
+AudiCode procesa todos los archivos adjuntos de forma **100% local en tu CPU** antes de pasarlos a este agente:
+- **Presentaciones y Diapositivas (.pptx)**: Planes de contingencia y presentaciones de gestión de crisis se extraen diapositiva por diapositiva (### Diapositiva N) mediante markitdown.
+- **Informes Forenses y Protocolos (.pdf, .docx)**: Informes de análisis forense y procedimientos de notificación 72h se traducen a Markdown vía pymupdf4llm y markitdown.
+- **Logs y Evidencias de Brecha**: Timelines y volcados de logs extensos se gestionan mediante snippets adjuntos o archivos de texto plano procesados localmente.

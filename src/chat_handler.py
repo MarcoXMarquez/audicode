@@ -262,6 +262,15 @@ class ChatHandler:
                             vl_result = analyze_image_with_vl_result(file_info["path"], owner=owner)
                             vl_desc = vl_result.get("text", "")
                             vl_model = vl_result.get("model", "")
+                            if (not vl_desc or vl_desc.startswith("[")) and not vl_desc.startswith("[OCR"):
+                                try:
+                                    from src.local_parsers import extract_image_ocr
+                                    ocr_desc = extract_image_ocr(file_info["path"])
+                                    if ocr_desc and not ocr_desc.startswith("[Local OCR scanned image: no readable") and not ocr_desc.startswith("[Local OCR unavailable") and not ocr_desc.startswith("[OCR error"):
+                                        vl_desc = f"[OCR Local CPU]:\n{ocr_desc}"
+                                        vl_model = "RapidOCR (Local CPU)"
+                                except Exception as _ocr_e:
+                                    logger.warning(f"RapidOCR fallback error: {_ocr_e}")
                             if vl_desc and not vl_desc.startswith("["):
                                 try:
                                     os.makedirs(os.path.join(UPLOAD_DIR, ".vision"), exist_ok=True)

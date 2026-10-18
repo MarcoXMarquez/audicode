@@ -73,15 +73,19 @@ def _extract_docx_native(path: str) -> str | None:
 
 
 def convert_to_markdown(path: str) -> str | None:
-    """Convert a document to Markdown text via markitdown.
+    """Convert a document to Markdown text via markitdown and local parsers.
 
-    Returns the extracted Markdown, or ``None`` if markitdown is unavailable or
-    the conversion fails — callers degrade gracefully rather than erroring.
-
-    Fallback: when markitdown isn't installed and the file is a .docx, run
-    the bundled pure-Python extractor so the most common case (Word docs)
-    works out of the box. Other Office/EPUB formats still need markitdown.
+    Returns the extracted Markdown, or ``None`` if unavailable or failed.
+    Handles .docx, .pptx (slides), .xlsx (spreadsheets), and other formats.
     """
+    try:
+        from src.local_parsers import extract_office_markdown
+        res = extract_office_markdown(path)
+        if res and not res.startswith("[El documento") and not res.startswith("[Office document error"):
+            return res
+    except Exception as e:
+        logger.warning(f"local_parsers.extract_office_markdown fallback failed: {e}")
+
     try:
         markitdown_cls = load_markitdown()
     except RuntimeError:

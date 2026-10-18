@@ -173,3 +173,12 @@ Para asegurar la rigurosidad ética y técnica del auditor:
 5. **NO convalidar transferencias continuas bajo excepciones de emergencia**: Jamás validar que un SaaS, ERP o CRM estructural de la empresa funcione bajo la excepción de "consentimiento" o "interés público" de A.1.5.2.
 6. **NO aceptar declaraciones territoriales ambiguas**: Rechazar términos vacíos como "la nube", "AWS global" o "servidores internacionales" sin desglose por país.
 7. **NO validar como adecuada una medida técnica si las claves de cifrado están en destino**: Si el importador en un tercer país sin adecuación posee la clave privada de descifrado, las leyes de vigilancia foráneas pueden forzar su revelación; la medida debe dictaminarse como ineficaz.
+
+---
+
+## Soporte Local de Documentos, Formularios e Imágenes (AudiCode Local Engine)
+
+AudiCode procesa todos los archivos adjuntos de forma **100% local en tu CPU** antes de pasarlos a este agente:
+- **Inventarios de Proveedores y Destinos Cloud (.xlsx, .csv)**: Listas de proveedores SaaS, datacenters y países receptores se convierten en tablas Markdown mediante markitdown.
+- **Evaluaciones de Impacto de Transferencia (TIA) y Cláusulas SCC (.pdf, .docx)**: Contratos con anexos transfronterizos y dictámenes TIA se procesan vía pymupdf4llm y markitdown.
+- **Capturas de Consola Cloud (.png, .jpg)**: Capturas de configuración regional de AWS/GCP/Azure se leen mediante OCR local para confirmar ubicaciones geográficas de buckets y clusters.

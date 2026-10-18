@@ -156,3 +156,13 @@ El script inspecciona automáticamente el estado inicial de selectores, detecta 
 Para profundizar en criterios específicos, consultar:
 - [consent_matrix.md](references/consent_matrix.md): Matriz normativa de validez del consentimiento, catálogo de patrones oscuros y especificación de campos de trazabilidad del *Consent Ledger*.
 - [consent_flow_checker.py](scripts/consent_flow_checker.py): Validador determinista de esquemas y registros de consentimiento en Python.
+
+---
+
+## Soporte Local de Documentos, Formularios e Imágenes (AudiCode Local Engine)
+
+AudiCode procesa todos los archivos adjuntos de forma **100% local en tu CPU** antes de pasarlos a este agente:
+- **Capturas de Pantalla e Imágenes (.png, .jpg, .webp)**: Formularios de registro, modales de cookies (CMP) o flujos de desuscripción se procesan mediante OCR local en CPU (
+apidocr-onnxruntime). Los textos, botones ([Aceptar], [Rechazar]), enlaces y casillas ([x] Casilla marcada, [ ] Desmarcada) se extraen directamente en el prompt.
+- **Documentos (.pdf, .docx)**: Políticas de consentimiento y términos legales se convierten a Markdown limpio estructurado mediante pymupdf4llm y markitdown.
+- **Textos Extensos Pegados**: Los contratos o códigos extensos pegados (>12 líneas) se compactan en un snippet adjunto limpio sin saturar el campo de entrada.

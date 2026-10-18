@@ -191,6 +191,7 @@ _AGENT_RULES = """\
 - After a tool fails, retry with a concrete fix or state what is blocking you.
 - Finish only when the user's concrete request is actually done, or clearly state that you are blocked.
 - User identity facts/preferences ("my name is X", "call me X", "I live in X") use `manage_memory`, not contacts.
+- When files are attached (PDFs, PPTX slides, spreadsheets, Word docs, screenshots, or pasted snippets), AudiCode pre-parses them locally into structured Markdown tables, slide sections, or OCR text. Analyze these extracted blocks as authoritative input evidence for audits and tasks.
 """
 
 _API_AGENT_RULES = """\
@@ -204,6 +205,7 @@ _API_AGENT_RULES = """\
 - After a tool fails, retry with a concrete fix or state what is blocking you.
 - Finish only when the user's concrete request is actually done, or clearly state that you are blocked.
 - User identity facts/preferences ("my name is X", "call me X", "I live in X") use `manage_memory`, not contacts.
+- When files are attached (PDFs, PPTX slides, spreadsheets, Word docs, screenshots, or pasted snippets), AudiCode pre-parses them locally into structured Markdown tables, slide sections, or OCR text. Analyze these extracted blocks as authoritative input evidence for audits and tasks.
 """
 
 _LINK_RULES = """\

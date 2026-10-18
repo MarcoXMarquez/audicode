@@ -144,3 +144,12 @@ Al auditar procesos, sistemas de tickets o políticas de gestión de derechos, c
 
 - **Matriz de Plazos y Plantillas Formales**: Consulta `references/rights_timeline_matrix.md` para ver los calendarios regulatorios por país (RGPD, CCPA, LGPD, normativas ARCO México, Colombia, Perú, Argentina, Chile) y las 6 plantillas de respuesta.
 - **Calculadora Determinista de Plazos**: Ejecuta `scripts/deadline_calculator.py` para calcular fechas límite, alertas de vencimiento y plazos prorrogados considerando días hábiles o naturales.
+
+---
+
+## Soporte Local de Documentos, Formularios e Imágenes (AudiCode Local Engine)
+
+AudiCode procesa todos los archivos adjuntos de forma **100% local en tu CPU** antes de pasarlos a este agente:
+- **Registros y Trackers DSAR (.xlsx, .csv)**: Libros de control de solicitudes de derechos ARCO se convierten automáticamente a tablas Markdown con fechas de vencimiento y plazos legales calculados.
+- **Formularios de Solicitud y Respuestas Tipo (.pdf, .docx)**: Formatos de solicitud de supresión, acceso o portabilidad se procesan con pymupdf4llm y markitdown.
+- **Comprobantes y Solicitudes Pegadas**: Correos o textos extensos de ejercicio de derechos pegados en el chat se compactan en snippets limpios para análisis.

@@ -110,7 +110,17 @@ def _process_text_file(path: str) -> str:
 
 
 def _process_pdf(path: str, owner: str | None = None) -> str:
-    """Process PDF file with text extraction (pypdf). Uses VL model for image-heavy pages."""
+    """Process PDF file with local high-speed Markdown extraction (pymupdf4llm / RapidOCR)."""
+    try:
+        from src.local_parsers import extract_pdf_markdown
+        markdown = extract_pdf_markdown(path)
+        if markdown and not markdown.startswith("[PDF error"):
+            if len(markdown) > 15000:
+                markdown = markdown[:15000] + "\n[PDF content truncated]"
+            return f"\n\n[PDF content]:\n{markdown}"
+    except Exception as e:
+        logger.warning(f"local_parsers.extract_pdf_markdown failed for {path}: {e}")
+
     try:
         from pypdf import PdfReader
         pdf_text = ""
@@ -451,6 +461,19 @@ def build_user_content(
                     content[0]["text"] += "\n\n[Image attached but could not be processed]"
                 else:
                     content.insert(0, {"type": "text", "text": "[Image attached but could not be processed]"})
+
+            # Extract local OCR text so local text-only models (like qwen2.5-coder) receive the image content
+            try:
+                from src.local_parsers import extract_image_ocr
+                ocr_text = extract_image_ocr(path)
+                if ocr_text and not ocr_text.startswith("[Local OCR scanned image: no readable") and not ocr_text.startswith("[Local OCR unavailable") and not ocr_text.startswith("[OCR error"):
+                    ocr_block = f"\n\n[Contenido OCR Local de la imagen — {display_name}]:\n{ocr_text}"
+                    if content and content[0]["type"] == "text":
+                        content[0]["text"] += ocr_block
+                    else:
+                        content.insert(0, {"type": "text", "text": ocr_block})
+            except Exception as _ocr_e:
+                logger.warning(f"Local OCR extraction in build_user_content failed: {_ocr_e}")
 
         elif upload_handler.is_audio_file(display_name, mime):
             try:

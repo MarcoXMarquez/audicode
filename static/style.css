@@ -8745,6 +8745,60 @@ button.hamburger {
 }
 .thumb-collapsed-x:hover { opacity: 1; }
 
+/* Pasted Snippet Pill */
+.thumb.thumb-snippet {
+  max-width: 320px;
+  background: rgba(139, 21, 56, 0.12);
+  border: 1px solid rgba(139, 21, 56, 0.45);
+  font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  font-size: 11.5px;
+  color: var(--text, #f0e6e8);
+  border-radius: 6px;
+  padding: 4px 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.thumb.thumb-snippet:hover {
+  background: rgba(139, 21, 56, 0.22);
+  border-color: #8b1538;
+}
+.thumb-snippet-icon {
+  display: inline-flex;
+  align-items: center;
+  color: #c93b63;
+  flex-shrink: 0;
+}
+.thumb-snippet-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+}
+.thumb-snippet-lines {
+  color: #ff85a2;
+  font-weight: 600;
+}
+.thumb.thumb-doc {
+  max-width: 260px;
+  background: color-mix(in srgb, var(--fg) 8%, transparent);
+  border: 1px solid var(--border);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+}
+.thumb-doc-badge {
+  padding: 1px 4px;
+  font-size: 9.5px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(139, 21, 56, 0.25);
+  color: #ff85a2;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
 /* Recording indicator */
 #recording-indicator {
   position: fixed;

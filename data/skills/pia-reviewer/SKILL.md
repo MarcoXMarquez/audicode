@@ -139,3 +139,12 @@ Para profundizar en aspectos específicos de la evaluación, consulta los siguie
 - [Plantilla de Informe de PIA (ISO 29134)](references/iso-29134-report-template.md): Estructura formal completa para documentar la evaluación.
 - [Guía de Matriz de Riesgos Bipolar](references/privacy-risk-matrix-guide.md): Escalas cuantitativas y cualitativas de probabilidad e impacto para titulares y SGIP.
 - [Script Calificador de Riesgo](scripts/pia_risk_scorer.py): Herramienta CLI en Python para scoring determinista de proyectos.
+
+---
+
+## Soporte Local de Documentos, Formularios e Imágenes (AudiCode Local Engine)
+
+AudiCode procesa todos los archivos adjuntos de forma **100% local en tu CPU** antes de pasarlos a este agente:
+- **Presentaciones de Arquitectura (.pptx)**: Diapositivas de diseño de sistemas, flujos de datos y arquitectura de IA se extraen como secciones Markdown estructuradas mediante markitdown.
+- **Cuestionarios y Matrices de Riesgo (.xlsx, .docx, .pdf)**: Evaluaciones de impacto y matrices de probabilidad/impacto se convierten en tablas Markdown completas (|---|) vía pymupdf4llm y markitdown.
+- **Diagramas y Capturas (.png, .jpg)**: Diagramas de flujo y esquemas se analizan con OCR local para extraer nombres de componentes, bases de datos y flujos de PII.

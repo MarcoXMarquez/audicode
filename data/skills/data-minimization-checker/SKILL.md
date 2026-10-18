@@ -159,3 +159,12 @@ Al finalizar la auditoría, emita el informe estructurado bajo la siguiente plan
 
 - **Catálogo de PII y Guía de De-identificación**: Consulte [`references/pii_catalog.md`](references/pii_catalog.md) para acceder a los patrones regex, directrices cuantitativas de $k$-anonimato, modelos de retención pasiva y requisitos de NIST SP 800-88.
 - **Herramienta Determinista de Auditoría**: Utilice [`scripts/schema_minimization_checker.py`](scripts/schema_minimization_checker.py) para auditar rápidamente archivos `.sql`, `.ddl` y `.json`.
+
+---
+
+## Soporte Local de Documentos, Formularios e Imágenes (AudiCode Local Engine)
+
+AudiCode procesa todos los archivos adjuntos de forma **100% local en tu CPU** antes de pasarlos a este agente:
+- **Hojas de Cálculo y Tablas (.xlsx, .xls, .csv)**: Diccionarios de datos, inventarios de PII y catálogos de tablas se convierten automáticamente mediante markitdown en tablas Markdown legibles (|---|) con encabezados intactos.
+- **Esquemas DDL y Payloads Extensos**: Al pegar scripts SQL o JSON extensos (>12 líneas), la interfaz los adjunta automáticamente como un snippet compacto para auditoría directa.
+- **Documentos de Retención (.pdf, .docx)**: Políticas de retención y borrado seguro se convierten a Markdown preservando títulos y secciones.
