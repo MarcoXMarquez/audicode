@@ -51,7 +51,7 @@ AudiCode está diseñado como una **Aplicación Nativa de Escritorio** impulsada
 
 | Plataforma            | Descarga / Ejecutable                |
 | --------------------- | ------------------------------------ |
-| Windows (x64)         | `audicode-desktop-windows-x64.exe`   |
+| Windows (x64)         | [`AudiCode-v0.1.0-windows-x64.zip`](https://github.com/MarcoXMarquez/audicode/releases/download/v0.1.0-beta/AudiCode-v0.1.0-windows-x64.zip) (Ejecutable `AudiCode.exe`) |
 | macOS (Apple Silicon) | `audicode-desktop-mac-arm64.dmg`     |
 | macOS (Intel)         | `audicode-desktop-mac-x64.dmg`       |
 | Linux                 | `.deb`, `.rpm`, o `.AppImage`        |
