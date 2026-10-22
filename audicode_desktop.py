@@ -27,6 +27,8 @@ if APP_DIR not in sys.path:
 os.environ["AUTH_ENABLED"] = "false"
 os.environ["APP_BIND"] = "127.0.0.1"
 os.environ["APP_PORT"] = "7000"
+# Slow links to cloud LLMs (TLS handshake) can exceed the 10s default.
+os.environ.setdefault("LLM_CONNECT_TIMEOUT", "30")
 
 class NullWriter:
     def write(self, text):

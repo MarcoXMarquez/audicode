@@ -48,7 +48,10 @@ def require_admin(request: Request):
 
     auth_mgr = getattr(request.app.state, "auth_manager", None)
     if os.getenv("AUTH_ENABLED", "true").lower() == "false":
-        return
+        from core.request_guard import is_direct_loopback
+        if is_direct_loopback(request) or request.client is None:
+            return
+        raise HTTPException(403, "Admin only")
     if not auth_mgr or not auth_mgr.is_configured:
         raise HTTPException(403, "Admin only")
     user = getattr(request.state, "current_user", None)

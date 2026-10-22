@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/audicode/audicode">
+  <a href="https://github.com/MarcoXMarquez/audicode">
     <picture>
       <source srcset="assets/audicodelogo.png" media="(prefers-color-scheme: dark)">
       <source srcset="assets/audicodelogo.png" media="(prefers-color-scheme: light)">
@@ -9,7 +9,7 @@
 </p>
 <p align="center">El agente autónomo open source de auditoría PIMS e IA (ISO/IEC 27701:2025).</p>
 <p align="center">
-  <a href="https://github.com/audicode/audicode"><img alt="ISO/IEC 27701:2025" src="https://img.shields.io/badge/ISO%2FIEC-27701%3A2025-7a182c?style=flat-square&labelColor=191918" /></a>
+  <a href="https://github.com/MarcoXMarquez/audicode"><img alt="ISO/IEC 27701:2025" src="https://img.shields.io/badge/ISO%2FIEC-27701%3A2025-7a182c?style=flat-square&labelColor=191918" /></a>
   <a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/python-3.12%2B-f1ecec?style=flat-square&labelColor=191918&color=444243" /></a>
   <a href="https://ollama.com/"><img alt="Local & Cloud LLMs" src="https://img.shields.io/badge/modelos-Ollama%20%7C%20Gemini%20%7C%20OpenAI-7a182c?style=flat-square&labelColor=191918" /></a>
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-AGPL--3.0-444243?style=flat-square&labelColor=191918" /></a>
@@ -20,7 +20,7 @@
   <a href="README.es.md">Español</a>
 </p>
 
-[![AudiCode Desktop UI](assets/screenshot.png)](https://github.com/audicode/audicode)
+[![AudiCode Desktop UI](assets/screenshot.png)](https://github.com/MarcoXMarquez/audicode)
 
 ---
 
@@ -28,7 +28,7 @@
 
 ```bash
 # Inicio Rápido (Clonar e Iniciar App de Escritorio)
-git clone https://github.com/audicode/audicode.git
+git clone https://github.com/MarcoXMarquez/audicode.git
 cd audicode
 python -m venv venv
 venv\Scripts\activate             # Windows (o source venv/bin/activate en macOS/Linux)
@@ -38,12 +38,21 @@ python audicode_desktop.py
 
 ```bash
 # Gestores de paquetes
-pipx install git+https://github.com/audicode/audicode.git
-uv tool install git+https://github.com/audicode/audicode.git
+pipx install git+https://github.com/MarcoXMarquez/audicode.git
+uv tool install git+https://github.com/MarcoXMarquez/audicode.git
 ```
 
-> [!TIP]
-> Asegúrate de tener [Ollama](https://ollama.com) ejecutándose localmente (`ollama pull qwen2.5-coder:7b`) o configura tus claves API en la nube (`GEMINI_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`) dentro de `.env` antes de iniciar una sesión de auditoría.
+> [!IMPORTANT]
+> AudiCode necesita un modelo de lenguaje. Ejecuta [Ollama](https://ollama.com) en local (`ollama pull qwen2.5-coder:7b`) **o** añade una clave API de un proveedor en la nube desde la interfaz (ver [Primeros pasos](#primeros-pasos--requisitos)).
+
+### Primeros pasos / Requisitos
+
+- **Python 3.12+** (si ejecutas desde el código fuente) y `pip`.
+- **Windows 10/11** para el `.exe` independiente (runtime Edge WebView2). En macOS/Linux, ejecuta desde el código fuente.
+- **Un backend de modelo (uno de los dos):**
+  1. **Local y privado:** instala [Ollama](https://ollama.com), ejecuta `ollama pull qwen2.5-coder:7b` y mantenlo activo (por defecto `http://localhost:11434`).
+  2. **Nube:** abre la configuración de modelos/proveedores en la app y pega tu clave API (Gemini, OpenAI, Anthropic, ...). Las claves se cifran (Fernet) y se guardan en `data/api_keys.json`, con la llave de cifrado en `data/.key`; mantén `data/` fuera del control de versiones. Las claves de proveedor se configuran **en la interfaz**: `GEMINI_API_KEY` y `ANTHROPIC_API_KEY` **no** se leen del entorno. Solo `OPENAI_API_KEY` se lee de `.env`/entorno (para descubrir modelos compatibles con OpenAI).
+- Opcional: copia `.env.example` a `.env` para ajustar la configuración.
 
 ### Desktop App (BETA)
 
@@ -52,9 +61,8 @@ AudiCode está diseñado como una **Aplicación Nativa de Escritorio** impulsada
 | Plataforma            | Descarga / Ejecutable                |
 | --------------------- | ------------------------------------ |
 | Windows (x64)         | [`AudiCode-v0.1.0-windows-x64.zip`](https://github.com/MarcoXMarquez/audicode/releases/download/v0.1.0-beta/AudiCode-v0.1.0-windows-x64.zip) (Ejecutable `AudiCode.exe`) |
-| macOS (Apple Silicon) | `audicode-desktop-mac-arm64.dmg`     |
-| macOS (Intel)         | `audicode-desktop-mac-x64.dmg`       |
-| Linux                 | `.deb`, `.rpm`, o `.AppImage`        |
+| macOS (Apple Silicon / Intel) | Próximamente (mientras tanto, ejecutar desde el código fuente) |
+| Linux                 | Próximamente (mientras tanto, ejecutar desde el código fuente) |
 
 ```bash
 # Ejecutar ventana nativa de escritorio directamente
@@ -78,6 +86,21 @@ AudiCode respeta el siguiente orden de prioridad para el descubrimiento de skill
 cp .env.example .env
 python audicode_desktop.py
 ```
+
+### Despliegue
+
+AudiCode también puede ejecutarse como servicio web con Docker (`Dockerfile` / `docker-compose.yml`):
+
+```bash
+cp .env.example .env
+docker compose up -d --build          # sirve en http://localhost:7000
+docker compose --profile ollama up -d # además inicia un contenedor Ollama
+```
+
+- Puerto y dirección de enlace: `APP_PORT` (por defecto `7000`) y `APP_BIND`. Los datos persisten en el volumen `./data`.
+- **Define `AUTH_ENABLED=true` antes de exponerlo fuera de localhost** y crea credenciales. Nunca lo publiques sin autenticación: puede leer archivos y ejecutar herramientas.
+- Ponlo detrás de un reverse proxy con **HTTPS** (Caddy, nginx, Traefik) y define `SECURE_COOKIES=true`.
+- Respalda `./data` (incluida `.key`) y manténla fuera del control de versiones.
 
 ### Agentes
 
@@ -113,10 +136,30 @@ AudiCode integra **8 módulos especializados de auditoría PIMS** listos para us
 - **Arquitectura Agnóstica de Modelos**: Conéctate a modelos locales vía **Ollama** (`qwen2.5-coder:7b`, `llama3.1`, `deepseek-r1`) para auditorías 100% privadas sin salida de datos, o alterna en tiempo real con modelos en la nube (**Google Gemini**, **OpenAI**, **Anthropic Claude**).
 - **Experiencia Dummy-Proof para el Auditor**: Diseñada específicamente para auditores líderes, DPOs e ingenieros de privacidad: selecciona cualquier control ISO/IEC 27701:2025 desde la barra lateral o las píldoras de acción para ejecutar la auditoría al instante.
 
+### Solución de problemas
+
+| Problema | Solución |
+| -------- | -------- |
+| "No hay modelo disponible" / lista de modelos vacía | Inicia Ollama (`ollama serve`) y ejecuta `ollama pull qwen2.5-coder:7b`, o añade una clave API en la interfaz. |
+| Una clave de Gemini/Anthropic en `.env` se ignora | Solo `OPENAI_API_KEY` se lee del entorno; introduce las demás claves en la interfaz. |
+| La ventana de escritorio queda en blanco (Windows) | Instala el runtime Edge WebView2; como alternativa ejecuta `python app.py` y abre `http://localhost:7000`. |
+| El puerto 7000 está ocupado | Cambia `APP_PORT` en `.env`. |
+| Las claves no se descifran tras mover `data/` | Copia `data/.key` junto con `data/api_keys.json`, o vuelve a introducir las claves. |
+
 ### Contribuir
+
+Consulta también [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md) y [CHANGELOG.md](CHANGELOG.md).
 
 Si deseas contribuir a AudiCode:
 
 1. Haz un fork del repositorio y crea tu rama (`git checkout -b feat/nuevo-control-iso`).
 2. Asegúrate de que cualquier nueva skill bajo `skills/<nombre-skill>/` incluya su especificación `SKILL.md` mapeada a controles de **ISO/IEC 27701:2025**.
 3. Verifica que la aplicación de escritorio inicie correctamente con `python audicode_desktop.py`.
+
+---
+
+### Licencia, atribución y aviso
+
+AudiCode es un fork del proyecto open source Odysseus y se distribuye bajo la licencia **GNU AGPL-3.0** (ver [LICENSE](LICENSE)). Si ejecutas una versión modificada como servicio de red, debes ofrecer su código fuente a sus usuarios. Créditos y agradecimiento a los autores originales de Odysseus.
+
+AudiCode es una herramienta de apoyo, no constituye asesoría legal ni certifica por sí sola la conformidad con ISO/IEC 27701. Haz revisar sus resultados por un profesional cualificado.

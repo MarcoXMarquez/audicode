@@ -125,7 +125,8 @@ app = FastAPI(
 
 # ========= CORS =========
 CORS_ALLOW_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE"]
-allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost,http://127.0.0.1").split(",")
+from core.request_guard import parse_allowed_origins, assert_safe_bind, OriginGuardMiddleware
+allowed_origins = parse_allowed_origins(os.getenv("ALLOWED_ORIGINS", "http://localhost,http://127.0.0.1"))
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
@@ -218,6 +219,12 @@ auth_manager = AuthManager()
 app.state.auth_manager = auth_manager
 AUTH_ENABLED = os.getenv("AUTH_ENABLED", "true").lower() != "false"
 LOCALHOST_BYPASS = os.getenv("LOCALHOST_BYPASS", "false").lower() == "true"
+assert_safe_bind(AUTH_ENABLED, os.getenv("APP_BIND", "127.0.0.1"))
+if not AUTH_ENABLED:
+    # Desktop mode: only answer to loopback Host headers (blocks DNS rebinding).
+    from starlette.middleware.trustedhost import TrustedHostMiddleware
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost", "[::1]", "testserver"])
+app.add_middleware(OriginGuardMiddleware, allowed_origins=allowed_origins)
 if LOCALHOST_BYPASS:
     logger.warning("LOCALHOST_BYPASS is enabled, loopback requests bypass authentication. Do not expose this instance to a network.")
 

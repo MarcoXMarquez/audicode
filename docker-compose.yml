@@ -1,0 +1,34 @@
+services:
+  audicode:
+    build: .
+    image: audicode:latest
+    ports:
+      # Local-only by default. Set APP_BIND=0.0.0.0 in .env to expose (keep AUTH_ENABLED=true).
+      - "${APP_BIND:-127.0.0.1}:${APP_PORT:-7000}:7000"
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      AUTH_ENABLED: "${AUTH_ENABLED:-true}"
+      # Host port is published on 127.0.0.1 only, so setup from the bridge IP is local.
+      AUDICODE_SETUP_ALLOW_PRIVATE: "${AUDICODE_SETUP_ALLOW_PRIVATE:-true}"
+      # Trust X-Forwarded-* only from your reverse proxy's IP (never "*").
+      FORWARDED_ALLOW_IPS: "${FORWARDED_ALLOW_IPS:-127.0.0.1}"
+      OLLAMA_BASE_URL: "${OLLAMA_BASE_URL:-http://host.docker.internal:11434}"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+
+  # Optional local LLM: docker compose --profile ollama up -d
+  # then set OLLAMA_BASE_URL=http://ollama:11434 in .env
+  ollama:
+    image: ollama/ollama:latest
+    profiles: ["ollama"]
+    volumes:
+      - ollama:/root/.ollama
+    restart: unless-stopped
+
+volumes:
+  ollama:

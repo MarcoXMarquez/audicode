@@ -14,6 +14,7 @@ data/*.db
 data/*.db-shm
 data/*.db-wal
 data/*.json
+# data/skills/ (bundled skills) stays versioned: only top-level data/*.json is ignored
 data/sessions/
 data/uploads/
 data/logs/
@@ -30,6 +31,10 @@ Thumbs.db
 # PyInstaller / Build artifacts
 build/
 dist/
-*.spec
 *.zip
-test_*.py
+/test_*.py
+
+# Encryption keys and secrets generated at runtime
+data/.key
+data/.app_key
+data/skills/_usage.json
